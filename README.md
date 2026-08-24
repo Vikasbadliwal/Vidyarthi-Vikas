@@ -4,7 +4,7 @@
 
 | Author | Created On | Version |
 | ------ | ---------- | ------- |
-|        | 24-08-2026 | v1.0    |
+| Vikas  | 24-08-2026 |         |
 
 | Reviewer |   |
 | -------- | - |
@@ -615,7 +615,7 @@ python -m pip --version
 ```
 
 Packages can then be installed using:
-
+ 
 ```bash
 python -m pip install requests
 ```
@@ -650,7 +650,7 @@ Check the package:
 python -m pip show <package-name>
 ```
 
-If the virtual environment is not active:
+If the virtual environment is not active: 
 
 ```bash
 source venv/bin/activate
