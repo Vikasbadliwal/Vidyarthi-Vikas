@@ -692,28 +692,7 @@ which python
 
 ---
 
-# 11. Operational Checklist
-
-Before completing virtual environment configuration, verify the following:
-
-* [ ] Python is installed.
-* [ ] `python3-venv` is installed where required.
-* [ ] Project directory has been identified.
-* [ ] Virtual environment has been created.
-* [ ] Virtual environment activation has been tested.
-* [ ] `which python` points to the virtual environment.
-* [ ] Required Python packages have been installed.
-* [ ] Installed packages have been verified using `pip list`.
-* [ ] Dependencies have been frozen using `pip freeze`.
-* [ ] `requirements.txt` has been verified.
-* [ ] Virtual environment can be deactivated.
-* [ ] Permission and ownership have been checked.
-* [ ] Virtual environment directory is excluded from Git.
-* [ ] Virtual environment can be recreated using `requirements.txt`.
-
----
-
-# 12. Conclusion
+# 11. Conclusion
 
 Python virtual environments provide an isolated and controlled environment for managing project-specific dependencies.
 
