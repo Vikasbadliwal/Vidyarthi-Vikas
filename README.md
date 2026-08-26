@@ -255,19 +255,6 @@ npm test
 npm run build
 ```
 
----
-
-## 4.6 CI/CD Integration
-
-NPM can be used in CI/CD pipelines to install dependencies, execute tests, and build applications.
-
-Example:
-
-```bash
-npm ci
-npm test
-npm run build
-```
 
 ---
 
@@ -286,7 +273,6 @@ npm run build
 | **Package Removal** | Allows packages to be removed from a project. |
 | **Security Audit** | Checks dependencies for known security vulnerabilities. |
 | **Package Publishing** | Allows packages to be published to the NPM registry. |
-| **CI/CD Integration** | Supports automated dependency installation and build processes. |
 
 ---
 
@@ -653,17 +639,7 @@ npm install -g express
 
 Global packages should generally be reserved for CLI tools intended for system/user-wide use.
 
-## 9.5 Use npm ci in CI/CD
-
-When a valid lock file is available, use:
-
-```bash
-npm ci
-```
-
-in CI/CD pipelines.
-
-## 9.6 Check Outdated Dependencies
+## 9.5 Check Outdated Dependencies
 
 Regularly check:
 
@@ -901,30 +877,7 @@ For enterprise environments, use the registry configured by the organization's d
 
 ---
 
-# 11. Operational Checklist
-
-Before completing NPM project setup, verify the following:
-
-- [ ] Node.js is installed.
-- [ ] NPM is installed.
-- [ ] NPM version has been verified.
-- [ ] Project directory has been created.
-- [ ] `package.json` has been created.
-- [ ] Required dependencies have been installed.
-- [ ] Development dependencies have been configured where required.
-- [ ] `package-lock.json` has been generated.
-- [ ] `node_modules/` is excluded from Git.
-- [ ] NPM scripts have been tested.
-- [ ] Application tests have been executed.
-- [ ] Build process has been verified where applicable.
-- [ ] `npm audit` has been reviewed.
-- [ ] Dependency versions have been reviewed.
-- [ ] CI/CD installation uses the appropriate dependency installation command.
-- [ ] Documentation has been updated.
-
----
-
-# 12. Conclusion
+# 11. Conclusion
 
 NPM provides a standard way to manage packages and dependencies in Node.js and JavaScript applications.
 
@@ -1020,55 +973,49 @@ Add the following to `.gitignore`:
 node_modules/
 ```
 
-## Q8. What is the difference between npm install and npm ci?
-
-`npm install` installs project dependencies and may update the lock file when dependency definitions change.
-
-`npm ci` performs a clean installation based on the lock file and is commonly used in CI/CD environments.
-
-## Q9. What is the difference between dependencies and devDependencies?
+## Q8. What is the difference between dependencies and devDependencies?
 
 `dependencies` are generally packages required by the application.
 
 `devDependencies` are generally packages used during development, testing, linting, or building.
 
-## Q10. What is the difference between local and global packages?
+## Q9. What is the difference between local and global packages?
 
 A local package is installed for a specific project.
 
 A global package is installed for broader system/user use and is generally intended for CLI tools.
 
-## Q11. How do I install an NPM package?
+## Q10. How do I install an NPM package?
 
 ```bash
 npm install <package-name>
 ```
 
-## Q12. How do I remove an NPM package?
+## Q11. How do I remove an NPM package?
 
 ```bash
 npm uninstall <package-name>
 ```
 
-## Q13. How do I update NPM packages?
+## Q12. How do I update NPM packages?
 
 ```bash
 npm update
 ```
 
-## Q14. How do I check outdated packages?
+## Q13. How do I check outdated packages?
 
 ```bash
 npm outdated
 ```
 
-## Q15. How do I check dependency vulnerabilities?
+## Q14. How do I check dependency vulnerabilities?
 
 ```bash
 npm audit
 ```
 
-## Q16. How do I run an NPM script?
+## Q15. How do I run an NPM script?
 
 For example:
 
@@ -1077,12 +1024,6 @@ npm run build
 ```
 
 The script must be defined in the `scripts` section of `package.json`.
-
-## Q17. Why should package-lock.json be committed?
-
-It helps maintain a consistent dependency tree across development, CI/CD, and deployment environments.
-
----
 
 # 14. References
 
