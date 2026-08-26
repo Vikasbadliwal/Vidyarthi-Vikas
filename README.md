@@ -141,11 +141,7 @@ Another environment can then install the same dependencies:
 pip install -r requirements.txt
 ```
 
-### 3.4 Easier CI/CD
-
-CI/CD pipelines can create a clean environment and install dependencies before running tests or building the application.
-
-### 3.5 Easier Troubleshooting
+### 3.4 Easier Troubleshooting
 
 Because dependencies are isolated, package conflicts can be identified and resolved within the application environment.
 
