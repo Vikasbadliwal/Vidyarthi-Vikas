@@ -20,10 +20,9 @@
 8. [Advantages and Disadvantages](#8-advantages-and-disadvantages)
 9. [Best Practices](#9-best-practices)
 10. [Troubleshooting](#10-troubleshooting)
-11. [Operational Checklist](#11-operational-checklist)
-12. [Conclusion](#12-conclusion)
-13. [FAQs](#13-faqs)
-14. [References](#14-references)
+11. [Conclusion](#12-conclusion)
+12. [FAQs](#13-faqs)
+13. [References](#14-references)
 
 ---
 
