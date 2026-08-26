@@ -1,760 +1,1103 @@
-# SOP for Python Virtual Environment
+# NPM (Node Package Manager)
 
 ## Document Information
 
-| Author | Created On | Version |
-| ------ | ---------- | ------- |
-| Vikas  | 24-08-2026 |         |
-
-| Reviewer |   |
-| -------- | - |
-|          |   |
+| Author | Created On | Version | Last Updated By | Last Updated On | L0 Reviewer | L1 Reviewer | L2 Reviewer |
+|---|---|---|---|---|---|---|---|
+| `<Author Name>` | `<DD-MM-YYYY>` | v1.0 | `<Author Name>` | `<DD-MM-YYYY>` | `<Reviewer>` | `<Reviewer>` | `<Reviewer>` |
 
 ---
 
-## Table of Contents
+# Table of Contents
 
-1. Purpose
-2. Prerequisites
-3. Virtual Environment Structure
-4. Creating a Virtual Environment
-5. Activating the Virtual Environment
-6. Installing Python Packages
-7. Freezing Installed Packages
-8. Deactivating the Virtual Environment
-9. Deleting the Virtual Environment
-10. Troubleshooting
-11. Operational Checklist
-12. Conclusion
+1. [Purpose](#1-purpose)
+2. [Prerequisites](#2-prerequisites)
+3. [What is NPM](#3-what-is-npm)
+4. [Why NPM](#4-why-npm)
+5. [Features of NPM](#5-features-of-npm)
+6. [NPM Project Structure](#6-npm-project-structure)
+7. [Basic NPM Commands](#7-basic-npm-commands)
+8. [Advantages and Disadvantages](#8-advantages-and-disadvantages)
+9. [Best Practices](#9-best-practices)
+10. [Troubleshooting](#10-troubleshooting)
+11. [Operational Checklist](#11-operational-checklist)
+12. [Conclusion](#12-conclusion)
+13. [FAQs](#13-faqs)
+14. [References](#14-references)
 
 ---
 
 # 1. Purpose
 
-Python virtual environments provide an isolated environment for installing and managing Python packages for individual projects.
+NPM (Node Package Manager) is a package manager used for managing packages and dependencies in Node.js and JavaScript applications.
 
-A virtual environment helps to:
+NPM helps developers to:
 
-* Isolate project dependencies.
-* Avoid conflicts between packages required by different projects.
-* Install project-specific Python packages without affecting the system Python environment.
-* Maintain reproducible project dependencies.
-* Manage different package versions for different applications.
+- Install required packages.
+- Manage application dependencies.
+- Manage package versions.
+- Remove unwanted packages.
+- Update existing packages.
+- Run project scripts.
+- Perform dependency security audits.
+- Support application build and deployment processes.
+- Integrate dependency management into CI/CD pipelines.
 
-This SOP explains how to create, activate, use, freeze, deactivate, and delete a Python virtual environment, along with common troubleshooting procedures.
+This documentation explains what NPM is, why it is used, its major features, basic commands, advantages, disadvantages, best practices, and troubleshooting procedures.
 
 ---
 
 # 2. Prerequisites
 
-Before creating a Python virtual environment, ensure that the following prerequisites are available.
+Before using NPM, ensure that the following prerequisites are available.
 
-## 2.1 Operating System
+## 2.1 Node.js
 
-This SOP is written primarily for Linux systems such as:
+NPM is distributed with Node.js.
 
-* Ubuntu
-* Debian
-* RHEL
-* CentOS
-* Amazon Linux
+Verify whether Node.js is installed:
 
-The commands shown in this document use an Ubuntu/Linux environment.
+```bash
+node --version
+```
 
-## 2.2 Required Access
+Example:
+
+```text
+v22.x.x
+```
+
+---
+
+## 2.2 NPM
+
+Verify whether NPM is installed:
+
+```bash
+npm --version
+```
+
+Example:
+
+```text
+10.x.x
+```
+
+> The exact version depends on the installed Node.js/NPM release.
+
+---
+
+## 2.3 Project Directory
+
+Create or navigate to the Node.js project directory.
+
+Example:
+
+```bash
+mkdir my-node-app
+cd my-node-app
+```
+
+---
+
+## 2.4 Required Access
 
 The user should have:
 
-* Access to the project directory.
-* Permission to create directories and files in the project location.
-* Permission to install required Python packages.
-* Access to Python and pip.
+- Access to the project directory.
+- Permission to create and modify project files.
+- Permission to install project dependencies.
+- Access to the NPM registry or configured package registry.
+- Required network access if packages need to be downloaded.
 
-## 2.3 Check Python Installation
+---
 
-Check whether Python is installed:
+# 3. What is NPM
+
+NPM stands for **Node Package Manager**.
+
+NPM is used to install, manage, update, and remove packages used by Node.js and JavaScript applications.
+
+A package is a reusable piece of software that provides functionality that can be used by an application.
+
+For example:
 
 ```bash
-python3 --version
+npm install express
 ```
 
-Example:
+The above command installs the `express` package into the current project.
+
+NPM also manages the dependencies required by installed packages.
+
+---
+
+## 3.1 NPM Components
+
+NPM mainly consists of the following components:
+
+| Component | Purpose |
+|---|---|
+| **NPM CLI** | Command-line interface used to execute NPM commands. |
+| **NPM Registry** | Repository from which packages can be downloaded and where packages can be published. |
+| **package.json** | Stores project metadata, dependencies, scripts, and configuration. |
+| **package-lock.json** | Records the resolved dependency tree and package versions. |
+| **node_modules** | Directory containing installed project packages. |
+
+---
+
+## 3.2 NPM Overview
 
 ```text
-Python 3.12.3
-```
-
-## 2.4 Check pip Installation
-
-Check pip:
-
-```bash
-python3 -m pip --version
-```
-
-If the virtual environment module is not available, install it on Ubuntu/Debian:
-
-```bash
-sudo apt update
-sudo apt install python3-venv -y
-```
-
-Verify:
-
-```bash
-python3 -m venv --help
+                    Node.js Application
+                            |
+                            v
+                           NPM
+                            |
+              +-------------+-------------+
+              |             |             |
+              v             v             v
+          NPM CLI      package.json    NPM Registry
+                            |
+                            v
+                       Dependencies
+                            |
+                            v
+                       node_modules/
 ```
 
 ---
 
-# 3. Virtual Environment Structure
+# 4. Why NPM
 
-A virtual environment is normally created inside or near the project directory.
+NPM is used to simplify package and dependency management for Node.js applications.
 
-Example:
+## 4.1 Dependency Management
 
-```text
-myproject/
-├── app.py
-├── requirements.txt
-└── venv/
-    ├── bin/
-    ├── lib/
-    ├── include/
-    └── pyvenv.cfg
-```
-
-The `venv` directory contains the isolated Python environment.
-
-The recommended practice is to avoid committing the virtual environment directory to Git.
-
-Example `.gitignore` entry:
-
-```text
-venv/
-```
-
----
-
-# 4. Creating a Virtual Environment
-
-## 4.1 Create Project Directory
-
-Create a project directory:
-
-```bash
-mkdir myproject
-cd myproject
-```
-
-## 4.2 Create Virtual Environment
-
-Create a virtual environment named `venv`:
-
-```bash
-python3 -m venv venv
-```
-
-The command creates a directory named:
-
-```text
-venv/
-```
-
-## 4.3 Verify Creation
-
-Check the directory:
-
-```bash
-ls -la
-```
-
-Expected output will include:
-
-```text
-venv
-```
-
-Check the virtual environment configuration:
-
-```bash
-cat venv/pyvenv.cfg
-```
-
----
-
-# 5. Activating the Virtual Environment
-
-Activation makes the virtual environment's Python and package-management commands available through the shell.
-
-## 5.1 Linux/macOS
-
-Activate the environment using:
-
-```bash
-source venv/bin/activate
-```
-
-After activation, the terminal normally displays the environment name:
-
-```text
-(venv) user@server:~/myproject$
-```
-
-## 5.2 Verify Activation
-
-Check Python:
-
-```bash
-which python
-```
-
-Expected result should point to the virtual environment:
-
-```text
-/home/user/myproject/venv/bin/python
-```
-
-Check pip:
-
-```bash
-which pip
-```
-
-Expected:
-
-```text
-/home/user/myproject/venv/bin/pip
-```
-
-Check Python version:
-
-```bash
-python --version
-```
-
----
-
-# 6. Installing Python Packages
-
-Once the virtual environment is activated, packages can be installed using `pip`.
-
-## 6.1 Install a Package
+NPM allows developers to install and manage packages required by an application.
 
 Example:
 
 ```bash
-pip install requests
+npm install express
 ```
 
-Install another package:
+NPM automatically downloads the package and its required dependencies.
+
+---
+
+## 4.2 Package Reusability
+
+NPM provides access to a large ecosystem of reusable packages.
+
+Instead of implementing common functionality from scratch, developers can install an existing package.
+
+Example:
 
 ```bash
-pip install flask
+npm install axios
 ```
 
-## 6.2 Install a Specific Version
+---
+
+## 4.3 Version Management
+
+NPM allows developers to install a specific version of a package.
+
+Example:
 
 ```bash
-pip install requests==2.32.3
+npm install express@5.1.0
 ```
 
-This installs the specified version of the package.
+This installs the specified version.
 
-## 6.3 Verify Installed Packages
+---
+
+## 4.4 Project Management
+
+NPM uses `package.json` to store project information and dependency configuration.
+
+Example:
+
+```json
+{
+  "name": "my-node-app",
+  "version": "1.0.0",
+  "description": "Sample Node.js application",
+  "main": "app.js"
+}
+```
+
+---
+
+## 4.5 Automation
+
+NPM provides scripts that can be used to automate common development tasks.
+
+Example:
+
+```json
+{
+  "scripts": {
+    "start": "node app.js",
+    "test": "jest",
+    "build": "webpack"
+  }
+}
+```
+
+These scripts can be executed using:
 
 ```bash
-pip list
+npm start
+npm test
+npm run build
 ```
+
+---
+
+## 4.6 CI/CD Integration
+
+NPM can be used in CI/CD pipelines to install dependencies, execute tests, and build applications.
+
+Example:
+
+```bash
+npm ci
+npm test
+npm run build
+```
+
+---
+
+# 5. Features of NPM
+
+| Feature | Description |
+|---|---|
+| **Package Installation** | Installs packages required by the application. |
+| **Dependency Management** | Manages project dependencies and their versions. |
+| **Package Registry** | Provides access to a large collection of packages. |
+| **Version Management** | Allows specific package versions to be installed. |
+| **package.json** | Stores project metadata, dependencies, and scripts. |
+| **package-lock.json** | Records the resolved dependency tree. |
+| **NPM Scripts** | Allows automation of application commands. |
+| **Package Update** | Provides commands to update packages. |
+| **Package Removal** | Allows packages to be removed from a project. |
+| **Security Audit** | Checks dependencies for known security vulnerabilities. |
+| **Package Publishing** | Allows packages to be published to the NPM registry. |
+| **CI/CD Integration** | Supports automated dependency installation and build processes. |
+
+---
+
+# 6. NPM Project Structure
+
+A typical NPM project can have the following structure:
+
+```text
+my-node-app/
+│
+├── node_modules/
+│
+├── src/
+│   └── app.js
+│
+├── package.json
+├── package-lock.json
+├── .gitignore
+└── README.md
+```
+
+## 6.1 package.json
+
+`package.json` is the main configuration file for an NPM project.
+
+It may contain:
+
+- Project name.
+- Project version.
+- Description.
+- Application entry point.
+- Scripts.
+- Dependencies.
+- Development dependencies.
+
+Example:
+
+```json
+{
+  "name": "my-node-app",
+  "version": "1.0.0",
+  "description": "Sample Node.js application",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "jest"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "jest": "^30.0.0"
+  }
+}
+```
+
+---
+
+## 6.2 package-lock.json
+
+`package-lock.json` records the dependency tree resolved by NPM.
+
+It helps maintain consistent dependency versions across:
+
+- Developer environments.
+- CI/CD environments.
+- Build systems.
+- Deployment environments.
+
+For application repositories, `package-lock.json` should normally be committed to source control.
+
+---
+
+## 6.3 node_modules
+
+The `node_modules` directory contains installed packages.
 
 Example:
 
 ```text
-Package    Version
----------- -------
-Flask      3.x.x
-requests   2.x.x
+node_modules/
+├── express/
+├── axios/
+├── jest/
+└── ...
 ```
 
-You can also check an individual package:
+The `node_modules` directory should normally not be committed to Git.
 
-```bash
-pip show requests
+Add the following to `.gitignore`:
+
+```text
+node_modules/
 ```
-
-## 6.4 Install Packages from requirements.txt
-
-If a project already contains a `requirements.txt` file:
-
-```bash
-pip install -r requirements.txt
-```
-
-This installs the packages and versions specified in the file.
 
 ---
 
-# 7. Freezing Installed Packages
+# 7. Basic NPM Commands
 
-Freezing records the packages currently installed in the virtual environment.
+## 7.1 Check NPM Version
 
-## 7.1 Generate requirements.txt
+```bash
+npm --version
+```
+
+This displays the installed NPM version.
+
+---
+
+## 7.2 Initialize an NPM Project
+
+```bash
+npm init
+```
+
+This creates a `package.json` file interactively.
+
+For default configuration:
+
+```bash
+npm init -y
+```
+
+---
+
+## 7.3 Install a Package
+
+```bash
+npm install express
+```
+
+Short form:
+
+```bash
+npm i express
+```
+
+This installs the package as a project dependency.
+
+---
+
+## 7.4 Install a Specific Version
+
+```bash
+npm install express@5.1.0
+```
+
+This installs the specified package version.
+
+---
+
+## 7.5 Install a Development Dependency
+
+```bash
+npm install --save-dev jest
+```
+
+Short form:
+
+```bash
+npm i -D jest
+```
+
+This installs the package as a development dependency.
+
+---
+
+## 7.6 Install Project Dependencies
+
+```bash
+npm install
+```
+
+This installs dependencies defined in `package.json`.
+
+---
+
+## 7.7 Clean Dependency Installation
+
+```bash
+npm ci
+```
+
+`npm ci` performs a clean installation using the project's lock file.
+
+It is commonly used in CI/CD environments.
+
+---
+
+## 7.8 Remove a Package
+
+```bash
+npm uninstall express
+```
+
+This removes the package from the project.
+
+---
+
+## 7.9 Update Packages
+
+```bash
+npm update
+```
+
+This updates installed packages according to the dependency specifications.
+
+---
+
+## 7.10 Check Outdated Packages
+
+```bash
+npm outdated
+```
+
+This displays packages for which newer versions are available.
+
+Example:
+
+```text
+Package    Current    Wanted    Latest
+express    5.0.0      5.0.1     5.1.0
+```
+
+---
+
+## 7.11 List Installed Packages
+
+```bash
+npm list
+```
+
+To display only top-level packages:
+
+```bash
+npm list --depth=0
+```
+
+---
+
+## 7.12 Run NPM Scripts
+
+If the `package.json` contains:
+
+```json
+{
+  "scripts": {
+    "start": "node app.js",
+    "test": "jest",
+    "build": "webpack"
+  }
+}
+```
 
 Run:
 
 ```bash
-pip freeze > requirements.txt
+npm start
 ```
-
-This creates or updates:
-
-```text
-requirements.txt
-```
-
-Example:
-
-```text
-Flask==3.x.x
-requests==2.x.x
-```
-
-## 7.2 Verify the File
 
 ```bash
-cat requirements.txt
+npm test
 ```
-
-## 7.3 Recreate the Environment
-
-On another system or after creating a new virtual environment:
 
 ```bash
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
+npm run build
 ```
 
-This allows the project dependencies to be installed from the recorded requirements.
+For custom scripts:
+
+```bash
+npm run <script-name>
+```
 
 ---
 
-# 8. Deactivating the Virtual Environment
-
-When work is completed, deactivate the virtual environment using:
+## 7.13 Check Security Vulnerabilities
 
 ```bash
-deactivate
+npm audit
 ```
 
-After deactivation, the `(venv)` prefix should disappear from the terminal.
+This checks project dependencies for known security vulnerabilities.
 
-Verify:
+Where appropriate, a fix can be attempted using:
 
 ```bash
-which python3
+npm audit fix
 ```
 
-The command should now point to the system Python installation rather than the virtual environment.
+After applying changes, test the application:
+
+```bash
+npm test
+```
 
 ---
 
-# 9. Deleting the Virtual Environment
+# 8. Advantages and Disadvantages
 
-A Python virtual environment can be deleted when it is no longer required.
+## 8.1 Advantages
 
-## 9.1 Deactivate First
+| Advantage | Description |
+|---|---|
+| **Easy Package Management** | Packages can be installed and managed using simple commands. |
+| **Large Ecosystem** | Provides access to a large number of reusable packages. |
+| **Dependency Management** | Automatically manages project dependencies. |
+| **Version Management** | Supports package version specifications. |
+| **Automation** | NPM scripts can automate common development tasks. |
+| **CI/CD Support** | Can be integrated into automated pipelines. |
+| **Package Reusability** | Developers can reuse existing packages. |
+| **Lock File Support** | `package-lock.json` helps provide consistent installations. |
+| **Security Auditing** | `npm audit` helps identify known vulnerabilities. |
+| **Package Publishing** | Developers can publish reusable packages. |
 
-If the environment is currently active:
+---
 
-```bash
-deactivate
+## 8.2 Disadvantages
+
+| Disadvantage | Description |
+|---|---|
+| **Large node_modules** | Dependency directories can consume significant disk space. |
+| **Complex Dependency Trees** | Applications can have many transitive dependencies. |
+| **Security Risks** | Third-party packages may contain vulnerabilities. |
+| **Dependency Conflicts** | Different packages may require incompatible versions. |
+| **Maintenance** | Dependencies require regular review and updates. |
+| **Installation Time** | Large dependency trees can increase installation time. |
+| **Supply-Chain Risk** | Applications depend on third-party packages and maintainers. |
+| **Breaking Changes** | Major package updates can introduce compatibility issues. |
+
+---
+
+# 9. Best Practices
+
+## 9.1 Commit package.json
+
+Always keep `package.json` under source control.
+
+## 9.2 Commit package-lock.json
+
+For application repositories, commit `package-lock.json` to help maintain reproducible installations.
+
+## 9.3 Do Not Commit node_modules
+
+Add the following entry to `.gitignore`:
+
+```text
+node_modules/
 ```
 
-## 9.2 Remove the Virtual Environment
+## 9.4 Prefer Local Dependencies
 
-If the environment directory is named `venv`:
-
-```bash
-rm -rf venv
-```
-
-Verify:
+For application dependencies, use:
 
 ```bash
-ls -la
+npm install express
 ```
 
-The `venv` directory should no longer exist.
+instead of:
 
-### Important
+```bash
+npm install -g express
+```
 
-Deleting the virtual environment removes the installed packages inside that environment.
+Global packages should generally be reserved for CLI tools intended for system/user-wide use.
 
-The project source code and `requirements.txt` are not removed unless they are inside the directory being deleted.
+## 9.5 Use npm ci in CI/CD
+
+When a valid lock file is available, use:
+
+```bash
+npm ci
+```
+
+in CI/CD pipelines.
+
+## 9.6 Check Outdated Dependencies
+
+Regularly check:
+
+```bash
+npm outdated
+```
+
+## 9.7 Perform Security Audits
+
+Regularly check dependencies:
+
+```bash
+npm audit
+```
+
+## 9.8 Test After Dependency Updates
+
+After updating dependencies, run:
+
+```bash
+npm test
+```
+
+and, where applicable:
+
+```bash
+npm run build
+```
 
 ---
 
 # 10. Troubleshooting
 
-## 10.1 Activation Error
+## 10.1 NPM Command Not Found
 
-### Problem
-
-Running:
-
-```bash
-source venv/bin/activate
-```
-
-returns:
+### Error
 
 ```text
-No such file or directory
+npm: command not found
 ```
 
-### Possible Causes
+### Check Node.js
 
-* Virtual environment was not created.
-* Incorrect directory.
-* Incorrect virtual environment name.
-* `venv` directory was deleted.
+```bash
+node --version
+```
 
-### Resolution
+### Check NPM
 
-Check the current directory:
+```bash
+npm --version
+```
+
+If Node.js/NPM is not available, install Node.js using the organization's approved installation method.
+
+---
+
+## 10.2 package.json Not Found
+
+### Error
+
+```text
+ENOENT: no such file or directory, open 'package.json'
+```
+
+### Check Current Directory
+
+Linux/macOS:
 
 ```bash
 pwd
-```
-
-Check available files:
-
-```bash
 ls -la
 ```
 
-Check whether the environment exists:
+Windows:
 
-```bash
-ls -la venv/
+```cmd
+cd
+dir
 ```
 
-If it does not exist, create it again:
+Navigate to the project directory:
 
 ```bash
-python3 -m venv venv
+cd <project-directory>
 ```
 
-Then activate:
+Then run:
 
 ```bash
-source venv/bin/activate
-```
-
----
-
-## 10.2 `python3 -m venv` Error
-
-### Problem
-
-The following command fails:
-
-```bash
-python3 -m venv venv
-```
-
-### Resolution
-
-On Ubuntu/Debian, install the required package:
-
-```bash
-sudo apt update
-sudo apt install python3-venv -y
-```
-
-Then create the environment again:
-
-```bash
-python3 -m venv venv
+npm install
 ```
 
 ---
 
-## 10.3 Permission Problems
+## 10.3 Permission Error
 
-### Problem
-
-The user receives an error such as:
+### Error
 
 ```text
-Permission denied
+EACCES: permission denied
 ```
 
-while creating the virtual environment or installing files.
+Check the project directory permissions.
 
-### Check Directory Ownership
+Linux/macOS:
 
 ```bash
 ls -ld .
 ```
 
-Check the project directory:
+Check the NPM prefix:
 
 ```bash
-ls -ld myproject
+npm config get prefix
 ```
 
-Check the virtual environment:
+Ensure that the current user has appropriate permissions to modify the project directory.
 
-```bash
-ls -ld venv
-```
-
-### Resolution
-
-Ensure the current user has appropriate ownership and permissions for the project directory.
-
-For example:
-
-```bash
-sudo chown -R $USER:$USER myproject
-```
-
-Then retry:
-
-```bash
-python3 -m venv venv
-```
-
-### Important
-
-Avoid using:
-
-```bash
-sudo pip install <package>
-```
-
-inside a virtual environment.
-
-The virtual environment should normally be owned and managed by the user who is using it.
+> Avoid using `sudo npm install` as a default solution.
 
 ---
 
-## 10.4 Package Installation Permission Error
+## 10.4 Dependency Installation Failure
 
-### Problem
+If the dependency installation is inconsistent, check:
 
-Running:
-
-```bash
-pip install requests
+```text
+package.json
+package-lock.json
 ```
 
-results in a permission-related error.
+For a clean installation where a valid lock file exists:
 
-### Verify the Virtual Environment
+```bash
+rm -rf node_modules
+npm ci
+```
+
+If no lock file exists:
+
+```bash
+rm -rf node_modules
+npm install
+```
+
+> On Windows, use the appropriate command for removing the `node_modules` directory.
+
+---
+
+## 10.5 Dependency Version Conflict
+
+Check installed dependencies:
+
+```bash
+npm list
+```
+
+Check outdated packages:
+
+```bash
+npm outdated
+```
+
+Review:
+
+```text
+package.json
+package-lock.json
+```
+
+Update dependencies in a controlled manner and run the application's tests afterward.
+
+---
+
+## 10.6 Security Vulnerability
 
 Run:
 
 ```bash
-which python
+npm audit
 ```
 
-and:
+Review the reported vulnerabilities.
+
+Where appropriate:
 
 ```bash
-which pip
+npm audit fix
 ```
 
-Both should point to the `venv` directory.
-
-Example:
-
-```text
-/home/user/myproject/venv/bin/python
-/home/user/myproject/venv/bin/pip
-```
-
-If they do not, activate the environment:
+After applying changes:
 
 ```bash
-source venv/bin/activate
+npm test
 ```
 
-Then retry:
+Review the resulting dependency changes before committing them.
+
+---
+
+## 10.7 Package Installation Is Very Slow
+
+Check whether the issue is related to:
+
+- Network connectivity.
+- Registry configuration.
+- Proxy configuration.
+- Large dependency trees.
+- Package registry availability.
+
+Check the configured registry:
 
 ```bash
-pip install requests
+npm config get registry
 ```
 
 ---
 
-## 10.5 `pip` Command Not Found
+## 10.8 NPM Registry Configuration
 
-### Problem
-
-The system reports:
-
-```text
-pip: command not found
-```
-
-### Resolution
-
-Use Python to invoke pip:
+Check the current registry:
 
 ```bash
-python3 -m pip --version
+npm config get registry
 ```
 
-After activating the virtual environment:
+The registry can be configured using:
 
 ```bash
-python -m pip --version
+npm config set registry <registry-url>
 ```
 
-Packages can then be installed using:
- 
-```bash
-python -m pip install requests
-```
-
----
-
-## 10.6 Package Installed but Python Cannot Import It
-
-### Problem
-
-The package appears to be installed, but the application reports:
-
-```text
-ModuleNotFoundError
-```
-
-### Check Which Python Is Being Used
-
-```bash
-which python
-```
-
-Check installed packages:
-
-```bash
-python -m pip list
-```
-
-Check the package:
-
-```bash
-python -m pip show <package-name>
-```
-
-If the virtual environment is not active: 
-
-```bash
-source venv/bin/activate
-```
-
-Then install the required package:
-
-```bash
-python -m pip install <package-name>
-```
-
----
-
-## 10.7 Wrong Python Environment Is Active
-
-Check:
-
-```bash
-which python
-```
-
-Expected:
-
-```text
-/home/user/myproject/venv/bin/python
-```
-
-If the output points to `/usr/bin/python3` or another location, activate the correct environment:
-
-```bash
-source venv/bin/activate
-```
-
-Verify again:
-
-```bash
-which python
-```
+For enterprise environments, use the registry configured by the organization's development/DevOps team.
 
 ---
 
 # 11. Operational Checklist
 
-Before completing virtual environment configuration, verify the following:
+Before completing NPM project setup, verify the following:
 
-* [ ] Python is installed.
-* [ ] `python3-venv` is installed where required.
-* [ ] Project directory has been identified.
-* [ ] Virtual environment has been created.
-* [ ] Virtual environment activation has been tested.
-* [ ] `which python` points to the virtual environment.
-* [ ] Required Python packages have been installed.
-* [ ] Installed packages have been verified using `pip list`.
-* [ ] Dependencies have been frozen using `pip freeze`.
-* [ ] `requirements.txt` has been verified.
-* [ ] Virtual environment can be deactivated.
-* [ ] Permission and ownership have been checked.
-* [ ] Virtual environment directory is excluded from Git.
-* [ ] Virtual environment can be recreated using `requirements.txt`.
+- [ ] Node.js is installed.
+- [ ] NPM is installed.
+- [ ] NPM version has been verified.
+- [ ] Project directory has been created.
+- [ ] `package.json` has been created.
+- [ ] Required dependencies have been installed.
+- [ ] Development dependencies have been configured where required.
+- [ ] `package-lock.json` has been generated.
+- [ ] `node_modules/` is excluded from Git.
+- [ ] NPM scripts have been tested.
+- [ ] Application tests have been executed.
+- [ ] Build process has been verified where applicable.
+- [ ] `npm audit` has been reviewed.
+- [ ] Dependency versions have been reviewed.
+- [ ] CI/CD installation uses the appropriate dependency installation command.
+- [ ] Documentation has been updated.
 
 ---
 
 # 12. Conclusion
 
-Python virtual environments provide an isolated and controlled environment for managing project-specific dependencies.
+NPM provides a standard way to manage packages and dependencies in Node.js and JavaScript applications.
 
-The standard operational process is:
+It simplifies:
+
+- Package installation.
+- Dependency management.
+- Version management.
+- Project configuration.
+- Script automation.
+- Security auditing.
+- CI/CD dependency installation.
+
+A typical NPM workflow is:
 
 ```text
-Create
-   ↓
-Activate
-   ↓
-Install Packages
-   ↓
-Test Application
-   ↓
-Freeze Dependencies
-   ↓
-requirements.txt
-   ↓
-Deactivate
-   ↓
-Delete when no longer required
+Create Project
+      |
+      v
+npm init
+      |
+      v
+package.json
+      |
+      v
+npm install <package>
+      |
+      v
+node_modules/
+      |
+      v
+Development
+      |
+      v
+Testing
+      |
+      v
+npm run build
+      |
+      v
+CI/CD
+      |
+      v
+npm ci
+      |
+      v
+Deployment
 ```
 
-For a new project, the recommended basic workflow is:
+For production projects, dependency versions should be managed carefully, `package-lock.json` should normally be maintained in source control, and `node_modules/` should not be committed to the repository.
+
+---
+
+# 13. FAQs
+
+## Q1. What is NPM?
+
+NPM stands for Node Package Manager. It is used to manage packages and dependencies in Node.js and JavaScript projects.
+
+## Q2. Why is NPM used?
+
+NPM is used to install, manage, update, and remove project dependencies and to automate common development tasks.
+
+## Q3. What is a package?
+
+A package is a reusable piece of software that can be installed and used by an application.
+
+Example:
 
 ```bash
-mkdir myproject
-cd myproject
-
-python3 -m venv venv
-
-source venv/bin/activate
-
-python -m pip install requests
-
-pip freeze > requirements.txt
-
-deactivate
+npm install express
 ```
 
-Before deleting an environment, ensure that important dependencies are captured in `requirements.txt`.
+## Q4. What is package.json?
 
-Maintaining a clean virtual environment and a reliable dependency file helps ensure consistent application setup across development, testing, and deployment environments.
+`package.json` is the main configuration file for an NPM project. It contains project metadata, dependencies, development dependencies, and scripts.
 
+## Q5. What is package-lock.json?
+
+`package-lock.json` records the resolved dependency tree and package versions used by the project.
+
+## Q6. What is node_modules?
+
+`node_modules` is the directory where NPM stores installed packages.
+
+## Q7. Should node_modules be committed to Git?
+
+No.
+
+Add the following to `.gitignore`:
+
+```text
+node_modules/
+```
+
+## Q8. What is the difference between npm install and npm ci?
+
+`npm install` installs project dependencies and may update the lock file when dependency definitions change.
+
+`npm ci` performs a clean installation based on the lock file and is commonly used in CI/CD environments.
+
+## Q9. What is the difference between dependencies and devDependencies?
+
+`dependencies` are generally packages required by the application.
+
+`devDependencies` are generally packages used during development, testing, linting, or building.
+
+## Q10. What is the difference between local and global packages?
+
+A local package is installed for a specific project.
+
+A global package is installed for broader system/user use and is generally intended for CLI tools.
+
+## Q11. How do I install an NPM package?
+
+```bash
+npm install <package-name>
+```
+
+## Q12. How do I remove an NPM package?
+
+```bash
+npm uninstall <package-name>
+```
+
+## Q13. How do I update NPM packages?
+
+```bash
+npm update
+```
+
+## Q14. How do I check outdated packages?
+
+```bash
+npm outdated
+```
+
+## Q15. How do I check dependency vulnerabilities?
+
+```bash
+npm audit
+```
+
+## Q16. How do I run an NPM script?
+
+For example:
+
+```bash
+npm run build
+```
+
+The script must be defined in the `scripts` section of `package.json`.
+
+## Q17. Why should package-lock.json be committed?
+
+It helps maintain a consistent dependency tree across development, CI/CD, and deployment environments.
+
+---
+
+# 14. References
+
+| Reference | Purpose |
+|---|---|
+| [NPM Official Documentation](https://docs.npmjs.com/) | Official NPM documentation |
+| [NPM CLI Documentation](https://docs.npmjs.com/cli/v11/commands/npm) | NPM CLI command reference |
+| [package.json Documentation](https://docs.npmjs.com/cli/v11/configuring-npm/package-json) | `package.json` configuration |
+| [package-lock.json Documentation](https://docs.npmjs.com/cli/v11/configuring-npm/package-lock-json) | `package-lock.json` reference |
+| [npm install Documentation](https://docs.npmjs.com/cli/v11/commands/npm-install) | Package installation |
+| [npm ci Documentation](https://docs.npmjs.com/cli/v11/commands/npm-ci) | Clean dependency installation |
+| [npm audit Documentation](https://docs.npmjs.com/cli/v11/commands/npm-audit) | Security auditing |
+| [npm update Documentation](https://docs.npmjs.com/cli/v11/commands/npm-update) | Package updates |
+| [Semantic Versioning](https://semver.org/) | Package versioning reference |
+
+---
+
+# Document End
