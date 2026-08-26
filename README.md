@@ -1,7 +1,6 @@
 # NPM (Node Package Manager)
 
-                      
-                         <img width="100" height="100" alt="image" src="https://github.com/user-attachments/assets/706926f2-225c-484f-8643-a347963e5dfc" />
+<img width="100" height="100" alt="image" src="https://github.com/user-attachments/assets/be1eb7ff-0db3-420d-b1a3-c6525ac74eb8" />
 
 
 ## Document Information
