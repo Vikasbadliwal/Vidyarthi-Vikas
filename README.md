@@ -20,8 +20,7 @@
    * [4.1 Workflow Diagram](#41-workflow-diagram)
 5. [Features of Python Virtual Environment](#5-features-of-python-virtual-environment)
 6. [Virtual Environment Tools](#6-virtual-environment-tools)
-7. [Tool Comparison](#7-tool-comparison)
-8. [Advantages and Disadvantages](#8-advantages-and-disadvantages)
+8. [Advantages and Disadvantages](#8-advanthttps://meet.google.com/rtd-cbbz-ruaages-and-disadvantages)
 9. [Best Practices](#9-best-practices)
 10. [Operational Commands](#10-operational-commands)
 
@@ -32,7 +31,7 @@
     * [10.5 Deactivation](#105-deactivation)
     * [10.6 Deletion](#106-deletion)
 11. [Troubleshooting](#11-troubleshooting)
-12. [Recommendation / Conclusion](#12-recommendation--conclusion)
+12. [Conclusion](#12-conclusion)
 13. [FAQs](#13-faqs)
 14. [Contact Information](#14-contact-information)
 15. [References](#15-references)
@@ -46,16 +45,6 @@ Python applications commonly require multiple external packages and libraries.
 Different applications may require different versions of the same package. Installing all packages globally can therefore create dependency conflicts and make application environments difficult to reproduce.
 
 A **Python Virtual Environment** provides an isolated Python environment for an individual project.
-
-It allows developers and DevOps teams to:
-
-* Maintain project-specific dependencies.
-* Install different package versions for different applications.
-* Avoid modifying the system Python environment.
-* Recreate application dependencies consistently.
-* Simplify development, testing, and deployment.
-
-This documentation explains the purpose, features, workflow, tools, operational commands, best practices, and troubleshooting procedures for Python virtual environments.
 
 ---
 
@@ -261,10 +250,6 @@ Build / Test / Deploy
 | Easy Creation               | Environments can be created using `python3 -m venv`.                                 |
 | Easy Deletion               | The environment can be removed by deleting its directory.                            |
 | Project Isolation           | Each application can maintain its own dependencies.                                  |
-| CI/CD Support               | Clean environments can be created during CI/CD execution.                            |
-| Lightweight                 | Virtual environments are relatively lightweight compared with full virtual machines. |
-| Easy Recovery               | The environment can be recreated from `requirements.txt`.                            |
-| No Global Package Pollution | Project dependencies do not need to be installed globally.                           |
 
 ---
 
@@ -782,107 +767,6 @@ python3 -m venv venv
 source venv/bin/activate
 ```
 
-### Q6. How do I verify that it is active?
-
-Run:
-
-```bash
-which python
-```
-
-The result should point to:
-
-```text
-venv/bin/python
-```
-
-### Q7. How do I install packages?
-
-```bash
-python -m pip install <package-name>
-```
-
-### Q8. What is `pip freeze`?
-
-It displays installed packages and their versions.
-
-```bash
-pip freeze
-```
-
-### Q9. Why do we use `requirements.txt`?
-
-It records project dependencies so that the environment can be recreated.
-
-```bash
-pip freeze > requirements.txt
-```
-
-### Q10. Should `venv/` be pushed to Git?
-
-No. Normally add:
-
-```text
-venv/
-```
-
-to `.gitignore`.
-
-### Q11. Can I copy the virtual environment to another server?
-
-It is recommended to create a new environment and install the dependencies from `requirements.txt` instead of copying the existing environment.
-
-### Q12. How do I deactivate the environment?
-
-```bash
-deactivate
-```
-
-### Q13. How do I delete the environment?
-
-```bash
-rm -rf venv
-```
-
-Deactivate it first if it is active.
-
-### Q14. What should I do if activation gives "No such file or directory"?
-
-Check:
-
-```bash
-ls -la
-```
-
-If `venv/` does not exist, create it again:
-
-```bash
-python3 -m venv venv
-```
-
-### Q15. What should I do if I get a permission error?
-
-Check:
-
-```bash
-ls -ld .
-ls -ld venv
-```
-
-Verify that the current user owns or has write access to the project directory.
-
-### Q16. Should I use `sudo pip install`?
-
-No. When using a virtual environment, install packages using:
-
-```bash
-python -m pip install <package>
-```
-
-### Q17. Can two applications use different versions of the same package?
-
-Yes. Each application can have its own virtual environment and package versions.
-
 ---
 
 # 15. Contact Information
@@ -904,6 +788,5 @@ Yes. Each application can have its own virtual environment and package versions.
 | [Requirements File Documentation](https://pip.pypa.io/en/stable/reference/requirements-file-format/) | Official pip documentation for requirements files.                             |
 | [Python Packaging Guide](https://packaging.python.org/en/latest/tutorials/installing-packages/)      | Guide for installing Python packages.                                          |
 | [DOC-README-Template.md](INTERNAL_REPOSITORY_URL)                                                    | Internal documentation template used for the structure of this document.       |
-| [Python Virtual Environment POC](POC_URL)                                                            | Practical demonstration of Python virtual environment creation and management. |
 
 ---
