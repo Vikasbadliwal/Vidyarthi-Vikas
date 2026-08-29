@@ -695,7 +695,7 @@ Then verify again.
 
 ---
 
-# 12. Recommendation / Conclusion
+# 12. Conclusion
 
 For standard Python applications, the recommended approach is to use Python's built-in `venv` module.
 
