@@ -384,24 +384,7 @@ Save dependencies:
 pip freeze > requirements.txt
 ```
 
-Verify:
-
-```bash
-cat requirements.txt
-```
-
-Example:
-
-```text
-Flask==3.x.x
-requests==2.x.x
-```
-
-Reinstall dependencies:
-
-```bash
-python -m pip install -r requirements.txt
-```
+<img width="1417" height="452" alt="pip freeze (SOP-1 )" src="https://github.com/user-attachments/assets/74d37cac-61bd-423e-b8ae-d91548645d15" />
 
 ---
 
@@ -413,17 +396,7 @@ Deactivate the environment:
 deactivate
 ```
 
-Verify:
-
-```bash
-which python3
-```
-
-The path should point to the system Python rather than:
-
-```text
-venv/bin/python
-```
+<img width="809" height="96" alt="deactivate (SOP-1)" src="https://github.com/user-attachments/assets/0a89b8ca-67e4-4e74-a928-67bedc703bb1" />
 
 ---
 
@@ -437,15 +410,8 @@ deactivate
 
 Delete the environment:
 
-```bash
-rm -rf venv
-```
+<img width="809" height="227" alt="deleting venv (SOP-1)" src="https://github.com/user-attachments/assets/0d9b1c9d-6b92-460d-866e-c06faeb3642b" />
 
-Verify:
-
-```bash
-ls -la
-```
 
 The `venv/` directory should no longer be present.
 
@@ -463,11 +429,7 @@ The `venv/` directory should no longer be present.
 source venv/bin/activate
 ```
 
-returns:
-
-```text
-No such file or directory
-```
+<img width="809" height="71" alt="source error (SOP-1)" src="https://github.com/user-attachments/assets/20e81420-4ee8-4fd8-88db-33ff685fb81b" />
 
 ### Check
 
@@ -476,23 +438,8 @@ pwd
 ls -la
 ```
 
-Verify:
+<img width="810" height="276" alt="pwd (SOP-1)" src="https://github.com/user-attachments/assets/c6e9ac65-8a8c-4052-9c41-02c10783774b" />
 
-```bash
-ls -la venv/
-```
-
-If the directory does not exist:
-
-```bash
-python3 -m venv venv
-```
-
-Then:
-
-```bash
-source venv/bin/activate
-```
 
 ---
 
@@ -531,16 +478,13 @@ Permission denied
 
 Check:
 
-```bash
-ls -ld .
-ls -ld venv
-```
+<img width="774" height="93" alt="check permission issue (SOP-1)" src="https://github.com/user-attachments/assets/3763fb2b-9c18-4d57-ba2a-9be6326c0ef6" />
+
 
 Check ownership:
 
-```bash
-ls -l
-```
+<img width="809" height="123" alt="ls -l (SOP-1)" src="https://github.com/user-attachments/assets/596c02a8-3010-445c-8e97-1e5446b48721" />
+
 
 If the project directory has incorrect ownership, an administrator can correct it:
 
@@ -567,8 +511,8 @@ which pip
 
 Both should point to:
 
-```text
-.../venv/bin/
+<img width="774" height="118" alt="check python (SOP-1)" src="https://github.com/user-attachments/assets/3e806569-3aaf-49a8-9b79-460a4e0f1aad" />
+
 ```
 
 Activate if required:
