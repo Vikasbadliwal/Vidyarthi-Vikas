@@ -43,7 +43,6 @@ NPM helps developers to:
 - Run project scripts.
 - Perform dependency security audits.
 - Support application build and deployment processes.
-- Integrate dependency management into CI/CD pipelines.
 
 This documentation explains what NPM is, why it is used, its major features, basic commands, advantages, disadvantages, best practices, and troubleshooting procedures.
 
@@ -583,8 +582,7 @@ npm test
 | **Large Ecosystem** | Provides access to a large number of reusable packages. |
 | **Dependency Management** | Automatically manages project dependencies. |
 | **Version Management** | Supports package version specifications. |
-| **Automation** | NPM scripts can automate common development tasks. |
-| **CI/CD Support** | Can be integrated into automated pipelines. |
+| **Automation** | NPM scripts can automate common development tasks. | 
 | **Package Reusability** | Developers can reuse existing packages. |
 | **Lock File Support** | `package-lock.json` helps provide consistent installations. |
 | **Security Auditing** | `npm audit` helps identify known vulnerabilities. |
