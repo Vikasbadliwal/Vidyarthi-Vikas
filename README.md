@@ -961,71 +961,7 @@ npm install express
 
 `package-lock.json` records the resolved dependency tree and package versions used by the project.
 
-## Q6. What is node_modules?
 
-`node_modules` is the directory where NPM stores installed packages.
-
-## Q7. Should node_modules be committed to Git?
-
-No.
-
-Add the following to `.gitignore`:
-
-```text
-node_modules/
-```
-
-## Q8. What is the difference between dependencies and devDependencies?
-
-`dependencies` are generally packages required by the application.
-
-`devDependencies` are generally packages used during development, testing, linting, or building.
-
-## Q9. What is the difference between local and global packages?
-
-A local package is installed for a specific project.
-
-A global package is installed for broader system/user use and is generally intended for CLI tools.
-
-## Q10. How do I install an NPM package?
-
-```bash
-npm install <package-name>
-```
-
-## Q11. How do I remove an NPM package?
-
-```bash
-npm uninstall <package-name>
-```
-
-## Q12. How do I update NPM packages?
-
-```bash
-npm update
-```
-
-## Q13. How do I check outdated packages?
-
-```bash
-npm outdated
-```
-
-## Q14. How do I check dependency vulnerabilities?
-
-```bash
-npm audit
-```
-
-## Q15. How do I run an NPM script?
-
-For example:
-
-```bash
-npm run build
-```
-
-The script must be defined in the `scripts` section of `package.json`.
 
 # 14. References
 
@@ -1036,11 +972,7 @@ The script must be defined in the `scripts` section of `package.json`.
 | [package.json Documentation](https://docs.npmjs.com/cli/v11/configuring-npm/package-json) | `package.json` configuration |
 | [package-lock.json Documentation](https://docs.npmjs.com/cli/v11/configuring-npm/package-lock-json) | `package-lock.json` reference |
 | [npm install Documentation](https://docs.npmjs.com/cli/v11/commands/npm-install) | Package installation |
-| [npm ci Documentation](https://docs.npmjs.com/cli/v11/commands/npm-ci) | Clean dependency installation |
 | [npm audit Documentation](https://docs.npmjs.com/cli/v11/commands/npm-audit) | Security auditing |
 | [npm update Documentation](https://docs.npmjs.com/cli/v11/commands/npm-update) | Package updates |
-| [Semantic Versioning](https://semver.org/) | Package versioning reference |
 
 ---
-
-# Document End
