@@ -325,23 +325,7 @@ Create a virtual environment:
 python3 -m venv venv
 ```
 
-Verify:
-
-```bash
-ls -la
-```
-
-Expected:
-
-```text
-venv/
-```
-
-Check the environment configuration:
-
-```bash
-cat venv/pyvenv.cfg
-```
+<img width="775" height="291" alt="SOP-1(Screen-1)" src="https://github.com/user-attachments/assets/5cecf320-a5d4-40ce-81e9-4b4418dcb0ac" />
 
 ---
 
@@ -358,24 +342,8 @@ Expected terminal:
 ```text
 (venv) user@server:~/myproject$
 ```
+<img width="901" height="144" alt="source pip (SOP-1)" src="https://github.com/user-attachments/assets/410ad797-849c-488b-a359-e21c193a2113" />
 
-Verify:
-
-```bash
-which python
-```
-
-Expected:
-
-```text
-/home/user/myproject/venv/bin/python
-```
-
-Verify pip:
-
-```bash
-which pip
-```
 
 ---
 
