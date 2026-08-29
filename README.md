@@ -366,18 +366,7 @@ Install from `requirements.txt`:
 ```bash
 python -m pip install -r requirements.txt
 ```
-
-Verify installed packages:
-
-```bash
-python -m pip list
-```
-
-Check a package:
-
-```bash
-python -m pip show requests
-```
+<img width="1418" height="866" alt="pip (SOP-1 screenshot-2)" src="https://github.com/user-attachments/assets/f28a00d0-4a30-4fd7-89f8-6c65bc6b2f97" />
 
 ---
 
