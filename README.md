@@ -60,17 +60,8 @@ Example:
 python3 -m venv venv
 ```
 
-This creates a directory:
+<img width="907" height="316" alt="python vitual venv screenshot(SOP-1)" src="https://github.com/user-attachments/assets/601f3f35-0023-4301-a7b8-88d527c8a02f" />
 
-```text
-venv/
-```
-
-The environment can then be activated:
-
-```bash
-source venv/bin/activate
-```
 
 After activation, packages installed using `pip` are installed into the virtual environment instead of the system-wide Python environment.
 
