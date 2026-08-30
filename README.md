@@ -6,7 +6,7 @@
 
 | **Author**    | **Created On** | **Version** | **Last Updated By** | **Last Edited On** | **L0 Reviewer** | **L1 Reviewer** |   **L2 Reviewer**   |
 | ------------- | -------------- | ----------- | ------------------- | ------------------ | --------------- | --------------- | ---------------     |
-|   vikas         | 24-08-2026     | 1.0         |                     |                    | Deepak Kushwaha | Faisal/Mohit K  | Mahesh Kumar/Varun|
+|   vikas       | 24-08-2026     | 1.0         |                     |                    | Deepak Kushwaha | Faisal/Mohit K  | Mahesh Kumar/Varun  |
                                                                                                                                        
 
 ---
