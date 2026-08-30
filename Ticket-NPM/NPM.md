@@ -878,7 +878,7 @@ mvn -version
 
 ---
 
-# 15. Explanation
+# 14. Explanation
 
 
 > **“First, we install Java because Maven requires Java. Then we install Maven and verify it using `mvn -version`. We create a Maven project with a `pom.xml` file. The `pom.xml` contains the project details and dependencies. When we run Maven commands, Maven reads the `pom.xml`, downloads the required dependencies, compiles the code, runs tests, and creates the application artifact.
