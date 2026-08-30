@@ -1,13 +1,10 @@
-# NPM (Node Package Manager)
-
-<img width="100" height="100" alt="image" src="https://github.com/user-attachments/assets/be1eb7ff-0db3-420d-b1a3-c6525ac74eb8" />
-
+# NPM (Node Package Manager) | DOCUMENTATION
 
 ## Document Information
 
-| Author | Created On | Version | Last Updated By | Last Updated On | L0 Reviewer | L1 Reviewer | L2 Reviewer |
-|---|---|---|---|---|---|---|---|
-| Vikas  | 25-08-2026 | v1.0    | `             ` |                 |             |             |             |
+| Author | Created On | Version |
+| ------ | ---------- | ------- |
+| Vikas  | 25-08-2026 | v1.0    |
 
 ---
 
@@ -16,63 +13,46 @@
 1. [Purpose](#1-purpose)
 2. [Prerequisites](#2-prerequisites)
 3. [What is NPM](#3-what-is-npm)
-4. [Why NPM](#4-why-npm)
-5. [Features of NPM](#5-features-of-npm)
-6. [NPM Project Structure](#6-npm-project-structure)
-7. [Basic NPM Commands](#7-basic-npm-commands)
-8. [Advantages and Disadvantages](#8-advantages-and-disadvantages)
-9. [Best Practices](#9-best-practices)
-10. [Troubleshooting](#10-troubleshooting)
-11. [Conclusion](#12-conclusion)
-12. [FAQs](#13-faqs)
-13. [References](#14-references)
+4. [Important NPM Files](#4-important-npm-files)
+5. [NPM Project Structure](#5-npm-project-structure)
+6. [Common NPM Commands](#6-common-npm-commands)
+7. [Dependencies](#7-dependencies)
+8. [NPM Scripts](#8-npm-scripts)
+9. [NPM Workflow](#9-npm-workflow)
+10. [NPM in CI/CD](#10-npm-in-cicd)
+11. [Best Practices](#11-best-practices)
+12. [Troubleshooting](#12-troubleshooting)
+13. [Conclusion](#13-conclusion)
+14. [FAQs](#14-faqs)
 
 ---
 
 # 1. Purpose
 
-NPM (Node Package Manager) is a package manager used for managing packages and dependencies in Node.js and JavaScript applications.
+This document explains the basic usage of **NPM (Node Package Manager)** in Node.js projects.
 
-NPM helps developers to:
+NPM is mainly used to:
 
-- Install required packages.
-- Manage application dependencies.
-- Manage package versions.
-- Remove unwanted packages.
-- Update existing packages.
-- Run project scripts.
-- Perform dependency security audits.
-- Support application build and deployment processes.
-
-This documentation explains what NPM is, why it is used, its major features, basic commands, advantages, disadvantages, best practices, and troubleshooting procedures.
+* Install packages.
+* Manage dependencies.
+* Run project commands.
+* Manage package versions.
+* Check dependency security.
+* Support CI/CD builds.
 
 ---
 
 # 2. Prerequisites
 
-Before using NPM, ensure that the following prerequisites are available.
+The main requirement is **Node.js**, which includes NPM.
 
-## 2.1 Node.js
-
-NPM is distributed with Node.js.
-
-Verify whether Node.js is installed:
+Check Node.js:
 
 ```bash
 node --version
 ```
 
-Example:
-
-```text
-v22.x.x
-```
-
----
-
-## 2.2 NPM
-
-Verify whether NPM is installed:
+Check NPM:
 
 ```bash
 npm --version
@@ -81,143 +61,60 @@ npm --version
 Example:
 
 ```text
-10.x.x
-```
-
-> The exact version depends on the installed Node.js/NPM release.
-
----
-
-## 2.3 Project Directory
-
-Create or navigate to the Node.js project directory.
-
-Example:
-
-```bash
-mkdir my-node-app
-cd my-node-app
+Node.js: v22.x.x
+NPM:     10.x.x
 ```
 
 ---
 
-## 2.4 Required Access
+# 3. What is NPM?
 
-The user should have:
+**NPM stands for Node Package Manager.**
 
-- Access to the project directory.
-- Permission to create and modify project files.
-- Permission to install project dependencies.
-- Access to the NPM registry or configured package registry.
-- Required network access if packages need to be downloaded.
+It is used to install and manage packages required by a Node.js application.
 
----
-
-# 3. What is NPM
-
-NPM stands for **Node Package Manager**.
-
-NPM is used to install, manage, update, and remove packages used by Node.js and JavaScript applications.
-
-A package is a reusable piece of software that provides functionality that can be used by an application.
-
-For example:
+For example, if an application needs Express:
 
 ```bash
 npm install express
 ```
 
-The above command installs the `express` package into the current project.
+NPM downloads Express and adds it to the project dependencies.
 
-NPM also manages the dependencies required by installed packages.
-
----
-
-## 3.1 NPM Components
-
-NPM mainly consists of the following components:
-
-| Component | Purpose |
-|---|---|
-| **NPM CLI** | Command-line interface used to execute NPM commands. |
-| **NPM Registry** | Repository from which packages can be downloaded and where packages can be published. |
-| **package.json** | Stores project metadata, dependencies, scripts, and configuration. |
-| **package-lock.json** | Records the resolved dependency tree and package versions. |
-| **node_modules** | Directory containing installed project packages. |
-
----
-
-## 3.2 NPM Overview
+### Simple Understanding
 
 ```text
-                    Node.js Application
-                            |
-                            v
-                           NPM
-                            |
-              +-------------+-------------+
-              |             |             |
-              v             v             v
-          NPM CLI      package.json    NPM Registry
-                            |
-                            v
-                       Dependencies
-                            |
-                            v
-                       node_modules/
+Node.js Application
+        |
+        v
+       NPM
+        |
+        v
+   Install Packages
+        |
+        v
+   Manage Dependencies
+        |
+        v
+   Run Project Scripts
 ```
 
 ---
 
-# 4. Why NPM
+# 4. Important NPM Files
 
-NPM is used to simplify package and dependency management for Node.js applications.
+An NPM project mainly uses the following:
 
-## 4.1 Dependency Management
+| File/Directory      | Purpose                                       |
+| ------------------- | --------------------------------------------- |
+| `package.json`      | Project information, dependencies and scripts |
+| `package-lock.json` | Locks the exact dependency versions           |
+| `node_modules/`     | Contains installed packages                   |
+| `.gitignore`        | Specifies files not to commit to Git          |
 
-NPM allows developers to install and manage packages required by an application.
+### package.json
 
-Example:
-
-```bash
-npm install express
-```
-
-NPM automatically downloads the package and its required dependencies.
-
----
-
-## 4.2 Package Reusability
-
-NPM provides access to a large ecosystem of reusable packages.
-
-Instead of implementing common functionality from scratch, developers can install an existing package.
-
-Example:
-
-```bash
-npm install axios
-```
-
----
-
-## 4.3 Version Management
-
-NPM allows developers to install a specific version of a package.
-
-Example:
-
-```bash
-npm install express@5.1.0
-```
-
-This installs the specified version.
-
----
-
-## 4.4 Project Management
-
-NPM uses `package.json` to store project information and dependency configuration.
+This is the main configuration file of an NPM project.
 
 Example:
 
@@ -225,181 +122,95 @@ Example:
 {
   "name": "my-node-app",
   "version": "1.0.0",
-  "description": "Sample Node.js application",
-  "main": "app.js"
-}
-```
-
----
-
-## 4.5 Automation
-
-NPM provides scripts that can be used to automate common development tasks.
-
-Example:
-
-```json
-{
-  "scripts": {
-    "start": "node app.js",
-    "test": "jest",
-    "build": "webpack"
-  }
-}
-```
-
-These scripts can be executed using:
-
-```bash
-npm start
-npm test
-npm run build
-```
-
-
----
-
-# 5. Features of NPM
-
-| Feature | Description |
-|---|---|
-| **Package Installation** | Installs packages required by the application. |
-| **Dependency Management** | Manages project dependencies and their versions. |
-| **Package Registry** | Provides access to a large collection of packages. |
-| **Version Management** | Allows specific package versions to be installed. |
-| **package.json** | Stores project metadata, dependencies, and scripts. |
-| **package-lock.json** | Records the resolved dependency tree. |
-| **NPM Scripts** | Allows automation of application commands. |
-| **Package Update** | Provides commands to update packages. |
-| **Package Removal** | Allows packages to be removed from a project. |
-| **Security Audit** | Checks dependencies for known security vulnerabilities. |
-| **Package Publishing** | Allows packages to be published to the NPM registry. |
-
----
-
-# 6. NPM Project Structure
-
-A typical NPM project can have the following structure:
-
-```text
-my-node-app/
-│
-├── node_modules/
-│
-├── src/
-│   └── app.js
-│
-├── package.json
-├── package-lock.json
-├── .gitignore
-└── README.md
-```
-
-## 6.1 package.json
-
-`package.json` is the main configuration file for an NPM project.
-
-It may contain:
-
-- Project name.
-- Project version.
-- Description.
-- Application entry point.
-- Scripts.
-- Dependencies.
-- Development dependencies.
-
-Example:
-
-```json
-{
-  "name": "my-node-app",
-  "version": "1.0.0",
-  "description": "Sample Node.js application",
-  "main": "app.js",
   "scripts": {
     "start": "node app.js",
     "test": "jest"
   },
   "dependencies": {
     "express": "^5.1.0"
-  },
-  "devDependencies": {
-    "jest": "^30.0.0"
   }
 }
 ```
 
----
+### package-lock.json
 
-## 6.2 package-lock.json
+`package-lock.json` stores the exact dependency tree installed for the project.
 
-`package-lock.json` records the dependency tree resolved by NPM.
+It helps developers and CI/CD systems install consistent dependency versions.
 
-It helps maintain consistent dependency versions across:
+### node_modules
 
-- Developer environments.
-- CI/CD environments.
-- Build systems.
-- Deployment environments.
+`node_modules` contains the packages installed by NPM.
 
-For application repositories, `package-lock.json` should normally be committed to source control.
+It should normally **not** be committed to Git.
 
----
-
-## 6.3 node_modules
-
-The `node_modules` directory contains installed packages.
-
-Example:
-
-```text
-node_modules/
-├── express/
-├── axios/
-├── jest/
-└── ...
-```
-
-The `node_modules` directory should normally not be committed to Git.
-
-Add the following to `.gitignore`:
+Add:
 
 ```text
 node_modules/
 ```
 
----
-
-# 7. Basic NPM Commands
-
-## 7.1 Check NPM Version
-
-```bash
-npm --version
-```
-
-This displays the installed NPM version.
+to `.gitignore`.
 
 ---
 
-## 7.2 Initialize an NPM Project
+# 5. NPM Project Structure
 
-```bash
-npm init
+A simple project can look like this:
+
+```text
+my-node-app/
+│
+├── src/
+│   └── app.js
+│
+├── node_modules/
+├── package.json
+├── package-lock.json
+├── .gitignore
+└── README.md
 ```
 
-This creates a `package.json` file interactively.
+---
 
-For default configuration:
+# 6. Common NPM Commands
+
+| Command                           | Purpose                             |
+| --------------------------------- | ----------------------------------- |
+| `npm --version`                   | Check NPM version                   |
+| `npm init`                        | Create `package.json`               |
+| `npm init -y`                     | Create `package.json` with defaults |
+| `npm install`                     | Install project dependencies        |
+| `npm install <package>`           | Install a package                   |
+| `npm install <package>@<version>` | Install a specific version          |
+| `npm uninstall <package>`         | Remove a package                    |
+| `npm update`                      | Update packages                     |
+| `npm outdated`                    | Check outdated packages             |
+| `npm list`                        | Show installed packages             |
+| `npm audit`                       | Check vulnerabilities               |
+| `npm audit fix`                   | Fix applicable vulnerabilities      |
+| `npm ci`                          | Clean installation using lock file  |
+| `npm run <script>`                | Run a project script                |
+
+---
+
+## 6.1 Create a Project
 
 ```bash
+mkdir my-node-app
+cd my-node-app
 npm init -y
 ```
 
+This creates:
+
+```text
+package.json
+```
+
 ---
 
-## 7.3 Install a Package
+## 6.2 Install a Package
 
 ```bash
 npm install express
@@ -411,21 +222,23 @@ Short form:
 npm i express
 ```
 
-This installs the package as a project dependency.
+The package is added to `package.json` and installed in `node_modules`.
 
 ---
 
-## 7.4 Install a Specific Version
+## 6.3 Install a Specific Version
 
 ```bash
 npm install express@5.1.0
 ```
 
-This installs the specified package version.
-
 ---
 
-## 7.5 Install a Development Dependency
+## 6.4 Install Development Dependency
+
+Development dependencies are packages mainly required for development or testing.
+
+Example:
 
 ```bash
 npm install --save-dev jest
@@ -437,33 +250,41 @@ Short form:
 npm i -D jest
 ```
 
-This installs the package as a development dependency.
+They are stored under:
+
+```json
+"devDependencies": {
+  "jest": "^30.0.0"
+}
+```
 
 ---
 
-## 7.6 Install Project Dependencies
+## 6.5 Install Existing Dependencies
+
+If `package.json` already exists:
 
 ```bash
 npm install
 ```
 
-This installs dependencies defined in `package.json`.
+NPM reads `package.json` and installs the required dependencies.
 
 ---
 
-## 7.7 Clean Dependency Installation
+## 6.6 Clean Installation
 
 ```bash
 npm ci
 ```
 
-`npm ci` performs a clean installation using the project's lock file.
+`npm ci` is commonly used in **CI/CD pipelines**.
 
-It is commonly used in CI/CD environments.
+It uses the existing `package-lock.json` to install the dependency tree.
 
 ---
 
-## 7.8 Remove a Package
+## 6.7 Remove a Package
 
 ```bash
 npm uninstall express
@@ -473,23 +294,19 @@ This removes the package from the project.
 
 ---
 
-## 7.9 Update Packages
+## 6.8 Update Packages
 
 ```bash
 npm update
 ```
 
-This updates installed packages according to the dependency specifications.
-
 ---
 
-## 7.10 Check Outdated Packages
+## 6.9 Check Outdated Packages
 
 ```bash
 npm outdated
 ```
-
-This displays packages for which newer versions are available.
 
 Example:
 
@@ -500,13 +317,15 @@ express    5.0.0      5.0.1     5.1.0
 
 ---
 
-## 7.11 List Installed Packages
+## 6.10 List Packages
+
+Show all packages:
 
 ```bash
 npm list
 ```
 
-To display only top-level packages:
+Show top-level packages:
 
 ```bash
 npm list --depth=0
@@ -514,9 +333,75 @@ npm list --depth=0
 
 ---
 
-## 7.12 Run NPM Scripts
+## 6.11 Security Audit
 
-If the `package.json` contains:
+Check dependencies:
+
+```bash
+npm audit
+```
+
+Try to fix applicable vulnerabilities:
+
+```bash
+npm audit fix
+```
+
+After changing dependencies, run the project tests:
+
+```bash
+npm test
+```
+
+---
+
+# 7. Dependencies
+
+Dependencies are packages required by the application.
+
+For example:
+
+```json
+"dependencies": {
+  "express": "^5.1.0"
+}
+```
+
+Development dependencies are mainly used during development and testing:
+
+```json
+"devDependencies": {
+  "jest": "^30.0.0"
+}
+```
+
+### Difference
+
+| Dependencies                | Dev Dependencies                        |
+| --------------------------- | --------------------------------------- |
+| Required by the application | Mainly required for development/testing |
+| Stored in `dependencies`    | Stored in `devDependencies`             |
+| Example: Express            | Example: Jest                           |
+
+Install dependency:
+
+```bash
+npm install express
+```
+
+Install development dependency:
+
+```bash
+npm install --save-dev jest
+```
+
+---
+
+# 8. NPM Scripts
+
+NPM allows commands to be stored in `package.json`.
+
+Example:
 
 ```json
 {
@@ -528,7 +413,7 @@ If the `package.json` contains:
 }
 ```
 
-Run:
+Run the scripts:
 
 ```bash
 npm start
@@ -542,192 +427,167 @@ npm test
 npm run build
 ```
 
-For custom scripts:
+For a custom script:
 
 ```bash
 npm run <script-name>
 ```
 
----
+### Why use scripts?
 
-## 7.13 Check Security Vulnerabilities
-
-```bash
-npm audit
-```
-
-This checks project dependencies for known security vulnerabilities.
-
-Where appropriate, a fix can be attempted using:
-
-```bash
-npm audit fix
-```
-
-After applying changes, test the application:
-
-```bash
-npm test
-```
+| Script         | Purpose                            |
+| -------------- | ---------------------------------- |
+| `start`        | Start the application              |
+| `test`         | Run tests                          |
+| `build`        | Create a production build          |
+| Custom scripts | Automate project-specific commands |
 
 ---
 
-# 8. Advantages and Disadvantages
+# 9. NPM Workflow
 
-## 8.1 Advantages
-
-| Advantage | Description |
-|---|---|
-| **Easy Package Management** | Packages can be installed and managed using simple commands. |
-| **Large Ecosystem** | Provides access to a large number of reusable packages. |
-| **Dependency Management** | Automatically manages project dependencies. |
-| **Version Management** | Supports package version specifications. |
-| **Automation** | NPM scripts can automate common development tasks. | 
-| **Package Reusability** | Developers can reuse existing packages. |
-| **Lock File Support** | `package-lock.json` helps provide consistent installations. |
-| **Security Auditing** | `npm audit` helps identify known vulnerabilities. |
-| **Package Publishing** | Developers can publish reusable packages. |
-
----
-
-## 8.2 Disadvantages
-
-| Disadvantage | Description |
-|---|---|
-| **Large node_modules** | Dependency directories can consume significant disk space. |
-| **Complex Dependency Trees** | Applications can have many transitive dependencies. |
-| **Security Risks** | Third-party packages may contain vulnerabilities. |
-| **Dependency Conflicts** | Different packages may require incompatible versions. |
-| **Maintenance** | Dependencies require regular review and updates. |
-| **Installation Time** | Large dependency trees can increase installation time. |
-| **Supply-Chain Risk** | Applications depend on third-party packages and maintainers. |
-| **Breaking Changes** | Major package updates can introduce compatibility issues. |
-
----
-
-# 9. Best Practices
-
-## 9.1 Commit package.json
-
-Always keep `package.json` under source control.
-
-## 9.2 Commit package-lock.json
-
-For application repositories, commit `package-lock.json` to help maintain reproducible installations.
-
-## 9.3 Do Not Commit node_modules
-
-Add the following entry to `.gitignore`:
+A simple NPM workflow is:
 
 ```text
-node_modules/
+Create Project
+      |
+      v
+npm init
+      |
+      v
+package.json
+      |
+      v
+Install Dependencies
+      |
+      v
+Development
+      |
+      v
+Run Tests
+      |
+      v
+Build
+      |
+      v
+Deployment
 ```
 
-## 9.4 Prefer Local Dependencies
-
-For application dependencies, use:
+### Example
 
 ```bash
+npm init -y
 npm install express
-```
-
-instead of:
-
-```bash
-npm install -g express
-```
-
-Global packages should generally be reserved for CLI tools intended for system/user-wide use.
-
-## 9.5 Check Outdated Dependencies
-
-Regularly check:
-
-```bash
-npm outdated
-```
-
-## 9.7 Perform Security Audits
-
-Regularly check dependencies:
-
-```bash
-npm audit
-```
-
-## 9.8 Test After Dependency Updates
-
-After updating dependencies, run:
-
-```bash
+npm install --save-dev jest
 npm test
-```
-
-and, where applicable:
-
-```bash
 npm run build
 ```
 
 ---
 
-# 10. Troubleshooting
+# 10. NPM in CI/CD
 
-## 10.1 NPM Command Not Found
+NPM is commonly used in CI/CD pipelines to install dependencies, run tests, and build applications.
 
-### Error
+Example workflow:
+
+```text
+Developer
+    |
+    v
+Git Push
+    |
+    v
+CI/CD Pipeline
+    |
+    v
+npm ci
+    |
+    v
+npm test
+    |
+    v
+npm run build
+    |
+    v
+Deployment
+```
+
+### Typical CI/CD Commands
+
+```bash
+npm ci
+npm test
+npm run build
+```
+
+### Why `npm ci`?
+
+In CI/CD, we generally want the same dependency versions every time.
+
+`npm ci` uses the lock file for a clean installation.
+
+---
+
+# 11. Best Practices
+
+| Practice                          | Reason                                  |
+| --------------------------------- | --------------------------------------- |
+| Commit `package.json`             | Required project configuration          |
+| Commit `package-lock.json`        | Helps maintain consistent installations |
+| Do not commit `node_modules`      | Large and generated directory           |
+| Use `npm ci` in CI/CD             | Clean and lock-file-based installation  |
+| Run tests after updates           | Detect dependency-related issues        |
+| Run `npm audit`                   | Check known vulnerabilities             |
+| Review `npm outdated`             | Keep dependencies maintained            |
+| Avoid unnecessary global packages | Keep project dependencies local         |
+| Review dependency updates         | Avoid unexpected breaking changes       |
+
+---
+
+# 12. Troubleshooting
+
+## 12.1 NPM Command Not Found
+
+Error:
 
 ```text
 npm: command not found
 ```
 
-### Check Node.js
+Check:
 
 ```bash
 node --version
-```
-
-### Check NPM
-
-```bash
 npm --version
 ```
 
-If Node.js/NPM is not available, install Node.js using the organization's approved installation method.
+If NPM is unavailable, verify that Node.js is installed correctly.
 
 ---
 
-## 10.2 package.json Not Found
+## 12.2 package.json Not Found
 
-### Error
+Error:
 
 ```text
 ENOENT: no such file or directory, open 'package.json'
 ```
 
-### Check Current Directory
-
-Linux/macOS:
+Check the current directory:
 
 ```bash
 pwd
 ls -la
 ```
 
-Windows:
-
-```cmd
-cd
-dir
-```
-
-Navigate to the project directory:
+Then move to the project directory:
 
 ```bash
 cd <project-directory>
 ```
 
-Then run:
+Run:
 
 ```bash
 npm install
@@ -735,17 +595,35 @@ npm install
 
 ---
 
-## 10.3 Permission Error
+## 12.3 Dependency Installation Failure
 
-### Error
+Try a clean installation.
+
+If `package-lock.json` exists:
+
+```bash
+rm -rf node_modules
+npm ci
+```
+
+If there is no lock file:
+
+```bash
+rm -rf node_modules
+npm install
+```
+
+---
+
+## 12.4 Permission Error
+
+Error:
 
 ```text
 EACCES: permission denied
 ```
 
-Check the project directory permissions.
-
-Linux/macOS:
+Check the directory permissions:
 
 ```bash
 ls -ld .
@@ -757,42 +635,13 @@ Check the NPM prefix:
 npm config get prefix
 ```
 
-Ensure that the current user has appropriate permissions to modify the project directory.
-
-> Avoid using `sudo npm install` as a default solution.
+Make sure the current user has the required permissions.
 
 ---
 
-## 10.4 Dependency Installation Failure
+## 12.5 Dependency Conflict
 
-If the dependency installation is inconsistent, check:
-
-```text
-package.json
-package-lock.json
-```
-
-For a clean installation where a valid lock file exists:
-
-```bash
-rm -rf node_modules
-npm ci
-```
-
-If no lock file exists:
-
-```bash
-rm -rf node_modules
-npm install
-```
-
-> On Windows, use the appropriate command for removing the `node_modules` directory.
-
----
-
-## 10.5 Dependency Version Conflict
-
-Check installed dependencies:
+Check installed packages:
 
 ```bash
 npm list
@@ -811,11 +660,11 @@ package.json
 package-lock.json
 ```
 
-Update dependencies in a controlled manner and run the application's tests afterward.
+Update dependencies carefully and run tests.
 
 ---
 
-## 10.6 Security Vulnerability
+## 12.6 Security Vulnerability
 
 Run:
 
@@ -823,33 +672,21 @@ Run:
 npm audit
 ```
 
-Review the reported vulnerabilities.
-
-Where appropriate:
+If applicable:
 
 ```bash
 npm audit fix
 ```
 
-After applying changes:
+Then test:
 
 ```bash
 npm test
 ```
 
-Review the resulting dependency changes before committing them.
-
 ---
 
-## 10.7 Package Installation Is Very Slow
-
-Check whether the issue is related to:
-
-- Network connectivity.
-- Registry configuration.
-- Proxy configuration.
-- Large dependency trees.
-- Package registry availability.
+## 12.7 Registry Issue
 
 Check the configured registry:
 
@@ -857,120 +694,76 @@ Check the configured registry:
 npm config get registry
 ```
 
----
-
-## 10.8 NPM Registry Configuration
-
-Check the current registry:
-
-```bash
-npm config get registry
-```
-
-The registry can be configured using:
+If required, configure the organization's approved registry:
 
 ```bash
 npm config set registry <registry-url>
 ```
 
-For enterprise environments, use the registry configured by the organization's development/DevOps team.
-
 ---
 
-# 11. Conclusion
+# 13. Conclusion
 
-NPM provides a standard way to manage packages and dependencies in Node.js and JavaScript applications.
+NPM is used to manage packages and dependencies in Node.js applications.
 
-It simplifies:
+The most important concepts are:
 
-- Package installation.
-- Dependency management.
-- Version management.
-- Project configuration.
-- Script automation.
-- Security auditing.
-- CI/CD dependency installation.
+| Concept             | Remember                 |
+| ------------------- | ------------------------ |
+| `package.json`      | Project configuration    |
+| `package-lock.json` | Exact dependency tree    |
+| `node_modules`      | Installed packages       |
+| `npm install`       | Install dependencies     |
+| `npm ci`            | Clean CI/CD installation |
+| `npm test`          | Run tests                |
+| `npm run build`     | Build application        |
+| `npm audit`         | Check vulnerabilities    |
 
-A typical NPM workflow is:
+### Simple NPM Flow
 
 ```text
-Create Project
-      |
-      v
-npm init
-      |
-      v
 package.json
-      |
-      v
-npm install <package>
-      |
-      v
-node_modules/
-      |
-      v
-Development
-      |
-      v
-Testing
-      |
-      v
+     |
+     v
+npm install / npm ci
+     |
+     v
+node_modules
+     |
+     v
+npm test
+     |
+     v
 npm run build
-      |
-      v
-CI/CD
-      |
-      v
-npm ci
-      |
-      v
+     |
+     v
 Deployment
 ```
 
-For production projects, dependency versions should be managed carefully, `package-lock.json` should normally be maintained in source control, and `node_modules/` should not be committed to the repository.
-
 ---
 
-# 13. FAQs
+# 14. FAQs
 
-## Q1. What is NPM?
+### Q1. What is NPM?
 
-NPM stands for Node Package Manager. It is used to manage packages and dependencies in Node.js and JavaScript projects.
+NPM is the package manager used with Node.js to install and manage packages and dependencies.
 
-## Q2. Why is NPM used?
+### Q2. What is package.json?
 
-NPM is used to install, manage, update, and remove project dependencies and to automate common development tasks.
+It contains project information, dependencies, and NPM scripts.
 
-## Q3. What is a package?
+### Q3. What is package-lock.json?
 
-A package is a reusable piece of software that can be installed and used by an application.
+It records the resolved dependency versions used by the project.
 
-Example:
+### Q4. What is node_modules?
 
-```bash
-npm install express
-```
+It contains the packages installed by NPM.
 
-## Q4. What is package.json?
+### Q5. What is the difference between `npm install` and `npm ci`?
 
-`package.json` is the main configuration file for an NPM project. It contains project metadata, dependencies, development dependencies, and scripts.
-
-## Q5. What is package-lock.json?
-
-`package-lock.json` records the resolved dependency tree and package versions used by the project.
-
-
-
-# 14. References
-
-| Reference | Purpose |
-|---|---|
-| [NPM Official Documentation](https://docs.npmjs.com/) | Official NPM documentation |
-| [NPM CLI Documentation](https://docs.npmjs.com/cli/v11/commands/npm) | NPM CLI command reference |
-| [package.json Documentation](https://docs.npmjs.com/cli/v11/configuring-npm/package-json) | `package.json` configuration |
-| [package-lock.json Documentation](https://docs.npmjs.com/cli/v11/configuring-npm/package-lock-json) | `package-lock.json` reference |
-| [npm install Documentation](https://docs.npmjs.com/cli/v11/commands/npm-install) | Package installation |
-| [npm audit Documentation](https://docs.npmjs.com/cli/v11/commands/npm-audit) | Security auditing |
-| [npm update Documentation](https://docs.npmjs.com/cli/v11/commands/npm-update) | Package updates |
-
----
+| `npm install`                    | `npm ci`                      |
+| -------------------------------- | ----------------------------- |
+| Commonly used during development | Commonly used in CI/CD        |
+| Can update the lock file         | Uses the existing lock file   |
+| Installs dependencies            | Performs a clean installation |
