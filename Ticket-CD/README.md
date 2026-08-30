@@ -2,7 +2,7 @@
 
 ## Document Information
 
-| Author | Created On | Version | Last Updated By | Last Updated On |
+| Author | Created On | Version | Last Updated By | Last Updated On | 
 | ------ | ---------- | ------- | --------------- | --------------- |
 |  vikas | 27-08-2026 | v1.0    |                 |                 |
 
@@ -336,11 +336,6 @@ After the rollback change is reviewed and merged, the CD pipeline can deploy it.
 | Stage changes   | `git add .`                                  |
 | Commit          | `git commit -m "message"`                    |
 | Push            | `git push origin <branch>`                   |
-| Test Ansible    | `ansible all -i inventory -m ping`           |
-| Syntax check    | `ansible-playbook --syntax-check deploy.yml` |
-| Run deployment  | `ansible-playbook -i inventory deploy.yml`   |
-| Check inventory | `ansible-inventory -i inventory --list`      |
-| Rollback commit | `git revert <commit-id>`                     |
 
 ---
 
@@ -382,11 +377,7 @@ A reusable structure that organizes Ansible tasks, variables, templates, files, 
 
 ### What is Jenkins doing in this workflow?
 
-Jenkins automates the CD pipeline and runs the Ansible deployment.
-
-### Why use a feature branch?
-
-To develop changes independently without directly modifying `main`.
+Jenkins automates the CD pipeline and runs the Ansible deployment
 
 ### How do we validate an Ansible playbook?
 
