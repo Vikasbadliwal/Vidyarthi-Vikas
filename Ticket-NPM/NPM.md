@@ -2,69 +2,59 @@
 
 ---
 
-# Author Table
+## Document Information
 
-| Author | Created On | Version | Last Updated By | Last Edited On | L0 Reviewer     | L1 Reviewer    | L2 Reviewer        |
-| ------ | ---------- | ------- | --------------- | -------------- | --------------- | -------------- | ------------------ |
-| Vikas  | 31-08-2026 | 1.0     |                 |                | Deepak Kushwaha | Faisal/Mohit K | Mahesh Kumar/Varun |
+| Author | Created On | Version | L0 Reviewer     | L1 Reviewer    | L2 Reviewer        |
+| ------ | ---------- | ------- | --------------- | -------------- | ------------------ |
+| Vikas  | 31-08-2026 | 1.0     | Deepak Kushwaha | Faisal/Mohit K | Mahesh Kumar/Varun |
 
 ---
 
 # Table of Contents
 
-1. [Introduction](#1-introduction)
-2. [What is Maven](#2-what-is-maven)
-3. [What is pom.xml](#3-what-is-pomxml)
-4. [Prerequisites](#4-prerequisites)
-5. [Step-by-Step Installation and Setup](#5-step-by-step-installation-and-setup)
-6. [Important pom.xml Sections](#6-important-pomxml-sections)
-7. [Common Maven Commands](#7-common-maven-commands)
-8. [Maven Workflow](#8-maven-workflow)
-9. [Maven in CI/CD](#9-maven-in-cicd)
-10. [Best Practices](#10-best-practices)
-11. [Troubleshooting](#11-troubleshooting)
-12. [Conclusion](#12-conclusion)
-13. [FAQs](#13-faqs)
-14. [References](#14-references)
+1. Introduction
+2. What is Maven
+3. What is pom.xml
+4. Prerequisites
+5. Step-by-Step Installation
+6. Basic pom.xml Configuration
+7. Common Maven Commands
+8. Maven Workflow
+9. Maven in CI/CD
+10. Best Practices
+11. Troubleshooting
+12. Conclusion
+13. FAQs
+14. References
 
 ---
 
 # 1. Introduction
 
-Maven is a build and dependency management tool mainly used for Java applications.
+Maven is a build and dependency management tool used for Java projects.
 
-Maven uses a configuration file called **`pom.xml`**.
-
-The `pom.xml` file defines:
+Maven uses a file called **`pom.xml`** to manage:
 
 * Project information
 * Dependencies
 * Plugins
 * Build configuration
 
-This SOP explains how to install Java and Maven, create a Maven project, configure `pom.xml`, and build the application.
+This SOP explains how to install Maven and configure a basic `pom.xml` step by step.
 
 ---
 
 # 2. What is Maven?
 
-**Maven** is a tool used to build and manage Java projects.
+Maven helps to automate common Java project tasks.
 
-Maven can:
-
-| Function              | Purpose                                 |
-| --------------------- | --------------------------------------- |
-| Compile               | Converts Java source code into bytecode |
-| Test                  | Runs application tests                  |
-| Dependency Management | Downloads required libraries            |
-| Package               | Creates JAR/WAR artifacts               |
-| Build                 | Automates the application build process |
-
-Example:
-
-```bash
-mvn clean package
-```
+| Task                  | Purpose                      |
+| --------------------- | ---------------------------- |
+| Compile               | Builds Java source code      |
+| Test                  | Runs application tests       |
+| Dependency Management | Downloads required libraries |
+| Package               | Creates JAR/WAR files        |
+| Build                 | Automates the project build  |
 
 ---
 
@@ -74,7 +64,7 @@ mvn clean package
 
 It is the main configuration file of a Maven project.
 
-Simple structure:
+Maven reads this file to understand the project and its dependencies.
 
 ```text
 Java Project
@@ -82,68 +72,48 @@ Java Project
      v
   pom.xml
      |
-     +---- Project Information
-     |
+     +---- Project Details
      +---- Dependencies
-     |
      +---- Plugins
-     |
-     +---- Build Configuration
      |
      v
 Maven Build
 ```
 
-Example:
+Important point:
 
-```xml
-<project>
-
-    <modelVersion>4.0.0</modelVersion>
-
-    <groupId>com.example</groupId>
-    <artifactId>my-app</artifactId>
-    <version>1.0.0</version>
-
-</project>
-```
-
-### Important Point
-
-> **Maven is the tool, and `pom.xml` is the configuration file used by Maven.**
+> **Maven is the tool. `pom.xml` is the configuration file used by Maven.**
 
 ---
 
 # 4. Prerequisites
 
-Before setting up Maven, install the following:
+Before installing Maven, Java must be installed.
 
-| Requirement | Purpose                                     |
-| ----------- | ------------------------------------------- |
-| Java JDK    | Required to run Maven and Java applications |
-| Maven       | Build and dependency management             |
-| Terminal    | Used to execute commands                    |
-| Git         | Recommended for source control              |
+| Requirement | Purpose                         |
+| ----------- | ------------------------------- |
+| Java JDK    | Required by Maven               |
+| Maven       | Build and dependency management |
+| Terminal    | Run commands                    |
+| Git         | Source control                  |
 
-Check whether Java is installed:
+Check Java:
 
 ```bash
 java -version
 ```
 
-Check whether Maven is installed:
+Check Java compiler:
 
 ```bash
-mvn -version
+javac -version
 ```
 
 ---
 
-# 5. Step-by-Step Installation and Setup
+# 5. Step-by-Step Installation
 
 ## 5.1 Install Java
-
-Maven requires Java.
 
 For Ubuntu/Debian:
 
@@ -152,11 +122,11 @@ sudo apt update
 sudo apt install openjdk-17-jdk -y
 ```
 
-> Use the Java version required by your project.
+> Use the Java version required by your application.
 
 ---
 
-## 5.2 Verify Java Installation
+## 5.2 Verify Java
 
 Run:
 
@@ -164,7 +134,7 @@ Run:
 java -version
 ```
 
-Also check the Java compiler:
+Then:
 
 ```bash
 javac -version
@@ -177,24 +147,22 @@ openjdk version "17.x.x"
 javac 17.x.x
 ```
 
-If both commands return a version, Java is installed successfully.
+If both commands show a version, Java is installed.
 
 ---
 
 ## 5.3 Install Maven
 
-For Ubuntu/Debian:
+Run:
 
 ```bash
 sudo apt update
 sudo apt install maven -y
 ```
 
-Maven will be installed using the operating system package manager.
-
 ---
 
-## 5.4 Verify Maven Installation
+## 5.4 Verify Maven
 
 Run:
 
@@ -209,27 +177,27 @@ Apache Maven 3.x.x
 Java version: 17.x.x
 ```
 
-This confirms that Maven is installed and can find Java.
+If Maven displays its version, the installation is successful.
 
 ---
 
-## 5.5 Create Maven Project Directory
+## 5.5 Create Project Directory
 
-Create a project directory:
+Create a project:
 
 ```bash
 mkdir my-maven-app
 cd my-maven-app
 ```
 
-Create the required directories:
+Create source directories:
 
 ```bash
 mkdir -p src/main/java
 mkdir -p src/test/java
 ```
 
-Create the POM file:
+Create the POM:
 
 ```bash
 touch pom.xml
@@ -241,17 +209,15 @@ Project structure:
 my-maven-app/
 ├── pom.xml
 └── src/
-    ├── main/
-    │   └── java/
-    └── test/
-        └── java/
+    ├── main/java/
+    └── test/java/
 ```
 
 ---
 
 ## 5.6 Create Basic pom.xml
 
-Open `pom.xml`:
+Open the file:
 
 ```bash
 vi pom.xml
@@ -262,11 +228,7 @@ Add:
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="
-         http://maven.apache.org/POM/4.0.0
-         https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0">
 
     <modelVersion>4.0.0</modelVersion>
 
@@ -286,9 +248,15 @@ Save the file.
 
 ---
 
-## 5.7 Understand Project Coordinates
+## 5.7 Understand Project Details
 
-The following values identify the project:
+| Element      | Purpose                         |
+| ------------ | ------------------------------- |
+| `groupId`    | Organization/project identifier |
+| `artifactId` | Application name                |
+| `version`    | Application version             |
+
+Example:
 
 ```xml
 <groupId>com.example</groupId>
@@ -296,17 +264,11 @@ The following values identify the project:
 <version>1.0.0</version>
 ```
 
-| Element      | Meaning                         |
-| ------------ | ------------------------------- |
-| `groupId`    | Organization/project identifier |
-| `artifactId` | Application name                |
-| `version`    | Application version             |
-
 ---
 
-## 5.8 Add a Dependency
+## 5.8 Add Dependency
 
-Dependencies are external libraries required by the application.
+A dependency is an external library required by the application.
 
 Example:
 
@@ -322,17 +284,7 @@ Example:
 </dependencies>
 ```
 
-Maven downloads the dependency when the project is built.
-
-Dependency structure:
-
-```text
-Dependency
-   |
-   +-- groupId
-   +-- artifactId
-   +-- version
-```
+Maven downloads the dependency automatically during the build.
 
 ---
 
@@ -346,11 +298,9 @@ mvn validate
 
 This checks whether the Maven project configuration is valid.
 
-If there is no error, the POM configuration is valid.
-
 ---
 
-## 5.10 Compile the Project
+## 5.10 Compile Project
 
 Run:
 
@@ -358,7 +308,7 @@ Run:
 mvn compile
 ```
 
-Maven reads `pom.xml` and compiles the application source code.
+Maven reads `pom.xml` and compiles the Java source code.
 
 ---
 
@@ -370,13 +320,13 @@ Run:
 mvn test
 ```
 
-Maven executes the project's tests.
+This executes the project's tests.
 
-If the tests pass, continue to the packaging step.
+Tests should pass before deployment.
 
 ---
 
-## 5.12 Package the Application
+## 5.12 Package Application
 
 Run:
 
@@ -384,15 +334,15 @@ Run:
 mvn package
 ```
 
-Maven creates the application artifact.
+Maven creates the application package.
 
-For a JAR project, the output is normally created inside:
+The output is normally stored in:
 
 ```text
 target/
 ```
 
-Example:
+For example:
 
 ```text
 target/
@@ -401,15 +351,21 @@ target/
 
 ---
 
-## 5.13 Perform a Clean Build
+## 5.13 Clean Build
 
-To remove old build files and create a fresh build:
+To remove previous build files:
+
+```bash
+mvn clean
+```
+
+To clean and package:
 
 ```bash
 mvn clean package
 ```
 
-For installation into the local Maven repository:
+For a complete local build:
 
 ```bash
 mvn clean install
@@ -417,45 +373,50 @@ mvn clean install
 
 ---
 
-# 6. Important pom.xml Sections
+# 6. Basic pom.xml Sections
 
-| Section        | Purpose                                 |
-| -------------- | --------------------------------------- |
-| `modelVersion` | Defines the POM model                   |
-| `groupId`      | Identifies the project/organization     |
-| `artifactId`   | Defines the application name            |
-| `version`      | Defines project version                 |
-| `properties`   | Stores reusable configuration           |
-| `dependencies` | Defines required libraries              |
-| `build`        | Contains build configuration            |
-| `plugins`      | Provides additional build functionality |
+| Section        | Purpose                 |
+| -------------- | ----------------------- |
+| `modelVersion` | Defines POM model       |
+| `groupId`      | Project/organization ID |
+| `artifactId`   | Application name        |
+| `version`      | Project version         |
+| `properties`   | Common configuration    |
+| `dependencies` | Required libraries      |
+| `build`        | Build configuration     |
+| `plugins`      | Build tools/functions   |
 
-Example:
+A simple POM can contain:
 
-```xml
-<properties>
-    <maven.compiler.source>17</maven.compiler.source>
-    <maven.compiler.target>17</maven.compiler.target>
-</properties>
+```text
+pom.xml
+   |
+   +-- Project Information
+   |
+   +-- Properties
+   |
+   +-- Dependencies
+   |
+   +-- Build / Plugins
 ```
 
 ---
 
 # 7. Common Maven Commands
 
-| Command               | Purpose                            |
-| --------------------- | ---------------------------------- |
-| `mvn -version`        | Check Maven version                |
-| `mvn validate`        | Validate `pom.xml`                 |
-| `mvn compile`         | Compile source code                |
-| `mvn test`            | Run tests                          |
-| `mvn package`         | Create JAR/WAR                     |
-| `mvn clean`           | Remove previous build output       |
-| `mvn clean package`   | Clean and package                  |
-| `mvn clean install`   | Clean, build, and install artifact |
-| `mvn dependency:tree` | Display dependencies               |
+| Command               | Purpose                  |
+| --------------------- | ------------------------ |
+| `mvn -version`        | Check Maven version      |
+| `mvn validate`        | Validate POM             |
+| `mvn compile`         | Compile code             |
+| `mvn test`            | Run tests                |
+| `mvn package`         | Create JAR/WAR           |
+| `mvn clean`           | Remove build files       |
+| `mvn clean package`   | Clean and package        |
+| `mvn clean install`   | Clean, build and install |
+| `mvn dependency:tree` | Show dependencies        |
 
-### Most Common Build Command
+### Recommended Build Command
 
 ```bash
 mvn clean package
@@ -465,97 +426,84 @@ mvn clean package
 
 # 8. Maven Workflow
 
-The basic Maven workflow is:
+The basic workflow is:
 
 ```text
+Install Java
+     ↓
+Install Maven
+     ↓
 Create Project
-      |
-      v
+     ↓
 Create pom.xml
-      |
-      v
+     ↓
 Add Dependencies
-      |
-      v
-Write Java Code
-      |
-      v
-mvn validate
-      |
-      v
-mvn compile
-      |
-      v
-mvn test
-      |
-      v
-mvn package
-      |
-      v
-Application Artifact
+     ↓
+Write Code
+     ↓
+Compile
+     ↓
+Test
+     ↓
+Package
+     ↓
+Deploy
 ```
 
 ---
 
 # 9. Maven in CI/CD
 
-Maven is commonly used in CI/CD to build and test Java applications.
+Maven is commonly used in CI/CD pipelines to build Java applications.
 
-Typical pipeline:
+Typical workflow:
 
 ```text
 Git Push
-   |
-   v
+   ↓
 Checkout Code
-   |
-   v
+   ↓
 Read pom.xml
-   |
-   v
+   ↓
 Download Dependencies
-   |
-   v
+   ↓
 Compile
-   |
-   v
+   ↓
 Test
-   |
-   v
+   ↓
 Package
-   |
-   v
+   ↓
 Deploy
 ```
 
-Common CI/CD command:
+A common CI/CD command is:
 
 ```bash
 mvn clean package
 ```
 
-The generated JAR/WAR can then be passed to the deployment stage.
+The generated JAR/WAR can be used in the deployment stage.
 
 ---
 
 # 10. Best Practices
 
-| Best Practice                    | Reason                        |
-| -------------------------------- | ----------------------------- |
-| Keep `pom.xml` in Git            | Required to build the project |
-| Define dependency versions       | Makes builds predictable      |
-| Avoid unnecessary dependencies   | Reduces project complexity    |
-| Run tests before deployment      | Helps detect issues           |
-| Use `mvn clean package` in CI/CD | Produces a clean build        |
-| Review dependency changes        | Prevents unexpected updates   |
-| Keep `pom.xml` readable          | Easier maintenance            |
-| Use the required Java version    | Avoids compatibility issues   |
+| Practice                       | Reason                      |
+| ------------------------------ | --------------------------- |
+| Keep `pom.xml` in Git          | Required for builds         |
+| Define dependency versions     | Makes builds predictable    |
+| Avoid unnecessary dependencies | Reduces complexity          |
+| Run tests before deployment    | Finds application issues    |
+| Use clean builds in CI/CD      | Avoids old build files      |
+| Review dependency changes      | Prevents unexpected changes |
+| Use the required Java version  | Avoids compatibility issues |
+| Keep POM readable              | Easier maintenance          |
 
 ---
 
 # 11. Troubleshooting
 
-## 11.1 Maven Command Not Found
+## 11.1 Maven Not Found
 
 Error:
 
@@ -578,7 +526,7 @@ sudo apt install maven -y
 
 ---
 
-## 11.2 Java Command Not Found
+## 11.2 Java Not Found
 
 Error:
 
@@ -595,7 +543,6 @@ java -version
 Install Java:
 
 ```bash
-sudo apt update
 sudo apt install openjdk-17-jdk -y
 ```
 
@@ -616,7 +563,7 @@ pwd
 ls -la
 ```
 
-Make sure `pom.xml` exists:
+Check the POM:
 
 ```bash
 ls -l pom.xml
@@ -640,72 +587,35 @@ mvn clean package
 
 Check:
 
-* Network connection
+* Network connectivity
 * Dependency name
 * Dependency version
 * Maven repository configuration
 
-Run:
+You can inspect dependencies using:
 
 ```bash
 mvn dependency:tree
 ```
 
-Review the Maven error message to identify the failed dependency.
-
 ---
 
-## 11.5 Compilation Failure
+## 11.5 Build Failure
 
 Run:
 
 ```bash
-mvn compile
+mvn clean package
 ```
 
-Check:
+Then check:
 
 ```bash
 java -version
 mvn -version
 ```
 
-Also review:
-
-* Java source code
-* Java version
-* Dependency versions
-* `pom.xml`
-
----
-
-## 11.6 Test Failure
-
-Run:
-
-```bash
-mvn test
-```
-
-Review the test output.
-
-Fix the failed tests before deployment.
-
----
-
-## 11.7 Clean Build
-
-If old build files are causing problems:
-
-```bash
-mvn clean
-```
-
-Then run:
-
-```bash
-mvn clean package
-```
+Review the Maven error message and fix the reported issue.
 
 ---
 
@@ -715,29 +625,27 @@ Maven is used to build and manage Java applications.
 
 `pom.xml` is the main configuration file used by Maven.
 
-The complete setup is:
+The basic process is:
 
 ```text
-Install Java
-     ↓
-Install Maven
-     ↓
-Create Project
-     ↓
-Create pom.xml
-     ↓
-Add Dependencies
-     ↓
+Java
+ ↓
+Maven
+ ↓
+pom.xml
+ ↓
+Dependencies
+ ↓
 Compile
-     ↓
+ ↓
 Test
-     ↓
+ ↓
 Package
-     ↓
+ ↓
 Deploy
 ```
 
-### Important Commands
+Important commands:
 
 ```bash
 java -version
@@ -749,9 +657,9 @@ mvn package
 mvn clean package
 ```
 
-### Simple Explanation for Reviewer
+###  Explanation
 
-> **“First, we install Java because Maven requires Java. Then we install Maven and verify the installation. We create a Maven project and configure the `pom.xml`. The POM contains project details and dependencies. Maven reads this file, downloads the dependencies, compiles the code, runs tests, and creates the final JAR/WAR artifact.”**
+> **“Java is installed first because Maven requires Java. Then Maven is installed and verified. We create the Maven project and configure `pom.xml`. The POM contains project details and dependencies. Maven reads the POM, downloads dependencies, compiles the code, runs tests, and creates the final application artifact.”**
 
 ---
 
@@ -767,33 +675,23 @@ Maven is a build and dependency management tool for Java projects.
 
 ### Q3. Do we install pom.xml?
 
-No. We install Java and Maven. `pom.xml` is created as part of the Maven project.
+No. We install Java and Maven. `pom.xml` is created/configured inside the Maven project.
 
-### Q4. Why is pom.xml required?
-
-It tells Maven about the project, dependencies, plugins, and build configuration.
-
-### Q5. How do I check Maven?
+### Q4. How do I check Maven?
 
 ```bash
 mvn -version
 ```
 
-### Q6. How do I build the project?
+### Q5. How do I build the application?
 
 ```bash
 mvn clean package
 ```
 
-### Q7. How do I run tests?
+### Q6. Where is the build output?
 
-```bash
-mvn test
-```
-
-### Q8. Where is the build output created?
-
-Normally inside:
+Normally:
 
 ```text
 target/
@@ -805,9 +703,9 @@ target/
 
 | Reference                   | Purpose                             |
 | --------------------------- | ----------------------------------- |
-| Maven Documentation         | Maven usage and configuration       |
-| Maven POM Reference         | `pom.xml` configuration             |
-| Maven Lifecycle             | Maven build lifecycle               |
+| Maven Documentation         | Maven configuration and usage       |
+| Maven POM Reference         | POM configuration                   |
+| Maven Lifecycle             | Build lifecycle                     |
 | Maven Dependency Management | Dependency management               |
 | Java Documentation          | Java installation and configuration |
 
