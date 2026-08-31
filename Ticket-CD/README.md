@@ -14,15 +14,13 @@
 2. [Prerequisites](#2-prerequisites)
 3. [Ansible Role](#3-ansible-role)
 4. [CD Workflow](#4-cd-workflow)
-5. [Git Workflow](#5-git-workflow)
-6. [Jenkins Pipeline](#6-jenkins-pipeline)
-7. [Ansible Deployment](#7-ansible-deployment)
-8. [Verification](#8-verification)
-9. [Rollback](#9-rollback)
-10. [Troubleshooting](#10-troubleshooting)
-11. [Best Practices](#11-best-practices)
-12. [Conclusion](#12-conclusion)
-13. [FAQs](#13-faqs)
+5. [Jenkins Pipeline](#6-jenkins-pipeline)
+6. [Ansible Deployment](#7-ansible-deployment)
+7. [Verification](#8-verification)
+8. [Troubleshooting](#10-troubleshooting)
+9. [Best Practices](#11-best-practices)
+10. [Conclusion](#12-conclusion)
+11. [FAQs](#13-faqs)
 
 ---
 
@@ -55,50 +53,7 @@ The following components are required:
 
 ---
 
-# 5. Git Workflow
-
-Create a feature branch:
-
-```bash
-git checkout main
-git pull origin main
-
-git checkout -b feature/application-deployment
-```
-
-Check changes:
-
-```bash
-git status
-git diff
-```
-
-Stage and commit:
-
-```bash
-git add .
-git commit -m "Update application deployment role"
-```
-
-Push the branch:
-
-```bash
-git push origin feature/application-deployment
-```
-
-Create a Pull Request:
-
-```text
-feature/application-deployment
-            ↓
-           main
-```
-
-After review and approval, merge the PR into `main`.
-
----
-
-# 6. Jenkins CD Pipeline
+# 5. Jenkins CD Pipeline
 
 Jenkins automates the deployment process.
 
@@ -131,65 +86,7 @@ Notification
 
 ---
 
-## 6.1 Checkout
-
-Jenkins checks out the repository code.
-
-```groovy
-stage('Checkout') {
-    steps {
-        checkout scm
-    }
-}
-```
-
----
-
-## 6.2 Validation
-
-Check the playbook syntax:
-
-```bash
-ansible-playbook --syntax-check deploy.yml
-```
-
-If configured, run:
-
-```bash
-ansible-lint
-```
-
-If validation fails, the deployment should stop.
-
----
-
-## 6.3 Approval
-
-For production deployment, manual approval can be added.
-
-```text
-Validation
-    ↓
-Approval
-   / \
- Yes  No
-  ↓    ↓
-Deploy Stop
-```
-
----
-
-## 6.4 Deployment
-
-Jenkins executes the Ansible playbook:
-
-```bash
-ansible-playbook -i inventory deploy.yml
-```
-
----
-
-# 7. Ansible Deployment
+# 6. Ansible Deployment
 
 ### Inventory
 
@@ -275,28 +172,6 @@ curl http://<server-ip>
 
 ---
 
-# 9. Rollback
-
-If the deployment causes an issue, use the approved rollback procedure.
-
-Common options:
-
-| Method                 | Purpose                            |
-| ---------------------- | ---------------------------------- |
-| `git revert`           | Revert a Git change                |
-| Previous version       | Deploy the last known-good version |
-| Previous configuration | Restore previous configuration     |
-
-Example:
-
-```bash
-git revert <commit-id>
-```
-
-After the rollback change is reviewed and merged, the CD pipeline can deploy it.
-
----
-
 # 10. Troubleshooting
 
 | Problem                    | Command / Check                              |
@@ -322,6 +197,15 @@ After the rollback change is reviewed and merged, the CD pipeline can deploy it.
 * Use approval for production deployments.
 * Maintain deployment logs.
 * Always have a tested rollback procedure.
+
+---
+
+# 13. Contact Information
+
+| **Name**            | **Email**                              |
+| ------------------- | -----------------------------------    |
+| vikas badliwal      | vikash.badliwal.snaatak@mygurukulam.co |
+| <DevOps Team>       | [<email>](mailto:<email>) |
 
 ---
 
@@ -391,8 +275,3 @@ ansible-playbook --syntax-check deploy.yml
 ansible-playbook -i inventory deploy.yml
 ```
 
-### How do we rollback a Git change?
-
-```bash
-git revert <commit-id>
-```
