@@ -1,5 +1,8 @@
 # Ansible Role | Continuous Deployment (CD) Workflow | Documentation |
 
+<img width="236" height="133" alt="image" src="https://github.com/user-attachments/assets/9e6e0771-2879-4544-8459-ee2c9881ca30" />
+
+
 ## Document Information
 
 | Author | Created On | Version | Last Updated By | Last Updated On |  L0 Reviewer    | L1 Reviewer    |    L2 Reviewer     |
