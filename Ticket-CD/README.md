@@ -345,29 +345,7 @@ If the Jenkins pipeline fails:
 
 # 12. Conclusion
 
-The CD workflow connects **Git, Jenkins, and Ansible** to automate deployment.
-
-The overall process is:
-
-```text
-Developer
-   ↓
-Git
-   ↓
-Code Review
-   ↓
-Jenkins
-   ↓
-Validation
-   ↓
-Ansible
-   ↓
-Target Server
-   ↓
-Verification
-```
-
-This provides a simple, repeatable, and controlled deployment process for Ansible Roles.
+The CD workflow for Ansible Roles provides an automated and controlled approach to deployment by connecting Git, Jenkins, and Ansible. Git manages code changes, Jenkins performs validation, and Ansible automates deployment to the target server. Overall, this workflow reduces manual effort, improves consistency, minimizes deployment errors, and makes the deployment process simple, repeatable, and reliable.
 
 ---
 
