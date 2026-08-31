@@ -314,15 +314,6 @@ node_modules/
 package-lock.json
 ```
 
-### Project Structure
-
-```text
-my-node-app/
-├── node_modules/
-├── package.json
-└── package-lock.json
-```
-
 ---
 
 ## Best Practices
@@ -336,12 +327,6 @@ my-node-app/
 * Use `npm ci` in CI/CD when a lock file is available.
 * Avoid installing application dependencies globally.
 * Use approved package registries in enterprise environments.
-
-Example `.gitignore`:
-
-```text
-node_modules/
-```
 
 ---
 
@@ -429,6 +414,5 @@ When a valid `package-lock.json` is available, `npm ci` provides a clean depende
 | Name           | Email                                                                                   |
 | -------------- | --------------------------------------------------------------------------------------- |
 | Vikas Badliwal | [vikash.badliwal.snaatak@mygurukulam.co](mailto:vikash.badliwal.snaatak@mygurukulam.co) |
-| DevOps Team    | `<email>`                                                                               |
 
 ---
