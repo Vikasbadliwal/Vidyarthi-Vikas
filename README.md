@@ -1,4 +1,4 @@
-# NPM Installation - SOP
+# NPM Installation | Documentation |
 
 <p align="center">
   <img src="https://nodejs.org/static/logos/nodejsLight.svg" alt="Node.js Logo" width="300"/>
