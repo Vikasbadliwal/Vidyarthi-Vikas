@@ -134,39 +134,8 @@ The CD workflow automatically deploys approved Ansible changes to target servers
 
 ### Workflow
 
-```text
-Developer
-    |
-    v
-Git Feature Branch
-    |
-    v
-Pull Request
-    |
-    v
-Code Review
-    |
-    v
-main Branch
-    |
-    v
-Jenkins
-    |
-    v
-Validation
-    |
-    v
-Approval
-    |
-    v
-Ansible
-    |
-    v
-Target Server
-    |
-    v
-Verification
-```
+<img width="682" height="1024" alt="image" src="https://github.com/user-attachments/assets/c865bb59-91b5-45c9-8452-cd6c3f1b3d32" />
+
 
 ### Workflow Steps
 
