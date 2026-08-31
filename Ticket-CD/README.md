@@ -1,487 +1,182 @@
-# Ansible Role – Continuous Deployment (CD) Workflow
+# Ansible Role | Continuous Deployment (CD) Workflow | Documentation
 
-## Document Information
-
-| Author | Created On | Version | Last Updated By | Last Updated On |
-| ------ | ---------- | ------- | --------------- | --------------- |
-| vikas  | 27-08-2026 | v1.0    |                 |                 |
+<img width="236" height="133" alt="Ansible CD Workflow" src="https://github.com/user-attachments/assets/9e6e0771-2879-4544-8459-ee2c9881ca30" />
 
 ---
 
-# Table of Contents
+## Document Information
+
+| Author | Created On | Version | Last Updated By | Last Updated On | L0 Reviewer     | L1 Reviewer    | L2 Reviewer        |
+| ------ | ---------- | ------- | --------------- | --------------- | --------------- | -------------- | ------------------ |
+| Vikas  | 27-08-2026 | v1.0    |                 |                 | Deepak Kushwaha | Faisal/Mohit K | Mahesh Kumar/Varun |
+
+---
+
+## Table of Contents
 
 1. [Purpose](#1-purpose)
 2. [Prerequisites](#2-prerequisites)
-3. [What is Continuous Deployment](#3-what-is-continuous-deployment)
-4. [What is an Ansible Role](#4-what-is-an-ansible-role)
-5. [Ansible Role Structure](#5-ansible-role-structure)
-6. [CD Workflow](#6-cd-workflow)
-7. [Git Workflow](#7-git-workflow)
-8. [Jenkins Pipeline](#8-jenkins-pipeline)
-9. [Ansible Deployment](#9-ansible-deployment)
-10. [Deployment Verification](#10-deployment-verification)
-11. [Rollback Strategy](#11-rollback-strategy)
-12. [Troubleshooting](#12-troubleshooting)
-13. [Best Practices](#13-best-practices)
-14. [Advantages](#14-advantages)
-15. [Conclusion](#15-conclusion)
-16. [FAQs](#16-faqs)
+3. [Ansible Role](#3-ansible-role)
+4. [CD Workflow](#4-cd-workflow)
+5. [Jenkins Pipeline](#5-jenkins-pipeline)
+6. [Ansible Deployment](#6-ansible-deployment)
+7. [Verification](#7-verification)
+8. [Troubleshooting](#8-troubleshooting)
+9. [Best Practices](#9-best-practices)
+10. [Contact Information](#10-contact-information)
+11. [Quick Reference](#11-quick-reference)
+12. [Conclusion](#12-conclusion)
+13. [FAQs](#13-faqs)
 
 ---
 
 # 1. Purpose
 
-The purpose of this documentation is to explain the **Continuous Deployment (CD) workflow for an Ansible Role**.
+This document describes the **Continuous Deployment (CD) workflow for an Ansible Role**.
 
-The workflow automates the deployment of application configurations and infrastructure changes from a Git repository to target servers using **Jenkins and Ansible**.
+The workflow uses:
 
-The overall objective is to:
+* Git for source code management
+* Jenkins for automation
+* Ansible for deployment
+* Target servers for application configuration
 
-* Automate deployment.
-* Reduce manual intervention.
-* Maintain consistent server configuration.
+### Objectives
+
+* Automate deployments.
+* Reduce manual work.
+* Maintain consistent configuration.
+* Support code review.
 * Provide repeatable deployments.
-* Integrate Git, Jenkins, and Ansible.
-* Support controlled deployments to different environments.
+* Support controlled production deployment.
 
 ---
 
 # 2. Prerequisites
 
-Before implementing the CD workflow, ensure the following components are available.
+The following are required:
 
-## 2.1 Git
+| Component         | Purpose                    |
+| ----------------- | -------------------------- |
+| Git               | Stores Ansible code        |
+| Jenkins           | Runs the CD pipeline       |
+| Ansible           | Performs deployment        |
+| Ansible Inventory | Defines target servers     |
+| SSH Access        | Connects to target servers |
+| Target Server     | Receives the deployment    |
 
-Git is required for source-code and Ansible role management.
-
-Verify Git:
-
-```bash
-git --version
-```
-
----
-
-## 2.2 Jenkins
-
-Jenkins is used to automate the CD pipeline.
+### Required Access
 
 The Jenkins server should have:
 
-* Jenkins installed and running.
-* Required credentials configured.
-* Git access.
-* Ansible installed or available to the Jenkins agent.
-* Network connectivity to target servers.
+* Access to the Git repository.
+* Ansible installed.
+* SSH access to target servers.
+* Required credentials.
+* Permission to execute Ansible commands.
 
----
-
-## 2.3 Ansible
-
-Verify Ansible:
+Check Ansible:
 
 ```bash
 ansible --version
 ```
 
----
-
-## 2.4 Target Server
-
-The target server should:
-
-* Be reachable from the Jenkins agent.
-* Have SSH access configured.
-* Have the required user permissions.
-* Have Python available if required by the Ansible modules being used.
-
-Test connectivity:
+Check SSH connectivity:
 
 ```bash
-ansible all -i inventory -m ping
-```
-
-Expected result:
-
-```text
-SUCCESS => {
-    "changed": false,
-    "ping": "pong"
-}
+ssh <user>@<server-ip>
 ```
 
 ---
 
-# 3. What is Continuous Deployment
+# 3. Ansible Role
 
-Continuous Deployment (CD) is the process of automatically deploying validated changes to a target environment.
+An **Ansible Role** is a reusable structure used to organize Ansible automation.
 
-In this workflow, Git stores the Ansible code, Jenkins manages the pipeline, and Ansible performs the deployment.
+Typical role structure:
 
-```text
-Developer
-    |
-    | git push
-    v
-Git Repository
-    |
-    | Webhook
-    v
-Jenkins
-    |
-    +---- Checkout
-    |
-    +---- Validation
-    |
-    +---- Approval
-    |
-    +---- Ansible Deployment
-    |
-    v
-Target Server
-    |
-    v
-Deployment Verification
-```
+<img width="214" height="418" alt="image" src="https://github.com/user-attachments/assets/557ca0be-4032-4baa-97c6-597393d3371c" />
+
+
+### Main Role Directories
+
+| Directory    | Purpose                    |
+| ------------ | -------------------------- |
+| `tasks/`     | Contains deployment tasks  |
+| `handlers/`  | Contains handlers          |
+| `templates/` | Contains Jinja2 templates  |
+| `files/`     | Contains static files      |
+| `vars/`      | Contains role variables    |
+| `defaults/`  | Contains default variables |
+| `meta/`      | Contains role metadata     |
 
 ---
 
-# 4. What is an Ansible Role
+# 4. CD Workflow
 
-An Ansible Role is a reusable and organized way to group Ansible tasks, variables, templates, handlers, files, and metadata.
+The CD workflow automatically deploys approved Ansible changes to target servers.
 
-A role helps maintain a clean and reusable Ansible project structure.
+### Workflow
 
-For example:
+<img width="682" height="1024" alt="image" src="https://github.com/user-attachments/assets/c865bb59-91b5-45c9-8452-cd6c3f1b3d32" />
 
-```yaml
-- name: Deploy application
-  hosts: application
-  become: true
 
-  roles:
-    - application
-```
+### Workflow Steps
 
-The playbook calls the role, and the role performs the required configuration or deployment tasks.
-
----
-
-# 5. Ansible Role Structure
-
-A typical Ansible role can have the following structure:
-
-```text
-application-role/
-│
-├── defaults/
-│   └── main.yml
-│
-├── handlers/
-│   └── main.yml
-│
-├── tasks/
-│   └── main.yml
-│
-├── templates/
-│   └── application.conf.j2
-│
-├── files/
-│   └── application.conf
-│
-├── vars/
-│   └── main.yml
-│
-├── meta/
-│   └── main.yml
-│
-└── README.md
-```
-
-## Role Directories
-
-| Directory    | Purpose                                 |
-| ------------ | --------------------------------------- |
-| `tasks/`     | Contains tasks executed by the role     |
-| `defaults/`  | Contains default variables              |
-| `vars/`      | Contains role variables                 |
-| `templates/` | Contains Jinja2 templates               |
-| `files/`     | Contains static files                   |
-| `handlers/`  | Contains handlers                       |
-| `meta/`      | Contains role metadata and dependencies |
+| Step | Activity                                   |
+| ---- | ------------------------------------------ |
+| 1    | Developer creates/updates Ansible code     |
+| 2    | Code is pushed to Git                      |
+| 3    | Pull Request is created                    |
+| 4    | Code review is performed                   |
+| 5    | Approved code is merged into `main`        |
+| 6    | Jenkins starts the CD pipeline             |
+| 7    | Jenkins checks the Ansible code            |
+| 8    | Approval is taken if required              |
+| 9    | Jenkins runs the Ansible playbook          |
+| 10   | Ansible applies the role to target servers |
+| 11   | Deployment is verified                     |
+| 12   | Pipeline result is reported                |
 
 ---
 
-# 6. CD Workflow
+# 5. Jenkins Pipeline
 
-The complete CD workflow is:
+Jenkins automates the deployment process.
 
-```text
-Developer
-    |
-    v
-Feature Branch
-    |
-    v
-Git Commit
-    |
-    v
-Pull Request
-    |
-    v
-Code Review
-    |
-    v
-Main Branch
-    |
-    v
-Jenkins Pipeline
-    |
-    +------------------+
-    |                  |
-    v                  v
-Checkout          Validation
-                       |
-                       v
-                   Approval
-                       |
-                       v
-                 Ansible Playbook
-                       |
-                       v
-                  Ansible Role
-                       |
-                       v
-                  Target Server
-                       |
-                       v
-                   Verification
-                       |
-                       v
-                  Notification
-```
+### Pipeline Stages
+
+| Stage        | Purpose                       |
+| ------------ | ----------------------------- |
+| Checkout     | Gets the latest Git code      |
+| Validation   | Checks Ansible code           |
+| Approval     | Manual approval when required |
+| Deployment   | Runs the Ansible playbook     |
+| Verification | Checks deployment status      |
+| Notification | Reports pipeline result       |
+
 
 ---
 
-## 6.1 Developer Creates a Feature Branch
+# 6. Ansible Deployment
 
-Create a feature branch:
+## 6.1 Inventory
 
-```bash
-git checkout -b feature/application-deployment
-```
-
-Or:
-
-```bash
-git switch -c feature/application-deployment
-```
-
----
-
-## 6.2 Make Changes
-
-Update the required Ansible role files.
-
-For example:
-
-```text
-tasks/main.yml
-defaults/main.yml
-templates/application.conf.j2
-handlers/main.yml
-```
-
----
-
-## 6.3 Check Changes
-
-```bash
-git status
-```
-
-Review changes:
-
-```bash
-git diff
-```
-
----
-
-## 6.4 Stage Changes
-
-```bash
-git add .
-```
-
----
-
-## 6.5 Commit Changes
-
-```bash
-git commit -m "Update application deployment role"
-```
-
----
-
-## 6.6 Push Changes
-
-```bash
-git push origin feature/application-deployment
-```
-
----
-
-## 6.7 Pull Request
-
-Create a Pull Request:
-
-```text
-feature/application-deployment
-              |
-              v
-             main
-```
-
-The Pull Request should go through the required code-review process.
-
----
-
-# 7. Git Workflow
-
-The Git workflow used by the CD process can be represented as:
-
-```text
-Feature Branch
-      |
-      v
-Development
-      |
-      v
-git add
-      |
-      v
-git commit
-      |
-      v
-git push
-      |
-      v
-Pull Request
-      |
-      v
-Code Review
-      |
-      v
-Merge to main
-      |
-      v
-Jenkins CD Pipeline
-```
-
-Before working on a feature, developers should ensure that their local branch is based on the latest code.
-
-For example:
-
-```bash
-git checkout main
-git pull origin main
-git checkout -b feature/application-deployment
-```
-
----
-
-# 8. Jenkins Pipeline
-
-Jenkins automates the CD workflow.
-
-A typical pipeline consists of the following stages:
-
-```text
-Checkout
-   |
-   v
-Validation
-   |
-   v
-Approval
-   |
-   v
-Deployment
-   |
-   v
-Verification
-   |
-   v
-Notification
-```
-
----
-
-## 8.1 Checkout
-
-Jenkins checks out the latest source code.
+The inventory defines the target servers.
 
 Example:
 
-```groovy
-stage('Checkout') {
-    steps {
-        checkout scm
-    }
-}
+```ini
+[application]
+app-server-01
+app-server-02
 ```
 
 ---
 
-## 8.2 Validation
+## 6.2 Playbook
 
-Validate the Ansible playbook before deployment.
-
-```bash
-ansible-playbook --syntax-check deploy.yml
-```
-
-If `ansible-lint` is configured:
-
-```bash
-ansible-lint
-```
-
-The deployment should proceed only if validation succeeds.
-
----
-
-## 8.3 Approval
-
-For production deployments, a manual approval step can be added.
-
-```text
-Validation
-    |
-    v
-Manual Approval
-    |
-    +---- Approved ----> Deployment
-    |
-    +---- Rejected ----> Pipeline Stops
-```
-
----
-
-## 8.4 Deployment
-
-After approval, Jenkins executes the Ansible playbook.
-
-```bash
-ansible-playbook -i inventory deploy.yml
-```
-
----
-
-# 9. Ansible Deployment
-
-A deployment playbook can call the Ansible role.
+The playbook calls the Ansible Role.
 
 Example:
 
@@ -495,59 +190,64 @@ Example:
     - application
 ```
 
-The role performs the required deployment tasks.
-
-Example:
-
-```yaml
 ---
-- name: Install application package
-  ansible.builtin.package:
-    name: nginx
-    state: present
 
-- name: Start application service
-  ansible.builtin.service:
-    name: nginx
-    state: started
-    enabled: true
+## 6.3 Validate Playbook
+
+Before deployment:
+
+```bash
+ansible-playbook --syntax-check deploy.yml
+```
+
+If there is no error, the syntax is valid.
+
+---
+
+## 6.4 Test Connectivity
+
+Run:
+
+```bash
+ansible all -i inventory -m ping
+```
+
+Expected result:
+
+```text
+SUCCESS
 ```
 
 ---
 
-## 9.1 Inventory
+## 6.5 Run Deployment
 
-Example inventory:
-
-```ini
-[application]
-app-server-01
-app-server-02
-```
-
-The inventory defines the target hosts where Ansible will execute the role.
-
----
-
-## 9.2 Execute Playbook Manually
-
-Before integrating with Jenkins, the playbook can be tested manually:
+Run:
 
 ```bash
 ansible-playbook -i inventory deploy.yml
 ```
 
-For a specific host:
+To deploy to a specific server:
 
 ```bash
-ansible-playbook -i inventory deploy.yml --limit app-server-01
+ansible-playbook -i inventory deploy.yml \
+--limit app-server-01
 ```
 
 ---
 
-# 10. Deployment Verification
+# 7. Verification
 
-After deployment, verify that the required service or application is running.
+After deployment, verify the target server.
+
+### Check Ansible Connectivity
+
+```bash
+ansible all -i inventory -m ping
+```
+
+### Check Service
 
 Example:
 
@@ -555,220 +255,124 @@ Example:
 systemctl status nginx
 ```
 
-Check connectivity:
-
-```bash
-ansible all -i inventory -m ping
-```
-
-Application verification can also be performed using:
+### Check Application
 
 ```bash
 curl http://<server-ip>
 ```
 
-The Jenkins pipeline should mark the deployment as successful only when the required verification checks pass.
+### Verification Table
+
+| Check        | Expected Result                   |
+| ------------ | --------------------------------- |
+| Ansible Ping | Server responds successfully      |
+| Service      | Service is running                |
+| Application  | Application responds successfully |
+| Jenkins      | Pipeline shows success            |
 
 ---
 
-# 11. Rollback Strategy
+# 8. Troubleshooting
 
-If a deployment causes an issue, the deployment should be rolled back using the project's approved rollback procedure.
+| Problem                    | Check / Command                              |
+| -------------------------- | -------------------------------------------- |
+| Ansible connection failure | `ansible all -i inventory -m ping`           |
+| Playbook syntax error      | `ansible-playbook --syntax-check deploy.yml` |
+| Inventory issue            | `ansible-inventory -i inventory --list`      |
+| SSH issue                  | Check SSH credentials/connectivity           |
+| Permission issue           | Check `become` and user permissions          |
+| Jenkins failure            | Check Jenkins console logs                   |
+| Deployment failure         | Check Ansible task output                    |
+| Service failure            | `systemctl status <service>`                 |
 
-Possible approaches include:
-
-* Revert the Git commit.
-* Restore the previous configuration.
-* Deploy the previous known-good version.
-* Re-run the previous Ansible role version.
-
-Git revert example:
-
-```bash
-git revert <commit-id>
-```
-
-After the rollback change is reviewed and merged, the CD pipeline can deploy the reverted configuration.
-
-> Rollback procedures should be tested before production use.
-
----
-
-# 12. Troubleshooting
-
-## 12.1 Ansible Connection Failure
-
-Test connectivity:
-
-```bash
-ansible all -i inventory -m ping
-```
-
-Check:
-
-* SSH connectivity.
-* Inventory hostname.
-* SSH credentials.
-* Firewall rules.
-* Target server availability.
-
----
-
-## 12.2 Playbook Syntax Error
-
-Run:
-
-```bash
-ansible-playbook --syntax-check deploy.yml
-```
-
-Correct the reported YAML or Ansible syntax issue and run the validation again.
-
----
-
-## 12.3 Permission Error
-
-If elevated privileges are required, verify the playbook configuration:
-
-```yaml
-become: true
-```
-
-Also verify that the Ansible user has the required permissions.
-
----
-
-## 12.4 Inventory Error
-
-Display the inventory:
+### Inventory Check
 
 ```bash
 ansible-inventory -i inventory --list
 ```
 
-Verify that the expected hosts and groups are present.
+### Playbook Check
 
----
-
-## 12.5 Jenkins Pipeline Failure
-
-Check:
-
-* Jenkins console output.
-* Git checkout status.
-* Ansible installation.
-* Jenkins credentials.
-* SSH connectivity.
-* Inventory configuration.
-* Playbook errors.
-
----
-
-# 13. Best Practices
-
-* Use feature branches for changes.
-* Use Pull Requests for code review.
-* Keep the `main` branch stable.
-* Run `ansible-playbook --syntax-check` before deployment.
-* Use `ansible-lint` where applicable.
-* Never hardcode passwords or private keys in the repository.
-* Store secrets using an approved secret-management solution.
-* Use Jenkins credentials for authentication.
-* Use separate inventories for different environments where appropriate.
-* Use manual approval for production deployments when required.
-* Keep deployment logs.
-* Implement deployment verification.
-* Maintain a tested rollback procedure.
-* Keep Ansible roles reusable and modular.
-
----
-
-# 14. Advantages
-
-| Advantage         | Description                                                   |
-| ----------------- | ------------------------------------------------------------- |
-| Automation        | Reduces manual deployment work                                |
-| Consistency       | Applies the same configuration repeatedly                     |
-| Repeatability     | Deployment can be executed multiple times                     |
-| Version Control   | Ansible code is maintained in Git                             |
-| Code Review       | Changes can be reviewed through Pull Requests                 |
-| CI/CD Integration | Jenkins can automate validation and deployment                |
-| Faster Deployment | Reduces deployment time                                       |
-| Rollback          | Previous configurations can be restored using version control |
-
----
-
-# 15. Conclusion
-
-The Ansible CD workflow provides an automated and repeatable method for deploying application configurations and infrastructure changes.
-
-The overall workflow is:
-
-```text
-Developer
-    |
-    v
-Git Feature Branch
-    |
-    v
-Pull Request
-    |
-    v
-Code Review
-    |
-    v
-Main Branch
-    |
-    v
-Jenkins
-    |
-    v
-Validation
-    |
-    v
-Approval
-    |
-    v
-Ansible Playbook
-    |
-    v
-Ansible Role
-    |
-    v
-Target Server
-    |
-    v
-Verification
+```bash
+ansible-playbook --syntax-check deploy.yml
 ```
 
-By integrating **Git, Jenkins, and Ansible**, the deployment process becomes more consistent, controlled, repeatable, and suitable for CI/CD environments.
+### Jenkins Logs
+
+If the Jenkins pipeline fails:
+
+1. Open the Jenkins job.
+2. Open the failed build.
+3. Check **Console Output**.
+4. Identify the failed stage.
+5. Fix the issue.
+6. Run the pipeline again.
 
 ---
 
-# 16. FAQs
+# 9. Best Practices
 
-## Q1. What is the purpose of Ansible in the CD workflow?
+| Best Practice                  | Reason                         |
+| ------------------------------ | ------------------------------ |
+| Use Git branches               | Keeps changes isolated         |
+| Use Pull Requests              | Supports code review           |
+| Keep `main` stable             | Protects production code       |
+| Validate before deployment     | Finds syntax issues early      |
+| Use Jenkins credentials        | Avoids hardcoded secrets       |
+| Do not commit passwords/keys   | Protects sensitive information |
+| Use separate inventories       | Keeps environments isolated    |
+| Use approval for production    | Prevents accidental deployment |
 
-Ansible automates configuration and deployment tasks on target servers.
+---
 
-## Q2. What is Jenkins used for?
+# 10. Contact Information
 
-Jenkins automates the CD pipeline and executes the required validation and deployment stages.
+| Name           | Email                                                                                   |
+| -------------- | --------------------------------------------------------------------------------------- |
+| Vikas Badliwal | [vikash.badliwal.snaatak@mygurukulam.co](mailto:vikash.badliwal.snaatak@mygurukulam.co) |
 
-## Q3. Why do we use an Ansible Role?
+---
 
-Roles organize and reuse Ansible tasks, variables, templates, files, and handlers.
+# 11. Reference
 
-## Q4. Why do we use a feature branch?
-
-A feature branch allows developers to work on changes independently without directly modifying the `main` branch.
+| Topic                   |    Links                                                      |
+| ----------------------- | ------------------------------------------------------------- |
+| Ansible Documentation   |   https://docs.ansible.com/projects/ansible/latest/index.html |
+| Jenkins Documentation   |             https://www.jenkins.io/doc/                       |
 
 
 ---
 
-# References
+# 12. Conclusion
 
-* Ansible Documentation
-* Jenkins Documentation
-* Git Documentation
-* Project-specific deployment documentation
+The CD workflow for Ansible Roles provides an automated and controlled approach to deployment by connecting Git, Jenkins, and Ansible. Git manages code changes, Jenkins performs validation, and Ansible automates deployment to the target server. Overall, this workflow reduces manual effort, improves consistency, minimizes deployment errors, and makes the deployment process simple, repeatable, and reliable.
+
+---
+
+# 13. FAQs
+
+### Q1. What is an Ansible Role?
+
+An Ansible Role is a reusable structure used to organize tasks, variables, templates, files, and handlers.
+
+### Q2. What does Jenkins do?
+
+Jenkins automates the CD pipeline and runs the Ansible deployment.
+
+### Q3. How do we validate a playbook?
+
+```bash
+ansible-playbook --syntax-check deploy.yml
+```
+
+### Q4. How do we test server connectivity?
+
+```bash
+ansible all -i inventory -m ping
+```
+
+### Q5. How do we deploy?
+
+```bash
+ansible-playbook -i inventory deploy.yml
+```
