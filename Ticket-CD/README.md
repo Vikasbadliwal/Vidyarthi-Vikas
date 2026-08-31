@@ -195,8 +195,6 @@ curl http://<server-ip>
 * Use Jenkins credentials for authentication.
 * Use separate inventories for environments when required.
 * Use approval for production deployments.
-* Maintain deployment logs.
-* Always have a tested rollback procedure.
 
 ---
 
@@ -211,15 +209,10 @@ curl http://<server-ip>
 
 # 12. Quick Reference
 
-| Requirement     | Command                                      |
-| --------------- | -------------------------------------------- |
-| Check Git       | `git --version`                              |
-| Check Ansible   | `ansible --version`                          |
-| Check status    | `git status`                                 |
-| Check changes   | `git diff`                                   |
-| Stage changes   | `git add .`                                  |
-| Commit          | `git commit -m "message"`                    |
-| Push            | `git push origin <branch>`                   |
+|        Topic           |      Link                                                   |
+| ---------------------- | ----------------------------------------------------------  |
+| Ansible Documentation  | https://docs.ansible.com/projects/ansible/latest/index.html |
+| Jenkins Documentation  |   https://www.jenkins.io/doc/                               |
 
 ---
 
