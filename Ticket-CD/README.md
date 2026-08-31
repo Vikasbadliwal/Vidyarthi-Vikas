@@ -346,7 +346,6 @@ If the Jenkins pipeline fails:
 | Name           | Email                                                                                   |
 | -------------- | --------------------------------------------------------------------------------------- |
 | Vikas Badliwal | [vikash.badliwal.snaatak@mygurukulam.co](mailto:vikash.badliwal.snaatak@mygurukulam.co) |
-| DevOps Team    | `<email>`                                                                               |
 
 ---
 
