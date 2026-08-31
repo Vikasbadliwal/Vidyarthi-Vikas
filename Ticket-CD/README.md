@@ -110,22 +110,6 @@ Typical role structure:
 | `defaults/`  | Contains default variables |
 | `meta/`      | Contains role metadata     |
 
-Example role task:
-
-```yaml
----
-- name: Install nginx
-  ansible.builtin.package:
-    name: nginx
-    state: present
-
-- name: Start nginx
-  ansible.builtin.service:
-    name: nginx
-    state: started
-    enabled: true
-```
-
 ---
 
 # 4. CD Workflow
