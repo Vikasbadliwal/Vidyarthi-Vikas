@@ -13,29 +13,26 @@
 
 # Table of Contents
 
-1. [Introduction](#1-introduction)
-2. [What is Python Virtual Environment](#2-what-is-python-virtual-environment)
-3. [Why Python Virtual Environment is Required](#3-why-python-virtual-environment-is-required)
-4. [Python Virtual Environment Workflow](#4-python-virtual-environment-workflow)
+1. [Purpose](#1-purpose)
+2. [Introduction](#2-introduction)
 
-   * [4.1 Workflow Diagram](#41-workflow-diagram)
-5. [Features of Python Virtual Environment](#5-features-of-python-virtual-environment)
-6. [Virtual Environment Tools](#6-virtual-environment-tools)
-8. [Advantages and Disadvantages](#8-advanthttps://meet.google.com/rtd-cbbz-ruaages-and-disadvantages)
-9. [Best Practices](#9-best-practices)
-10. [Operational Commands](#10-operational-commands)
+<details>
+<summary><strong>3. Operational Commands</strong></summary>
 
-    * [10.1 Creation](#101-creation)
-    * [10.2 Activation](#102-activation)
-    * [10.3 Package Installation](#103-package-installation)
-    * [10.4 Freezing Dependencies](#104-freezing-dependencies)
-    * [10.5 Deactivation](#105-deactivation)
-    * [10.6 Deletion](#106-deletion)
-11. [Troubleshooting](#11-troubleshooting)
-12. [Conclusion](#12-conclusion)
-13. [FAQs](#13-faqs)
-14. [Contact Information](#14-contact-information)
-15. [References](#15-references)
+- [3.1 Creation](#31-creation)
+- [3.2 Activation](#32-activation)
+- [3.3 Package Installation](#33-package-installation)
+- [3.4 Freezing Dependencies](#34-freezing-dependencies)
+- [3.5 Deactivation](#35-deactivation)
+- [3.6 Deletion](#36-deletion)
+
+</details>
+
+4. [Troubleshooting](#4-troubleshooting)
+5. [Conclusion](#5-conclusion)
+6. [FAQs](#6-faqs)
+7. [Contact Information](#7-contact-information)
+8. [References](#8-references)
 
 ---
 
