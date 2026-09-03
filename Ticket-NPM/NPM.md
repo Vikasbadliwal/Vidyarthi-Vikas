@@ -1,197 +1,98 @@
-# MAVEN | POM.XML | MAVEN PROJECT SETUP SOP
+# MAVEN | POM.XML | INSTALLATION & SETUP SOP
 
 ---
 
-# Author Table
+## Document Information
 
-| **Author** | **Created On** | **Version** | **Last Updated By** | **Last Edited On** | **L0 Reviewer** | **L1 Reviewer** | **L2 Reviewer**    |
-| ---------- | -------------- | ----------- | ------------------- | ------------------ | --------------- | --------------- | ------------------ |
-| vikas      | 31-08-2026     | 1.0         |                     |                    | Deepak Kushwaha | Faisal/Mohit K  | Mahesh Kumar/Varun |
+| Author | Created On | Version | Last Updated By | Last Edited On | L0 Reviewer     | L1 Reviewer    | L2 Reviewer        |
+| ------ | ---------- | ------- | --------------- | -------------- | --------------- | -------------- | ------------------ |
+| Vikas  | 31-08-2026 | 1.0     |                 |                | Deepak Kushwaha | Faisal/Mohit K | Mahesh Kumar/Varun |
 
 ---
 
-# Table of Contents
+## Table of Contents
 
 1. [Introduction](#1-introduction)
-2. [What is Maven](#2-what-is-maven)
-3. [What is pom.xml](#3-what-is-pomxml)
-4. [Prerequisites](#4-prerequisites)
-5. [Step-by-Step Maven and pom.xml Setup](#5-step-by-step-maven-and-pomxml-setup)
+2. [Prerequisites](#2-prerequisites)
+3. [Step-by-Step Installation](#3-step-by-step-installation)
 
-   * [5.1 Install Java](#51-install-java)
-   * [5.2 Verify Java](#52-verify-java)
-   * [5.3 Install Maven](#53-install-maven)
-   * [5.4 Verify Maven](#54-verify-maven)
-   * [5.5 Create Maven Project](#55-create-maven-project)
-   * [5.6 Understand Project Structure](#56-understand-project-structure)
-   * [5.7 Create pom.xml](#57-create-pomxml)
-   * [5.8 Add Dependencies](#58-add-dependencies)
-   * [5.9 Build the Project](#59-build-the-project)
-   * [5.10 Run Tests](#510-run-tests)
-   * [5.11 Package the Application](#511-package-the-application)
-6. [Important pom.xml Sections](#6-important-pomxml-sections)
-7. [Common Maven Commands](#7-common-maven-commands)
-8. [Maven Build Workflow](#8-maven-build-workflow)
-9. [Best Practices](#10-best-practices)
-10. [Troubleshooting](#11-troubleshooting)
-11. [Conclusion](#12-conclusion)
-12. [FAQs](#13-faqs)
-13. [References](#14-references)
+   * [3.1 Install Java](#31-install-java)
+   * [3.2 Verify Java](#32-verify-java)
+   * [3.3 Install Maven](#33-install-maven)
+   * [3.4 Verify Maven](#34-verify-maven)
+   * [3.5 Create Maven Project](#35-create-maven-project)
+   * [3.6 Create pom.xml](#36-create-pomxml)
+   * [3.7 Add Dependency](#37-add-dependency)
+   * [3.8 Build Project](#38-build-project)
+   * [3.9 Run Tests](#39-run-tests)
+   * [3.10 Package Project](#310-package-project)
+4. [Common Commands](#5-common-commands)
+5. [Troubleshooting](#6-troubleshooting)
+6. [Best Practices](#7-best-practices)
+7. [Conclusion](#8-conclusion)
+8. [Contact Information](#9-contact-information)
+9. [References](#10-references)
+10. [FAQs](#11-faqs)
 
 ---
 
 # 1. Introduction
 
-Maven is a build and dependency management tool commonly used for Java applications.
+Maven is a build and dependency management tool used for Java projects.
 
-Maven uses a file called **`pom.xml`** to define project information, dependencies, plugins, and build configuration.
+Maven uses a configuration file called **`pom.xml`**.
 
-The basic flow is:
-
-```text
-Java
-  |
-  v
-Maven
-  |
-  v
-pom.xml
-  |
-  +---- Dependencies
-  |
-  +---- Plugins
-  |
-  +---- Build Configuration
-  |
-  v
-Build / Test / Package
-```
-
-This SOP explains how to install Java and Maven, create a Maven project, configure `pom.xml`, add dependencies, build the project, and troubleshoot common issues.
+This SOP explains how to install Java and Maven and create a basic Maven project with `pom.xml`.
 
 ---
 
-# 2. What is Maven?
+# 2. Prerequisites
 
-**Maven** is a build automation and dependency management tool for Java projects.
+Before starting, make sure you have:
 
-Maven helps developers to:
-
-* Compile Java code.
-* Download dependencies.
-* Run tests.
-* Package applications.
-* Manage project configuration.
-* Run build plugins.
-* Support CI/CD pipelines.
-
-Example:
-
-```bash
-mvn clean install
-```
-
-This command performs a Maven build using the project's `pom.xml`.
+| Requirement         | Purpose                         |
+| ------------------- | ------------------------------- |
+| Linux server/system | Installation environment        |
+| Java JDK            | Required by Maven               |
+| Maven               | Build and dependency management |
+| Terminal            | Run commands                    |
+| Internet access     | Download packages/dependencies  |
+| Git                 | Recommended for source control  |
 
 ---
 
-# 3. What is pom.xml?
+# 3. Step-by-Step Installation
 
-`pom.xml` stands for **Project Object Model XML**.
+## 3.1 Install Java
 
-It is the main configuration file of a Maven project.
+Maven requires Java.
 
-It contains information such as:
-
-| Section        | Purpose                                    |
-| -------------- | ------------------------------------------ |
-| `groupId`      | Identifies the project or organization     |
-| `artifactId`   | Name of the application/package            |
-| `version`      | Project version                            |
-| `dependencies` | External libraries required by the project |
-| `plugins`      | Tools used during the build                |
-| `properties`   | Reusable configuration values              |
-| `build`        | Build-related configuration                |
-
-Example:
-
-```xml
-<project>
-    <modelVersion>4.0.0</modelVersion>
-
-    <groupId>com.example</groupId>
-    <artifactId>my-app</artifactId>
-    <version>1.0.0</version>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.18.0</version>
-        </dependency>
-    </dependencies>
-</project>
-```
-
----
-
-# 4. Prerequisites
-
-Before setting up Maven, install:
-
-| Requirement | Purpose                                     |
-| ----------- | ------------------------------------------- |
-| Java JDK    | Required to run and build Java applications |
-| Maven       | Build and dependency management             |
-| Terminal    | Execute Maven commands                      |
-| Git         | Recommended for source control              |
-
-Verify Java:
-
-```bash
-java -version
-```
-
-Verify Maven:
-
-```bash
-mvn -version
-```
-
----
-
-# 5. Step-by-Step Maven and pom.xml Setup
-
-# 5.1 Install Java
-
-Maven requires a Java Development Kit (JDK).
-
-On Ubuntu/Debian-based systems:
+For Ubuntu/Debian:
 
 ```bash
 sudo apt update
 sudo apt install openjdk-17-jdk -y
 ```
 
-> Use the Java version required by your project. The example above uses Java 17.
+> Use the Java version required by your project.
 
 ---
 
-# 5.2 Verify Java
+## 3.2 Verify Java
 
-Run:
+Check Java:
 
 ```bash
 java -version
 ```
 
-Also check the compiler:
+Check Java compiler:
 
 ```bash
 javac -version
 ```
 
-Example:
+Expected:
 
 ```text
 openjdk version "17.x.x"
@@ -202,20 +103,20 @@ If both commands return a version, Java is installed successfully.
 
 ---
 
-# 5.3 Install Maven
+## 3.3 Install Maven
 
-On Ubuntu/Debian:
+Install Maven using the package manager:
 
 ```bash
 sudo apt update
 sudo apt install maven -y
 ```
 
-This installs Maven using the operating system package manager.
+Wait for the installation to complete.
 
 ---
 
-# 5.4 Verify Maven
+## 3.4 Verify Maven
 
 Run:
 
@@ -223,20 +124,18 @@ Run:
 mvn -version
 ```
 
-Example:
+Expected output contains:
 
 ```text
 Apache Maven 3.x.x
 Java version: 17.x.x
 ```
 
-Maven should also display the Java version being used.
-
-If Maven returns a version successfully, the installation is complete.
+If Maven displays its version, installation is successful.
 
 ---
 
-# 5.5 Create Maven Project
+## 3.5 Create Maven Project
 
 Create a project directory:
 
@@ -245,65 +144,30 @@ mkdir my-maven-app
 cd my-maven-app
 ```
 
-Create the basic project files:
+Create the Maven directories:
 
 ```bash
 mkdir -p src/main/java
 mkdir -p src/test/java
 ```
 
-Create the Maven configuration file:
+Create `pom.xml`:
 
 ```bash
 touch pom.xml
 ```
 
-The project now contains:
-
-```text
-my-maven-app/
-├── pom.xml
-└── src/
-    ├── main/
-    │   └── java/
-    └── test/
-        └── java/
-```
-
 ---
 
-# 5.6 Understand Project Structure
+## 3.6 Create pom.xml
 
-A standard Maven project follows this structure:
+Open the file:
 
-```text
-my-maven-app/
-│
-├── pom.xml
-│
-└── src/
-    ├── main/
-    │   ├── java/
-    │   └── resources/
-    │
-    └── test/
-        ├── java/
-        └── resources/
+```bash
+vi pom.xml
 ```
 
-| Directory            | Purpose                             |
-| -------------------- | ----------------------------------- |
-| `src/main/java`      | Application source code             |
-| `src/main/resources` | Application resources/configuration |
-| `src/test/java`      | Test code                           |
-| `src/test/resources` | Test resources                      |
-| `pom.xml`            | Maven project configuration         |
-
----
-
-# 5.7 Create pom.xml
-
-Add the following basic configuration:
+Add:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -328,21 +192,24 @@ Add the following basic configuration:
 </project>
 ```
 
-The important project coordinates are:
+Save the file.
 
-```text
-groupId    = com.example
-artifactId = my-maven-app
-version    = 1.0.0
-```
+### Important POM Fields
+
+| Field        | Purpose                             |
+| ------------ | ----------------------------------- |
+| `groupId`    | Identifies the project/organization |
+| `artifactId` | Name of the application             |
+| `version`    | Application version                 |
+| `properties` | Stores reusable configuration       |
 
 ---
 
-# 5.8 Add Dependencies
+## 3.7 Add Dependency
 
 Dependencies are external libraries required by the application.
 
-Example:
+Add the following inside `<project>`:
 
 ```xml
 <dependencies>
@@ -356,25 +223,22 @@ Example:
 </dependencies>
 ```
 
-The dependency structure is:
+The structure is:
 
 ```text
 Dependency
-   |
-   +-- groupId
-   |
-   +-- artifactId
-   |
-   +-- version
+ ├── groupId
+ ├── artifactId
+ └── version
 ```
 
-Maven downloads the required dependency automatically during the build.
+Maven downloads the dependency automatically during the build.
 
 ---
 
-# 5.9 Build the Project
+## 3.8 Build Project
 
-From the directory containing `pom.xml`, run:
+Run:
 
 ```bash
 mvn compile
@@ -382,7 +246,7 @@ mvn compile
 
 Maven reads `pom.xml` and compiles the source code.
 
-To perform a complete build:
+For a complete build:
 
 ```bash
 mvn clean install
@@ -390,15 +254,13 @@ mvn clean install
 
 ---
 
-# 5.10 Run Tests
+## 3.9 Run Tests
 
 Run project tests:
 
 ```bash
 mvn test
 ```
-
-Maven executes the tests configured for the project.
 
 Expected result:
 
@@ -408,173 +270,25 @@ Failures: 0
 Errors: 0
 ```
 
-If tests fail, Maven reports the failure and the build should be investigated before deployment.
+If tests fail, check the Maven output and fix the issue before deployment.
 
 ---
+# 5. Common Commands
 
-# 5.11 Package the Application
+| Command               | Purpose                  |
+| --------------------- | ------------------------ |
+| `java -version`       | Check Java version       |
+| `mvn -version`        | Check Maven version      |
+| `mvn validate`        | Validate project         |
+| `mvn compile`         | Compile code             |
+| `mvn test`            | Run tests                |
+| `mvn package`         | Create package           |
+| `mvn clean`           | Remove build output      |
+| `mvn install`         | Install artifact locally |
+| `mvn clean install`   | Clean and build          |
+| `mvn dependency:tree` | Display dependencies     |
 
-Create the application package:
-
-```bash
-mvn package
-```
-
-Depending on the project, Maven may generate:
-
-```text
-target/
-└── my-maven-app-1.0.0.jar
-```
-
-The generated artifact can then be used for deployment.
-
----
-
-# 6. Important pom.xml Sections
-
-## 6.1 modelVersion
-
-Defines the POM model version.
-
-```xml
-<modelVersion>4.0.0</modelVersion>
-```
-
----
-
-## 6.2 groupId
-
-Identifies the organization or project group.
-
-```xml
-<groupId>com.example</groupId>
-```
-
----
-
-## 6.3 artifactId
-
-Identifies the application or package.
-
-```xml
-<artifactId>my-maven-app</artifactId>
-```
-
----
-
-## 6.4 version
-
-Defines the project version.
-
-```xml
-<version>1.0.0</version>
-```
-
----
-
-## 6.5 properties
-
-Properties allow reusable configuration values.
-
-Example:
-
-```xml
-<properties>
-    <maven.compiler.source>17</maven.compiler.source>
-    <maven.compiler.target>17</maven.compiler.target>
-</properties>
-```
-
----
-
-## 6.6 dependencies
-
-Defines libraries required by the application.
-
-```xml
-<dependencies>
-
-    <dependency>
-        <groupId>org.apache.commons</groupId>
-        <artifactId>commons-lang3</artifactId>
-        <version>3.18.0</version>
-    </dependency>
-
-</dependencies>
-```
-
----
-
-## 6.7 plugins
-
-Plugins perform specific build tasks.
-
-Example:
-
-```xml
-<build>
-    <plugins>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-        </plugin>
-    </plugins>
-</build>
-```
-
----
-
-# 7. Common Maven Commands
-
-| Command               | Purpose                                |
-| --------------------- | -------------------------------------- |
-| `mvn -version`        | Check Maven version                    |
-| `mvn validate`        | Validate the project                   |
-| `mvn compile`         | Compile source code                    |
-| `mvn test`            | Run tests                              |
-| `mvn package`         | Create application package             |
-| `mvn verify`          | Run verification steps                 |
-| `mvn install`         | Install artifact into local repository |
-| `mvn clean`           | Remove previous build output           |
-| `mvn clean install`   | Clean and build the project            |
-| `mvn dependency:tree` | Display dependency tree                |
-
----
-
-# 8. Maven Build Workflow
-
-The normal Maven workflow is:
-
-```text
-Developer
-    |
-    v
-Create / Update pom.xml
-    |
-    v
-Add Dependencies
-    |
-    v
-Write Source Code
-    |
-    v
-mvn compile
-    |
-    v
-mvn test
-    |
-    v
-mvn package
-    |
-    v
-Application Artifact
-    |
-    v
-Deployment
-```
-
-A common build command is:
+### Recommended Build Command
 
 ```bash
 mvn clean install
@@ -582,24 +296,9 @@ mvn clean install
 
 ---
 
+# 6. Troubleshooting
 
----
-
-# 9. Best Practices
-
-| Best Practice                         | Reason                              |
-| ------------------------------------- | ----------------------------------- |
-| Keep `pom.xml` in Git                 | Required for reproducible builds    |
-| Define required dependency versions   | Makes builds predictable            |
-| Avoid unnecessary dependencies        | Reduces project complexity          |
-| Run `mvn test` before deployment      | Detects application issues          |
-| Review dependency updates             | Prevent unexpected changes          |
-
----
-
-# 10. Troubleshooting
-
-## 10.1 Maven Command Not Found
+## 6.1 Maven Not Found
 
 Error:
 
@@ -613,7 +312,7 @@ Check:
 mvn -version
 ```
 
-If Maven is not installed:
+Install Maven:
 
 ```bash
 sudo apt update
@@ -622,7 +321,7 @@ sudo apt install maven -y
 
 ---
 
-## 10.2 Java Not Found
+## 6.2 Java Not Found
 
 Error:
 
@@ -643,7 +342,7 @@ sudo apt update
 sudo apt install openjdk-17-jdk -y
 ```
 
-Then verify:
+Verify:
 
 ```bash
 java -version
@@ -651,52 +350,28 @@ java -version
 
 ---
 
-## 10.3 JAVA_HOME Problem
-
-Check:
-
-```bash
-echo $JAVA_HOME
-```
-
-Also check:
-
-```bash
-which java
-```
-
-Maven should use a valid Java installation.
-
-Verify:
-
-```bash
-mvn -version
-```
-
----
-
-## 10.4 pom.xml Not Found
+## 6.3 pom.xml Not Found
 
 Error:
 
 ```text
-The goal you specified requires a project to execute but there is no POM in this directory
+There is no POM in this directory
 ```
 
-Check the current directory:
+Check:
 
 ```bash
 pwd
 ls -la
 ```
 
-Make sure `pom.xml` exists:
+Check for POM:
 
 ```bash
 ls -l pom.xml
 ```
 
-Navigate to the Maven project:
+Navigate to the project directory:
 
 ```bash
 cd <project-directory>
@@ -710,15 +385,14 @@ mvn clean install
 
 ---
 
-## 10.5 Dependency Download Failure
+## 6.4 Dependency Download Failure
 
 If Maven cannot download dependencies, check:
 
-* Network connectivity.
-* Maven repository configuration.
+* Internet connectivity.
+* Repository configuration.
 * Proxy configuration.
-* Dependency coordinates.
-* Repository availability.
+* Dependency name and version.
 
 Run:
 
@@ -726,11 +400,11 @@ Run:
 mvn dependency:tree
 ```
 
-Review the Maven error output for the failed dependency.
+Review the Maven error message.
 
 ---
 
-## 10.6 Compilation Failure
+## 6.5 Compilation Failure
 
 Run:
 
@@ -740,21 +414,21 @@ mvn compile
 
 Check:
 
-* Java version.
-* Compiler configuration.
-* Source code errors.
-* Dependency versions.
-
-Verify Java:
-
 ```bash
 java -version
 mvn -version
 ```
 
+Also check:
+
+* Java version.
+* Compiler configuration.
+* Source code errors.
+* Dependency versions.
+
 ---
 
-## 10.7 Test Failure
+## 6.6 Test Failure
 
 Run:
 
@@ -764,127 +438,70 @@ mvn test
 
 Review the test output.
 
-Do not proceed with deployment until required tests pass.
+Do not continue to deployment until required tests pass.
 
 ---
 
-## 10.8 Clean Build
+# 7. Best Practices
 
-If the project has stale build files, run:
-
-```bash
-mvn clean
-```
-
-Then:
-
-```bash
-mvn clean install
-```
+| Practice                       | Reason                          |
+| ------------------------------ | ------------------------------- |
+| Keep `pom.xml` in Git          | Maintains project configuration |
+| Define dependency versions     | Provides predictable builds     |
+| Avoid unnecessary dependencies | Keeps project simple            |
+| Run tests before deployment    | Detects issues early            |
+| Review dependency changes      | Avoids unexpected updates       |
+| Use the required Java version  | Prevents compatibility issues   |
 
 ---
 
-# 11. Conclusion
+# 8. Conclusion
+The Maven installation and setup workflow provides a structured process for setting up and building Java applications. By installing and verifying Java and Maven, creating the project and pom.xml, and managing dependencies, developers can easily compile, test, and package applications. Overall, Maven simplifies the build process and helps maintain a consistent and manageable Java development environment.
 
-Maven is used to build and manage Java applications.
+The key point is:
 
-The main configuration file is:
-
-```text
-pom.xml
-```
-
-The basic setup is:
-
-```text
-Install Java
-    ↓
-Install Maven
-    ↓
-Create Project
-    ↓
-Create pom.xml
-    ↓
-Add Dependencies
-    ↓
-Write Code
-    ↓
-mvn compile
-    ↓
-mvn test
-    ↓
-mvn package
-    ↓
-Deploy
-```
-
-### Important Commands
-
-```bash
-java -version
-
-mvn -version
-
-mvn compile
-
-mvn test
-
-mvn package
-
-mvn clean install
-```
-
-The most important point to remember is:
-
-> **Maven uses `pom.xml` to understand what the Java project needs and how it should be built.**
+> **Java is required by Maven, and Maven uses `pom.xml` to understand the project, dependencies, and build process.**
 
 ---
 
-# 12. FAQs
+# 9. Contact Information
+
+| Name           | Email                                                                                   |
+| -------------- | --------------------------------------------------------------------------------------- |
+| Vikas Badliwal | [vikash.badliwal.snaatak@mygurukulam.co](mailto:vikash.badliwal.snaatak@mygurukulam.co) |
+
+---
+
+# 10. References
+
+| Resource              | Purpose                             |
+| --------------------- | ----------------------------------- |
+| Maven Documentation   | Official Maven documentation        |
+| Maven POM Reference   | POM configuration                   |
+| Java Documentation    | Java installation and configuration |
+
+---
+
+# 11. FAQs
 
 ### Q1. What is Maven?
 
 Maven is a build automation and dependency management tool for Java projects.
 
-### Q2. What is pom.xml?
+### Q2. What is `pom.xml`?
 
-`pom.xml` is the main configuration file used by Maven.
+`pom.xml` is the main configuration file of a Maven project.
 
-### Q3. Do we install pom.xml?
+### Q3. Do we install `pom.xml`?
 
-No. `pom.xml` is a project configuration file. We install Java and Maven, then create or configure `pom.xml`.
+No. We install Java and Maven. `pom.xml` is then created inside the Maven project.
 
-### Q4. What is a dependency?
+### Q4. Why is Java required?
 
-A dependency is an external library required by the application.
+Maven runs on Java, so a Java JDK is required.
 
-### Q5. How do I check Maven?
+### Q5. How do I verify Maven?
 
 ```bash
 mvn -version
-```
-
----
-
-# 13. References
-
-| Topic                       | Description                                   |
-| --------------------------- | --------------------------------------------- |
-| Maven Documentation         | Official Maven documentation                  |
-| Maven POM Reference         | POM configuration reference                   |
-| Maven Getting Started       | Maven project and build guide                 |
-| Maven Lifecycle             | Maven build lifecycle documentation           |
-| Java Documentation          | Java installation and configuration reference |
-
----
-
-# 14. Explanation
-
-
-> **“First, we install Java because Maven requires Java. Then we install Maven and verify it using `mvn -version`. We create a Maven project with a `pom.xml` file. The `pom.xml` contains the project details and dependencies. When we run Maven commands, Maven reads the `pom.xml`, downloads the required dependencies, compiles the code, runs tests, and creates the application artifact.
-
-### One-line workflow
-
-```text
-Java → Maven → pom.xml → Dependencies → Compile → Test → Package → Deploy
 ```
