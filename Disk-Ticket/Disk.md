@@ -288,19 +288,6 @@ sudo systemctl restart <service-name>
 
 </details>
 
-Verify the applied service limits:
-
-```bash
-systemctl show <service-name> | grep Limit
-```
-
-<details>
-<summary>Screenshot - systemd limit verification</summary>
-
-<img src="<SCREENSHOT_URL_SYSTEMD_LIMIT_VERIFICATION>" alt="systemctl show output confirming service limits" width="70%" />
-
-</details>
-
 ## 7. Rollback Procedure
 
 | **Step** | **Action** |
