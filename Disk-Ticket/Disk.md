@@ -2,9 +2,10 @@
 
 ## Author Table
 
-| **Author** | **Created On** | **Version** | **Last Updated By** | **Last Edited On** | **L0 Reviewer** | **L1 Reviewer** | **L2 Reviewer** |
-|---|---|---|---|---|---|---|---|
-| Rahul Parihar | 24-08-26 | 1.0 | Rahul Parihar | 25-08-26 | Annitha | Prashant/Prince | Sandeep Rawat / Ravindra |
+
+| **Author**    | **Created On** | **Version** | **Last Updated By** | **Last Edited On** | **L0 Reviewer** | **L1 Reviewer** |   **L2 Reviewer**   |
+| ------------- | -------------- | ----------- | ------------------- | ------------------ | --------------- | --------------- | ---------------     |
+|   vikas       | 24-08-2026     | 1.0         |                     |                    | Deepak Kushwaha | Faisal/Mohit K  | Mahesh Kumar/Varun  |
 
 ## Table of Contents
 
@@ -93,7 +94,8 @@ Confirm no filesystem is above the agreed threshold (commonly 80-90%).
 <details>
 <summary>Screenshot - df -hT output</summary>
 
-<img width="827" height="342" alt="image" src="https://github.com/user-attachments/assets/3ed5f903-c9b7-4722-93d9-b6d81db13c95" />
+<img width="775" height="201" alt="DISK-jira-ticket(screen-1)" src="https://github.com/user-attachments/assets/26554b5f-eaf5-43af-a6a7-fc57eeab5884" />
+
 
 </details>
 
@@ -106,7 +108,8 @@ du -sh /* 2>/dev/null | sort -rh | head -n 15
 <details>
 <summary>Screenshot - du top 15 directories</summary>
 
-<img width="620" height="352" alt="image" src="https://github.com/user-attachments/assets/f5b823f2-61a6-4785-9d65-2eff75c48e40" />
+<img width="782" height="350" alt="DISK-Jira-Ticket(Screen-2)" src="https://github.com/user-attachments/assets/4ceb5e17-fea0-40bb-b8c9-bbb298138080" />
+
 
 </details>
 
@@ -119,7 +122,8 @@ du -sh /path/to/directory/* | sort -rh | head -n 10
 <details>
 <summary>Screenshot - drill-down du output</summary>
 
-<img width="690" height="287" alt="image" src="https://github.com/user-attachments/assets/0aa03beb-b902-4e71-9339-c9feeb5c9b81" />
+<img width="647" height="248" alt="DISK-Jira-ticket(screen-3)" src="https://github.com/user-attachments/assets/7ac29973-6b6f-4732-8e16-2585c830fac9" />
+
 
 </details>
 
@@ -134,7 +138,8 @@ mount | column -t
 <details>
 <summary>Screenshot - mount output</summary>
 
-<img width="2276" height="1335" alt="image" src="https://github.com/user-attachments/assets/ea0f81a2-0137-460a-851b-93b8694e77b1" />
+<img width="1860" height="892" alt="DISK-Jira-ticket(screen-4)" src="https://github.com/user-attachments/assets/5d64a1e2-931e-430f-91c1-1186ddc2588f" />
+
 
 </details>
 
@@ -147,7 +152,8 @@ findmnt
 <details>
 <summary>Screenshot - findmnt output</summary>
 
-<img width="2061" height="1052" alt="image" src="https://github.com/user-attachments/assets/215d7764-b256-4dee-939e-83400423879b" />
+<img width="1860" height="939" alt="DISK-Jira-ticket(screen-5)" src="https://github.com/user-attachments/assets/9f274697-1240-47f8-8fd3-47875c3c8ca6" />
+
 
 </details>
 
@@ -160,7 +166,8 @@ lsblk -f
 <details>
 <summary>Screenshot - lsblk -f output</summary>
 
-<img width="1417" height="485" alt="image" src="https://github.com/user-attachments/assets/f0830148-71ab-4a02-9a38-f711bc421a87" />
+<img width="1858" height="673" alt="DISK-Jira-ticket(screen-6)" src="https://github.com/user-attachments/assets/c70db51f-1701-464a-879c-0b2c9678eeb9" />
+
 
 </details>
 
@@ -175,7 +182,8 @@ Confirm every mount point required to survive a reboot is listed with the correc
 <details>
 <summary>Screenshot - /etc/fstab contents</summary>
 
-<img width="770" height="245" alt="image" src="https://github.com/user-attachments/assets/e9d78a54-da84-4cae-b368-34a9a91642e6" />
+<img width="1857" height="319" alt="DISK-Jira-ticket(screen-7)" src="https://github.com/user-attachments/assets/3ee22e48-45fe-4eaa-addb-4e1c81709a9a" />
+
 
 </details>
 
@@ -203,15 +211,17 @@ ulimit -Hn      # hard limit for open files
 
 <details>
 <summary>Screenshot - ulimit -a output</summary>
+       
+<img width="1864" height="420" alt="DISK-Jira-ticket(screen-8)" src="https://github.com/user-attachments/assets/90bb4be1-fdef-417a-bda1-40e39c5cc025" />
 
-<img width="597" height="387" alt="image" src="https://github.com/user-attachments/assets/973b0fcf-b63f-4967-8b8c-6047c16328d0" />
 
 </details>
 
 <details>
 <summary>Screenshot - soft and hard limit output</summary>
 
-<img width="267" height="107" alt="image" src="https://github.com/user-attachments/assets/c170f10d-2ee8-450e-a0c5-3761b2930d31" />
+<img width="341" height="116" alt="DISK-Jira-ticket(screen-9)" src="https://github.com/user-attachments/assets/8c2c423a-c0cc-45f3-a459-ea4e0f80e9fb" />
+
 
 </details>
 
@@ -225,68 +235,13 @@ This applies only to the current shell and does not persist after logout. Use it
 
 <details>
 <summary>Screenshot - temporary ulimit applied</summary>
+       
+<img width="507" height="51" alt="Disk-Jira-ticket(screen-10)" src="https://github.com/user-attachments/assets/2c731f6c-a021-421c-94a3-5501f278ace9" />
 
-<img width="322" height="52" alt="image" src="https://github.com/user-attachments/assets/417386b4-6d6c-4056-b18a-76cb84e98984" />
-
-</details>
-
-### Step 6.3: Set a persistent limit for a user or group
-
-```bash
-sudo vi /etc/security/limits.conf
-```
-
-```text
-#<domain>      <type>   <item>   <value>
-appuser        soft     nofile   65536
-appuser        hard     nofile   65536
-appuser        soft     nproc    4096
-appuser        hard     nproc    4096
-```
-
-| **Field** | **Meaning** |
-|---|---|
-| `<domain>` | Username, `@groupname`, or `*` for all users |
-| `<type>` | `soft` (adjustable) or `hard` (ceiling, root-only) |
-| `<item>` | Resource name, e.g. `nofile`, `nproc` |
-| `<value>` | Numeric limit or `unlimited` |
-
-<details>
-<summary>Screenshot - edited limits.conf entries</summary>
-
-<img width="855" height="210" alt="Screenshot 2026-08-30 203134" src="https://github.com/user-attachments/assets/d989fb61-ea1f-4258-a700-fbdb33708908" />
 
 </details>
 
-Confirm the PAM limits module is enabled, or the entries above will be silently ignored:
-
-```bash
-cat /etc/pam.d/common-session | grep pam_limits
-```
-
-The line `session required pam_limits.so` must be present.
-
-<details>
-<summary>Screenshot - pam_limits.so check</summary>
-
-<img width="917" height="130" alt="image" src="https://github.com/user-attachments/assets/2047d6f3-481a-429b-8b2d-6cdf53984ea7" />
-
-</details>
-
-Re-login as the target user and confirm the value took effect:
-
-```bash
-ulimit -a
-```
-
-<details>
-<summary>Screenshot - ulimit -a after re-login</summary>
-
-<img width="1111" height="961" alt="Screenshot 2026-08-30 203206" src="https://github.com/user-attachments/assets/3e7befe4-b02b-4f61-9cdb-cc9f514d04af" />
-
-</details>
-
-### Step 6.4: Check effective limits of a running process
+### Step 6.3: Check effective limits of a running process
 
 ```bash
 ps -ef | grep <process-name>
@@ -298,11 +253,12 @@ This is the source of truth for what limit a running process is actually under, 
 <details>
 <summary>Screenshot - /proc/pid/limits output</summary>
 
-<img width="1027" height="497" alt="image" src="https://github.com/user-attachments/assets/588f1a2d-13dc-4040-9fd3-f8fdf26eab12" />
+<img width="794" height="428" alt="DISK-Jira-ticket(screen-11)" src="https://github.com/user-attachments/assets/3ddd910f-d9fe-41c0-99ad-39cfcbfe635f" />
+
 
 </details>
 
-### Step 6.5: Configure ulimit for a systemd-managed service
+### Step 6.4: Configure ulimit for a systemd-managed service
 
 ```bash
 sudo systemctl edit <service-name>
@@ -322,9 +278,11 @@ sudo systemctl restart <service-name>
 <details>
 <summary>Screenshot - systemd override and restart</summary>
 
-<img width="600" height="61" alt="image" src="https://github.com/user-attachments/assets/5b934a13-26dc-4df1-8ad4-ac44ef8883e4" />
+<img width="1649" height="98" alt="DISK-Jira-ticket(screen-13)" src="https://github.com/user-attachments/assets/e68290da-73da-4749-a607-a4fc61ec38e7" />
 
-<img width="1125" height="1221" alt="image" src="https://github.com/user-attachments/assets/255260b1-53c0-46c7-ac98-af197bdfb1d2" />
+
+<img width="1305" height="900" alt="DISK-Jira-ticket(screen-12)" src="https://github.com/user-attachments/assets/f8741b13-9b26-430f-839e-37af970118d8" />
+
 
 <img width="722" height="70" alt="image" src="https://github.com/user-attachments/assets/2a0ab969-818e-4190-9c26-84012d234507" />
 
