@@ -1,5 +1,7 @@
 # Common Stack | Operating System | Ubuntu | SOP for Disk & Ulimit
 
+<img width="600" height="600" alt="image" src="https://github.com/user-attachments/assets/16b0eecf-a128-4f20-b282-a18136b7ddf1" />
+
 ## Author Table
 
 
