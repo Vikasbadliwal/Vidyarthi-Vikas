@@ -361,7 +361,7 @@ This SOP standardizes checking disk usage, verifying mount points, and configuri
 
 | **Name** | **Email** |
 |---|---|
-| Rahul Parihar | [rahul.parihar.snaatak@mygurukulam.co](mailto:rahul.parihar.snaatak@mygurukulam.co) |
+| Vikas Badliwal | [vikash.badliwal.snaatak@mygurukulam.co](mailto:vikash.badliwal.snaatak@mygurukulam.co) |
 
 ## 14. References
 
