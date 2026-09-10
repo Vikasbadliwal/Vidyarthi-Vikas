@@ -78,40 +78,7 @@ GitFlow uses different branch types for different stages of development.
 
 ## 3.1 GitFlow Workflow Diagram
 
-```text
-                         +----------------+
-                         |      main      |
-                         |   Production   |
-                         +-------+--------+
-                                 ^
-                                 |
-                          Release Merge
-                                 |
-                         +-------+--------+
-                         |    release/*   |
-                         | Release Testing|
-                         +-------+--------+
-                                 ^
-                                 |
-                          From develop
-                                 |
-                    +------------+------------+
-                    |                         |
-                    |                         |
-              +-----+------+           +------+------+
-              |  develop   |           |   hotfix/*  |
-              | Development|           | Production  |
-              +-----+------+           |    Fix      |
-                    ^                  +------+-------+
-                    |                         |
-                    |                         |
-             Feature Merge              Hotfix Merge
-                    |                         |
-              +-----+------+                  |
-              | feature/*  |------------------+
-              | New Feature|
-              +------------+
-```
+<img width="1024" height="559" alt="image" src="https://github.com/user-attachments/assets/bd047047-5faf-41b5-9fab-67ab2add5ba0" />
 
 ---
 
@@ -237,60 +204,7 @@ main
 
 ## 3.7 Complete GitFlow Process
 
-The typical GitFlow process is:
-
-```text
-                Start Development
-                       |
-                       v
-                    develop
-                       |
-                       v
-                Create feature/*
-                       |
-                       v
-               Develop & Test
-                       |
-                       v
-                Code Review
-                       |
-                       v
-             Merge into develop
-                       |
-                       v
-             Release Preparation
-                       |
-                       v
-                 release/*
-                       |
-                       v
-             Testing & Bug Fixes
-                       |
-                       v
-              Merge into main
-                       |
-                       v
-                 Production
-                       |
-                       v
-                Release Complete
-```
-
-For an urgent production issue:
-
-```text
-main
- |
- v
-hotfix/*
- |
- v
-Fix + Test
- |
- +-----------> main
- |
- +-----------> develop
-```
+<img width="1407" height="768" alt="image" src="https://github.com/user-attachments/assets/838937df-b851-4aca-8453-c78c2fff1b8c" />
 
 ---
 
