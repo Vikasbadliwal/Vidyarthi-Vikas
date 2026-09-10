@@ -1,6 +1,8 @@
-# SOP: Common Stack | Version Control | GitFlow Workflow
+<p align="center"><img width="204" height="192" alt="GitFlow" src="https://git-scm.com/images/logos/downloads/Git-Icon-1788C.png" /></p>
 
-<img width="204" height="192" alt="GitFlow" src="https://git-scm.com/images/logos/downloads/Git-Icon-1788C.png" />
+---
+
+#  GitFlow Documentation
 
 ---
 
@@ -9,6 +11,7 @@
 | **Author** | **Created On** | **Version** | **Last Updated By** | **Last Edited On** | **L0 Reviewer** | **L1 Reviewer** | **L2 Reviewer**    |
 | ---------- | -------------- | ----------- | ------------------- | ------------------ | --------------- | --------------- | ------------------ |
 | Vikas      | 07-09-2026     | v1.0        | Vikas               | 07-09-2026         | Deepak Kushwaha | Faisal/Mohit K  | Mahesh Kumar/Varun |
+| Vikas      |                |             |                     |                    | Deepak Kushwaha | Faisal/Mohit K  | Mahesh Kumar/Varun |
 
 ---
 
@@ -27,11 +30,9 @@
 
 # 1. Introduction
 
-**GitFlow** is a Git branching model that provides a structured approach for managing software development, releases, and hotfixes.
-
-It was introduced by **Vincent Driessen** and uses different branches for different purposes, such as feature development, release preparation, production releases, and urgent production fixes.
-
-GitFlow helps development teams organize their Git branches and maintain a controlled workflow from development to production.
+This SOP provides a step-by-step guide for understanding and implementing the **GitFlow branching workflow** for software development and release management.
+It covers GitFlow branches, their purpose, the complete workflow, branch creation, release preparation, and production hotfixes. 
+It also includes **advantages, disadvantages, conclusion, FAQs, and references** to help users understand and follow a structured Git branching strategy.
 
 ### Main GitFlow Branches
 
