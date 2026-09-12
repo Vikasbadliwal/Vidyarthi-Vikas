@@ -16,41 +16,29 @@
 2. [Why Authorization is Required](#2-why-authorization-is-required)
 3. [Authentication vs Authorization](#3-authentication-vs-authorization)
 4. [Access Levels](#4-access-levels)
-5. [Authorization Workflow](#5-authorization-workflow)
-6. [Audit Trails](#6-audit-trails)
-7. [Integration with Identity Providers](#7-integration-with-identity-providers)
-8. [Types of Authorization](#8-types-of-authorization)
+5. [Audit Trails](#5-audit-trails)
+6. [Integration with Identity Providers](#6-integration-with-identity-providers)
+7. [Types of Authorization](#7-types-of-authorization)
 
-   * [8.1 Role-Based Access Control](#81-role-based-access-control)
-   * [8.2 Attribute-Based Access Control](#82-attribute-based-access-control)
-   * [8.3 Access Control Lists](#83-access-control-lists)
-   * [8.4 Policy-Based Access Control](#84-policy-based-access-control)
-9. [Authorization Comparison](#9-authorization-comparison)
-10. [Advantages](#10-advantages)
-11. [Disadvantages](#11-disadvantages)
-12. [Best Practices](#12-best-practices)
-13. [Use Cases](#13-use-cases)
-14. [Conclusion](#14-conclusion)
-15. [Contact Information](#15-contact-information)
-16. [References](#16-references)
+   * [7.1 Role-Based Access Control](#71-role-based-access-control)
+   * [7.2 Attribute-Based Access Control](#72-attribute-based-access-control)
+   * [7.3 Access Control Lists](#73-access-control-lists)
+   * [7.4 Policy-Based Access Control](#74-policy-based-access-control)
+8. [Authorization Comparison](#8-authorization-comparison)
+9. [Advantages](#9-advantages)
+10. [Disadvantages](#10-disadvantages)
+11. [Best Practices](#11-best-practices)
+12. [Conclusion](#12-conclusion)
+13. [Contact Information](#13-contact-information)
+14. [References](#14-references)
 
 ---
 
 # 1. Introduction
 
-**Authorization (AuthZ)** is the process of deciding what an authenticated user, application, or service is allowed to access or perform.
-
-Authentication answers:
-
-> **"Who are you?"**
-
-Authorization answers:
-
-> **"What are you allowed to do?"**
-
-For a Version Control System (VCS), authorization controls which users can access repositories and what actions they can perform, such as **read, write, create branches, merge changes, or manage repository settings**.
-
-A good authorization strategy helps protect source code and ensures that users receive only the permissions required for their work.
+This SOP provides a step-by-step guide for understanding and implementing **Authorization (AuthZ)** for Version Control Systems (VCS).
+It covers authorization requirements, **Authentication vs Authorization**, access levels, authorization workflow, audit trails, and integration with Identity Providers (IdPs). 
+It also explains different authorization models such as **RBAC, ABAC, ACL, and PBAC**, along with their comparison, advantages, disadvantages, best practices, and use cases to help users understand and implement a secure and structured access-control strategy.
 
 ---
 
@@ -66,17 +54,6 @@ For example:
 * An administrator may need to **manage repositories and permissions**.
 
 Without proper authorization, users may access or modify resources that are not required for their responsibilities.
-
-### Key Reasons
-
-* Protect source code from unauthorized changes.
-* Restrict access to sensitive repositories.
-* Prevent accidental changes.
-* Separate developer, reviewer, and administrator responsibilities.
-* Support audit and compliance requirements.
-* Follow the **principle of least privilege**.
-
-OWASP recommends giving users only the minimum permissions required and using a deny-by-default approach for access control.
 
 ---
 
@@ -180,76 +157,7 @@ They may manage:
 
 ---
 
-# 5. Authorization Workflow
-
-A typical VCS authorization workflow is:
-
-```text
-+------------------+
-|      User        |
-+--------+---------+
-         |
-         v
-+------------------+
-| Authentication   |
-|      AuthN       |
-+--------+---------+
-         |
-         v
-+------------------+
-| Identity /       |
-| User Information |
-+--------+---------+
-         |
-         v
-+------------------+
-| Authorization    |
-|      AuthZ       |
-+--------+---------+
-         |
-         v
-+------------------+
-| Permission Check |
-+--------+---------+
-         |
-      +--+--+
-      |     |
-    Allow  Deny
-      |     |
-      v     v
- Repository  Access
-   Access    Rejected
-```
-
-### Example
-
-Suppose a developer wants to push code.
-
-```text
-Developer
-    |
-    v
-Login / Token
-    |
-    v
-Authentication
-    |
-    v
-Authorization Check
-    |
-    +---- Has Write Permission? ----+
-    |                               |
-   Yes                              No
-    |                               |
-    v                               v
-Push Code                       Access Denied
-```
-
-Authorization should be checked whenever a protected action is requested. OWASP recommends that requests go through access-control checks and that access be denied by default when no permission is explicitly granted.
-
----
-
-# 6. Audit Trails
+# 5. Audit Trails
 
 An **audit trail** is a record of actions performed by users or systems.
 
@@ -291,7 +199,7 @@ OWASP recommends appropriate logging for authorization events.
 
 ---
 
-# 7. Integration with Identity Providers
+# 6. Integration with Identity Providers
 
 An **Identity Provider (IdP)** is a system that manages user identities and authentication.
 
@@ -364,7 +272,7 @@ Modern identity platforms can use roles, groups, claims, scopes, and application
 
 ---
 
-# 8. Types of Authorization
+# 7. Types of Authorization
 
 There are several common authorization models.
 
@@ -377,7 +285,7 @@ The major models covered in this documentation are:
 
 ---
 
-## 8.1 Role-Based Access Control
+## 7.1 Role-Based Access Control
 
 **RBAC** grants permissions based on a user's role.
 
@@ -406,25 +314,9 @@ Vikas
              +---- Push
              +---- Branch
 ```
-
-### Advantages
-
-* Simple to understand.
-* Easy to manage.
-* Suitable for organizations with defined job roles.
-* Reduces individual permission management.
-
-### Disadvantages
-
-* Can become difficult when many roles are required.
-* May provide more access than required.
-* Complex organizations may require more fine-grained controls.
-
-RBAC is a common authorization approach where permissions are associated with roles and roles are assigned to users or groups.
-
 ---
 
-## 8.2 Attribute-Based Access Control
+## 7.2 Attribute-Based Access Control
 
 **ABAC** makes authorization decisions using attributes.
 
@@ -451,36 +343,9 @@ Role = Developer
 AND
 Repository = Development
 ```
-
-Another example:
-
-```text
-Allow access when:
-
-User = Developer
-AND
-Time = Working Hours
-AND
-Repository = Development
-```
-
-ABAC evaluates attributes of the subject, resource, requested operation, and sometimes the environment against defined policies.
-
-### Advantages
-
-* Fine-grained access control.
-* Supports dynamic access decisions.
-* Suitable for complex environments.
-
-### Disadvantages
-
-* More complex than RBAC.
-* Policies can become difficult to manage.
-* Requires careful design and testing.
-
 ---
 
-## 8.3 Access Control Lists
+## 7.3 Access Control Lists
 
 An **Access Control List (ACL)** contains permissions assigned to specific users or groups for a resource.
 
@@ -495,23 +360,9 @@ Amit      -> No Access
 Admin     -> Full Access
 ```
 
-### Advantages
-
-* Easy to understand for small environments.
-* Provides direct control.
-* Suitable for specific resource-level permissions.
-
-### Disadvantages
-
-* Difficult to manage at large scale.
-* Large numbers of users can create complex permission lists.
-* Permission management can become time-consuming.
-
-ACLs provide explicit lists of entities that are allowed or denied access to a resource.
-
 ---
 
-## 8.4 Policy-Based Access Control
+## 7.4 Policy-Based Access Control
 
 **Policy-Based Access Control (PBAC)** uses defined policies to make authorization decisions.
 
@@ -545,21 +396,9 @@ Deny
 
 PBAC can provide flexible authorization by evaluating multiple parameters through authorization policies.
 
-### Advantages
-
-* Flexible.
-* Supports centralized policies.
-* Suitable for complex environments.
-
-### Disadvantages
-
-* Policies can become complex.
-* Requires proper governance.
-* Testing and troubleshooting may require additional effort.
-
 ---
 
-# 9. Authorization Comparison
+# 8. Authorization Comparison
 
 | **Authorization Type** | **Based On** | **Complexity** | **Scalability** | **Best Use Case**               |
 | ---------------------- | ------------ | -------------- | --------------- | ------------------------------- |
@@ -583,32 +422,9 @@ Simple
   |
 Complex
 ```
-
-### Recommended Approach
-
-For a typical VCS environment:
-
-```text
-Identity Provider
-       |
-       v
-     Groups
-       |
-       v
-      RBAC
-       |
-       v
-Fine-Grained Policies
-       |
-       v
-Repository Access
-```
-
-**RBAC** is generally a good starting point because it is simple to understand and manage. For environments requiring more dynamic or fine-grained decisions, ABAC or policy-based controls can be added.
-
 ---
 
-# 10. Advantages
+# 9. Advantages
 
 A properly designed authorization strategy provides several benefits.
 
@@ -638,7 +454,7 @@ Roles and groups make permission management easier than assigning permissions in
 
 ---
 
-# 11. Disadvantages
+# 10. Disadvantages
 
 Authorization also introduces some challenges.
 
@@ -664,7 +480,7 @@ Users may face access issues when permissions are incorrectly configured.
 
 ---
 
-# 12. Best Practices
+# 11. Best Practices
 
 The following practices should be followed when designing authorization for VCS environments.
 
@@ -722,47 +538,9 @@ Keep roles and policies manageable and configurable.
 
 Changes to roles and permissions should be reviewed and traceable.
 
-### 12. Use Secure Defaults
-
-New users and resources should not automatically receive unnecessary permissions.
-
-OWASP recommends least privilege, deny-by-default, authorization checks on requests, logging, and authorization testing as important access-control practices.
-
 ---
 
-# 13. Use Cases
-
-Authorization can be used in different VCS scenarios.
-
-| **Scenario**              | **Recommended Access** |
-| ------------------------- | ---------------------- |
-| Developer working on code | Read + Write           |
-| Code reviewer             | Read + Review          |
-| Release manager           | Read + Write + Merge   |
-| Project maintainer        | Maintain               |
-| Security administrator    | Admin                  |
-| External user             | Limited Read           |
-| Production repository     | Restricted Access      |
-
-### Example VCS Access Model
-
-```text
-                    VCS
-                     |
-          +----------+----------+
-          |          |          |
-      Developers  Reviewers  Admins
-          |          |          |
-        Write      Review      Full
-          |          |          |
-          +----------+----------+
-                     |
-                Repositories
-```
-
----
-
-# 14. Conclusion
+# 12. Conclusion
 
 Authorization is an important part of a VCS security strategy.
 
@@ -783,7 +561,7 @@ For most standard VCS environments, **RBAC combined with centralized identity ma
 
 ---
 
-# 15. Contact Information
+# 13. Contact Information
 
 | **Name**       | **Email**                                                                               |
 | -------------- | --------------------------------------------------------------------------------------- |
@@ -791,20 +569,13 @@ For most standard VCS environments, **RBAC combined with centralized identity ma
 
 ---
 
-# 16. References
+# 14. References
 
-| **Resource**                    | **Description**                                        |
+| **Description**                    | **Topic**                                        |
 | ------------------------------- | ------------------------------------------------------ |
-| OWASP Authorization Cheat Sheet | Authorization and access-control best practices        |
-| NIST ABAC Guide                 | Attribute-Based Access Control concepts and guidance   |
-| Microsoft Identity Platform     | Authorization, roles, groups, and identity integration |
-| NIST PBAC Glossary              | Policy-Based Access Control definition                 |
-
-### Reference Links
-
-* [OWASP Authorization Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html?utm_source=chatgpt.com)
-* [NIST ABAC Guide](https://csrc.nist.gov/pubs/sp/800/162/upd2/final?utm_source=chatgpt.com)
-* [Microsoft Authorization Basics](https://learn.microsoft.com/en-us/entra/identity-platform/authorization-basics?utm_source=chatgpt.com)
-* [NIST PBAC Glossary](https://csrc.nist.gov/glossary/term/policy_based_access_control?utm_source=chatgpt.com)
+| OWASP Authorization Cheat Sheet | * [OWASP Authorization Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html?utm_source=chatgpt.com)        |
+| NIST ABAC Guide                 | * [NIST ABAC Guide](https://csrc.nist.gov/pubs/sp/800/162/upd2/final?utm_source=chatgpt.com)  |
+| Microsoft Identity Platform     | * [Microsoft Authorization Basics](https://learn.microsoft.com/en-us/entra/identity-platform/authorization-basics?utm_source=chatgpt.com) |
+| NIST PBAC Glossary              | * [NIST PBAC Glossary](https://csrc.nist.gov/glossary/term/policy_based_access_control?utm_source=chatgpt.com)             |
 
 ---
