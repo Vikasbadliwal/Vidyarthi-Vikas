@@ -69,27 +69,6 @@ Authentication and authorization are related but serve different purposes.
 | Uses passwords, MFA, SSO, etc. | Uses roles, permissions, policies, etc. |
 | Example: Login to Git server   | Example: Permission to push code        |
 
-### Simple Example
-
-```text
-User
-  |
-  v
-Authentication
-  |
-  |--- Is this user valid?
-  |
-  v
-Authorization
-  |
-  |--- What can this user access?
-  |
-  v
-Repository
-```
-
-Authentication establishes the identity, while authorization determines the permissions associated with that identity.
-
 ---
 
 # 4. Access Levels
@@ -165,28 +144,6 @@ Audit trails help organizations understand:
 * What action was performed.
 * Which repository or resource was accessed.
 
-### Example Audit Log
-
-```text
-Date        User        Action       Repository       Result
-----------------------------------------------------------------
-12-09-2026  vikas       Clone        application      Allowed
-12-09-2026  rahul       Push         application      Allowed
-12-09-2026  amit        Delete       application      Denied
-12-09-2026  admin       Permission   application      Allowed
-```
-
-### Important Audit Events
-
-Authorization systems should consider logging:
-
-* Login and authentication events.
-* Repository access.
-* Permission changes.
-* Role changes.
-* Push operations.
-* Access-denied events.
-
 ---
 
 # 6. Integration with Identity Providers
@@ -244,9 +201,6 @@ Reviewers
 Release-Managers
 Administrators
 ```
-
-The VCS can map these groups to appropriate roles.
-
 For example:
 
 | **Identity Provider Group** | **VCS Role** |
@@ -418,9 +372,7 @@ Deny
 | **Deny by Default**                | Deny access unless an explicit permission allows the requested action.                |
 | **Use Role-Based Access**          | Use roles and groups instead of assigning permissions individually wherever possible. |
 | **Centralize Identity Management** | Use an approved Identity Provider for centralized user and group management.          |
-| **Review Permissions Regularly**   | Remove unnecessary permissions when users change roles or responsibilities.           |
 | **Protect Administrative Access**  | Restrict administrator permissions to authorized personnel only.                      |
-| **Enable Audit Logging**           | Record important authorization, access, and administrative events.                    |
 | **Test Authorization**             | Test both allowed and denied access scenarios to verify authorization rules.          |
 
 ---
