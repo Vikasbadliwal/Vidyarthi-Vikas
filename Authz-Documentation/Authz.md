@@ -25,7 +25,7 @@
    * [7.3 Access Control Lists](#73-access-control-lists)
    * [7.4 Policy-Based Access Control](#74-policy-based-access-control)
 8. [Authorization Comparison](#8-authorization-comparison)
-9. [Advantages](#9-advantages)
+9. [Advantages and Disadvantages](#9-advantages-and-disadvantages)
 10. [Best Practices](#10-best-practices)
 11. [Conclusion](#11-conclusion)
 12. [Contact Information](#12-contact-information)
