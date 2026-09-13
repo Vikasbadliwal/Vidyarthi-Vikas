@@ -150,8 +150,6 @@ They may manage:
 * Users.
 * Groups.
 * Repository permissions.
-* Security settings.
-* Repository configuration.
 
 > Access levels should always be assigned according to job responsibilities.
 
@@ -166,8 +164,6 @@ Audit trails help organizations understand:
 * Who performed an action.
 * What action was performed.
 * Which repository or resource was accessed.
-* When the action occurred.
-* Whether the action was successful or denied.
 
 ### Example Audit Log
 
@@ -189,13 +185,7 @@ Authorization systems should consider logging:
 * Permission changes.
 * Role changes.
 * Push operations.
-* Pull/merge operations.
 * Access-denied events.
-* Repository creation or deletion.
-
-Audit logs should be protected from unauthorized modification.
-
-OWASP recommends appropriate logging for authorization events.
 
 ---
 
@@ -324,8 +314,6 @@ Attributes may include:
 
 * User department.
 * User role.
-* Repository classification.
-* Location.
 * Device.
 * Time.
 * Environment.
@@ -394,8 +382,6 @@ Otherwise:
 Deny
 ```
 
-PBAC can provide flexible authorization by evaluating multiple parameters through authorization policies.
-
 ---
 
 # 8. Authorization Comparison
@@ -407,21 +393,6 @@ PBAC can provide flexible authorization by evaluating multiple parameters throug
 | ACL                    | Users/Groups | Low            | Medium          | Small environments              |
 | PBAC                   | Policies     | High           | High            | Complex enterprise environments |
 
-### Simple Comparison
-
-```text
-Simple
-  |
-  +---- ACL
-  |
-  +---- RBAC
-  |
-  +---- ABAC
-  |
-  +---- PBAC
-  |
-Complex
-```
 ---
 
 # 9. Advantages
