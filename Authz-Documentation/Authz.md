@@ -256,10 +256,6 @@ For example:
 | Release-Managers            | Maintainer   |
 | Administrators              | Admin        |
 
-This makes access management easier because users can be managed centrally.
-
-Modern identity platforms can use roles, groups, claims, scopes, and application permissions to support authorization decisions.
-
 ---
 
 # 7. Types of Authorization
@@ -452,6 +448,5 @@ A secure AuthZ strategy should follow **least privilege**, use appropriate **rol
 | OWASP Authorization Cheat Sheet | * [OWASP Authorization Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html?utm_source=chatgpt.com)        |
 | NIST ABAC Guide                 | * [NIST ABAC Guide](https://csrc.nist.gov/pubs/sp/800/162/upd2/final?utm_source=chatgpt.com)  |
 | Microsoft Identity Platform     | * [Microsoft Authorization Basics](https://learn.microsoft.com/en-us/entra/identity-platform/authorization-basics?utm_source=chatgpt.com) |
-| NIST PBAC Glossary              | * [NIST PBAC Glossary](https://csrc.nist.gov/glossary/term/policy_based_access_control?utm_source=chatgpt.com)             |
 
 ---
