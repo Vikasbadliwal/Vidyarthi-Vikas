@@ -130,8 +130,6 @@ They may manage:
 * Groups.
 * Repository permissions.
 
-> Access levels should always be assigned according to job responsibilities.
-
 ---
 
 # 5. Audit Trails
