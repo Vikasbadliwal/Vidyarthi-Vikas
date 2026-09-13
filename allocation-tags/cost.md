@@ -92,38 +92,46 @@ Analyze & Optimize Costs
 
 ### Workflow Explanation
 
-1. Define a standard tagging strategy.
-2. Create meaningful tag keys and values.
-3. Apply tags to AWS resources.
-4. Activate the required tags for cost allocation.
-5. Allow AWS billing data to become available.
-6. Use Cost Explorer to filter and group costs using tags.
-7. Analyze the results and identify cost optimization opportunities.
+| Step | Activity                          | Description                                                                       |
+| ---- | --------------------------------- | --------------------------------------------------------------------------------- |
+| 1    | **Define Tag Strategy**           | Define standard tags such as `Environment`, `Project`, `Owner`, and `CostCenter`. |
+| 2    | **Create Tag Keys & Values**      | Create consistent and meaningful tag keys and values.                             |
+| 3    | **Apply Tags to Resources**       | Add the required tags to AWS resources.                                           |
+| 4    | **Activate Cost Allocation Tags** | Activate the required user-defined tags for cost allocation.                      |
+| 5    | **AWS Billing Data**              | AWS uses the activated tags in billing and cost-management data.                  |
+| 6    | **AWS Cost Explorer**             | Use Cost Explorer to view and analyze costs associated with tagged resources.     |
+| 7    | **Filter / Group Costs**          | Filter or group costs based on tag keys and values.                               |
+| 8    | **Analyze & Optimize**            | Identify high-cost areas and take appropriate cost-optimization actions.          |
 
 ---
 
 ## 5. Advantages
 
-* Provides better **AWS cost visibility**.
-* Helps track costs by **team, project, and environment**.
-* Supports **chargeback and showback**.
-* Helps identify unnecessary or unexpected spending.
-* Makes cost reporting easier.
-* Supports better **budget planning and cost optimization**.
-* Uses AWS-native tagging and billing capabilities.
+| Advantage                 | Description                                                      |
+| ------------------------- | ---------------------------------------------------------------- |
+| **Cost Visibility**       | Provides better visibility into AWS spending.                    |
+| **Team Tracking**         | Helps identify costs associated with different teams.            |
+| **Project Tracking**      | Helps track AWS costs for individual projects.                   |
+| **Environment Tracking**  | Allows comparison of Development, Testing, and Production costs. |
+| **Chargeback / Showback** | Helps allocate or report costs to teams and departments.         |
+| **Cost Optimization**     | Helps identify unnecessary or unexpected AWS spending.           |
+| **Accountability**        | Associates resource costs with responsible owners.               |
+| **Cost Reporting**        | Makes AWS cost reporting and analysis easier.                    |
 
 ---
 
 ## 6. Best Practices
 
-* Use a **standard naming convention** for tags.
-* Keep tag keys and values **consistent** across resources.
-* Use meaningful tags such as `Environment`, `Project`, `Owner`, and `CostCenter`.
-* Apply tags when creating resources whenever possible.
-* Activate the required tags for cost allocation.
-* Regularly review resources for **missing or incorrect tags**.
-* Document the organization's tagging standards.
-* Combine cost allocation tags with other Cost Explorer filters for better analysis.
+| Category              | Best Practice                                                                |
+| --------------------- | ---------------------------------------------------------------------------- |
+| **Naming Convention** | Use a standard naming convention for tag keys and values.                    |
+| **Consistency**       | Keep tag keys and values consistent across AWS resources.                    |
+| **Meaningful Tags**   | Use tags such as `Environment`, `Project`, `Owner`, and `CostCenter`.        |
+| **Resource Creation** | Apply required tags when creating resources whenever possible.               |
+| **Cost Allocation**   | Activate the required tags for cost allocation.                              |
+| **Tag Review**        | Regularly check resources for missing or incorrect tags.                     |
+| **Documentation**     | Maintain documentation for the organization's tagging standards.             |
+| **Cost Analysis**     | Combine cost allocation tags with Cost Explorer filters for better analysis. |
 
 ---
 
