@@ -26,19 +26,18 @@
    * [7.4 Policy-Based Access Control](#74-policy-based-access-control)
 8. [Authorization Comparison](#8-authorization-comparison)
 9. [Advantages](#9-advantages)
-10. [Disadvantages](#10-disadvantages)
-11. [Best Practices](#11-best-practices)
-12. [Conclusion](#12-conclusion)
-13. [Contact Information](#13-contact-information)
-14. [References](#14-references)
+10. [Best Practices](#10-best-practices)
+11. [Conclusion](#11-conclusion)
+12. [Contact Information](#12-contact-information)
+13. [References](#13-references)
 
 ---
 
 # 1. Introduction
 
-This SOP provides a step-by-step guide for understanding and implementing **Authorization (AuthZ)** for Version Control Systems (VCS).
-It covers authorization requirements, **Authentication vs Authorization**, access levels, authorization workflow, audit trails, and integration with Identity Providers (IdPs). 
-It also explains different authorization models such as **RBAC, ABAC, ACL, and PBAC**, along with their comparison, advantages, disadvantages, best practices, and use cases to help users understand and implement a secure and structured access-control strategy.
+This Documentation provides a step-by-step guide for understanding and implementing **Authorization (AuthZ)** for Version Control Systems (VCS).
+It covers authorization requirements, **Authentication vs Authorization**, access levels,audit trails, and integration with Identity Providers (IdPs). 
+It also explains different authorization models such as **RBAC, ABAC, ACL, and PBAC**, along with their comparison, advantages, disadvantages,and best practices help users understand and implement a secure and structured access-control strategy.
 
 ---
 
@@ -188,26 +187,6 @@ A VCS can integrate with an Identity Provider so that user identity and access m
       |       |
     Allow    Deny
 ```
-
-### Example
-
-A company can maintain groups in an Identity Provider:
-
-```text
-Developers
-Reviewers
-Release-Managers
-Administrators
-```
-For example:
-
-| **Identity Provider Group** | **VCS Role** |
-| --------------------------- | ------------ |
-| Developers                  | Developer    |
-| Reviewers                   | Reviewer     |
-| Release-Managers            | Maintainer   |
-| Administrators              | Admin        |
-
 ---
 
 # 7. Types of Authorization
@@ -239,19 +218,6 @@ Developer Role
       +---- Push Code
       +---- Create Branch
 ```
-
-Users are then assigned to the role.
-
-```text
-Vikas
-  |
-  +---- Developer Role
-             |
-             +---- Read
-             +---- Clone
-             +---- Push
-             +---- Branch
-```
 ---
 
 ## 7.2 Attribute-Based Access Control
@@ -266,19 +232,6 @@ Attributes may include:
 * Time.
 * Environment.
 
-### Example
-
-A policy could be:
-
-```text
-Allow access when:
-
-Department = DevOps
-AND
-Role = Developer
-AND
-Repository = Development
-```
 ---
 
 ## 7.3 Access Control Lists
@@ -295,7 +248,6 @@ Rahul     -> Read
 Amit      -> No Access
 Admin     -> Full Access
 ```
-
 ---
 
 ## 7.4 Policy-Based Access Control
@@ -310,26 +262,6 @@ A policy can evaluate multiple conditions such as:
 * Action.
 * Environment.
 * Risk.
-
-### Example
-
-```text
-IF
-User Role = Developer
-AND
-Action = Push
-AND
-Repository = Development
-THEN
-Allow
-```
-
-Otherwise:
-
-```text
-Deny
-```
-
 ---
 
 # 8. Authorization Comparison
@@ -342,27 +274,18 @@ Deny
 | PBAC                   | Policies     | High           | High            | Complex enterprise environments |
 
 ---
-# 9. Advantages
+# 9. Advantages and Disadvantages
 
-| **Advantage**                     | **Description**                                                                                   |
-| --------------------------------- | ------------------------------------------------------------------------------------------------- |
-| **Better Security**               | Prevents unauthorized users from accessing protected repositories and resources.                  |
-| **Least Privilege**               | Gives users only the permissions required to perform their work.                                  |
-| **Centralized Access Management** | Allows users and groups to be managed centrally through an Identity Provider.                     |
-| **Reduced Risk**                  | Limits write and administrative permissions, reducing accidental or unauthorized changes.         |
-| **Improved Auditing**             | Records authorization and access events for monitoring and review.                                |
+| **Advantages**                                                                                                    | **Disadvantages**                                                                                    |
+| ----------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| **Better Security** – Prevents unauthorized access to protected repositories and resources.                       | **Configuration Complexity** – Large environments may require many roles, groups, and policies.      |
+| **Least Privilege** – Gives users only the permissions required for their work.                                   | **Permission Management** – Permissions must be updated when users change roles or responsibilities. |
+| **Centralized Access Management** – Allows users and groups to be managed centrally through an Identity Provider. | **Policy Errors** – Incorrect policies can accidentally allow or deny access.                        |
+| **Reduced Risk** – Limits write and administrative permissions, reducing unauthorized changes.                    | **Maintenance** – Roles, groups, and permissions require regular review.                             |
+| **Improved Auditing** – Records authorization and access events for monitoring and review.                        | **Troubleshooting** – Incorrect permissions can cause access issues that require investigation.      |
 
-# 10. Disadvantages
 
-| **Disadvantage**             | **Description**                                                               |
-| ---------------------------- | ----------------------------------------------------------------------------- |
-| **Configuration Complexity** | Large environments may require many roles, groups, and policies.              |
-| **Permission Management**    | Permissions must be updated when users change roles or responsibilities.      |
-| **Policy Errors**            | Incorrect authorization policies can accidentally allow or deny access.       |
-| **Maintenance**              | Roles, groups, and permissions require regular review and maintenance.        |
-| **Troubleshooting**          | Incorrect permissions can cause access issues that may require investigation. |
-
-# 11. Best Practices
+# 10. Best Practices
 
 | **Best Practice**                  | **Description**                                                                       |
 | ---------------------------------- | ------------------------------------------------------------------------------------- |
@@ -375,7 +298,7 @@ Deny
 
 ---
 
-# 12. Conclusion
+# 11. Conclusion
 
 Authorization helps protect VCS resources by ensuring users have only the permissions required for their roles.
 A secure AuthZ strategy should follow **least privilege**, use appropriate **roles and policies**, maintain **audit logs**, and regularly review access.
@@ -383,7 +306,7 @@ A secure AuthZ strategy should follow **least privilege**, use appropriate **rol
 
 ---
 
-# 13. Contact Information
+# 12. Contact Information
 
 | **Name**       | **Email**                                                                               |
 | -------------- | --------------------------------------------------------------------------------------- |
@@ -391,7 +314,7 @@ A secure AuthZ strategy should follow **least privilege**, use appropriate **rol
 
 ---
 
-# 14. References
+# 13. References
 
 | **Description**                    | **Topic**                                        |
 | ------------------------------- | ------------------------------------------------------ |
