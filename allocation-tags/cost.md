@@ -24,9 +24,10 @@
 
 ## 1. Introduction
 
-AWS Cost Allocation Tags help organizations **identify, organize, and track AWS costs** based on resources, projects, teams, environments, or departments.
+AWS Cost Allocation Tags help organizations **track, categorize, and manage AWS costs** based on projects, teams, environments, or departments.
 
-They provide better visibility into AWS spending and help teams understand **where the cloud budget is being used**.
+This documentation explains **what Cost Allocation Tags are, why they are required, how they work, their advantages, and best practices**. 
+It also explains how tags can be used with **AWS Cost Explorer** to analyze and optimize AWS spending.
 
 ---
 
@@ -65,29 +66,8 @@ Cost Allocation Tags are useful for:
 
 ## 4. Workflow
 
-```text
-Define Tag Strategy
-        |
-        v
-Create Tag Keys & Values
-        |
-        v
-Apply Tags to AWS Resources
-        |
-        v
-Activate Cost Allocation Tags
-        |
-        v
-AWS Billing Data
-        |
-        v
-AWS Cost Explorer
-        |
-        v
-Filter / Group Costs by Tags
-        |
-        v
-Analyze & Optimize Costs
+<img width="1024" height="559" alt="image" src="https://github.com/user-attachments/assets/d1e97afa-0466-4650-a6bf-7a5194525ecf" />
+
 ```
 
 ### Workflow Explanation
@@ -137,9 +117,10 @@ Analyze & Optimize Costs
 
 ## 7. Conclusion
 
-AWS Cost Allocation Tags provide a simple way to **organize and understand AWS costs**.
+AWS Cost Allocation Tags provide an effective way to **track, organize, and manage AWS costs**. By using consistent tags for projects, teams, environments, and departments, organizations can improve **cost visibility, accountability, and reporting**.
 
-By applying consistent tags and using them for cost allocation, organizations can track spending by project, team, environment, or department. This improves **cost visibility, accountability, reporting, and optimization**.
+Using Cost Allocation Tags with **AWS Cost Explorer** helps teams understand their AWS spending and identify opportunities for **cost optimization**.
+
 
 ---
 
