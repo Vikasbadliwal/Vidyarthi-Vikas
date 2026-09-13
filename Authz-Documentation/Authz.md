@@ -403,7 +403,6 @@ Deny
 | **Centralized Access Management** | Allows users and groups to be managed centrally through an Identity Provider.                     |
 | **Reduced Risk**                  | Limits write and administrative permissions, reducing accidental or unauthorized changes.         |
 | **Improved Auditing**             | Records authorization and access events for monitoring and review.                                |
-| **Easier Access Management**      | Roles and groups simplify permission management compared with assigning permissions individually. |
 
 # 10. Disadvantages
 
@@ -426,12 +425,9 @@ Deny
 | **Review Permissions Regularly**   | Remove unnecessary permissions when users change roles or responsibilities.           |
 | **Protect Administrative Access**  | Restrict administrator permissions to authorized personnel only.                      |
 | **Enable Audit Logging**           | Record important authorization, access, and administrative events.                    |
-| **Protect Sensitive Repositories** | Apply stronger access restrictions to production and sensitive repositories.          |
 | **Test Authorization**             | Test both allowed and denied access scenarios to verify authorization rules.          |
 
 ---
-
-# 12. Conclusion
 
 # 12. Conclusion
 
