@@ -446,7 +446,7 @@ A secure AuthZ strategy should follow **least privilege**, use appropriate **rol
 | **Description**                    | **Topic**                                        |
 | ------------------------------- | ------------------------------------------------------ |
 | OWASP Authorization Cheat Sheet | * [OWASP Authorization Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html?utm_source=chatgpt.com)        |
-| NIST ABAC Guide                 | * [NIST ABAC Guide](https://csrc.nist.gov/pubs/sp/800/162/upd2/final?utm_source=chatgpt.com)  |
+| NIST ABAC Guide                 | * [NIST ABAC Guide](https://csrc.nist.gov/Projects/attribute-based-access-control) |
 | Microsoft Identity Platform     | * [Microsoft Authorization Basics](https://learn.microsoft.com/en-us/entra/identity-platform/authorization-basics?utm_source=chatgpt.com) |
 
 ---
