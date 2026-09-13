@@ -1,4 +1,8 @@
-# VCS Design + POC | VCS AuthN & AuthZ Strategy | AuthZ Documentation
+<p align="center"><img width="376" height="360" alt="image" src="https://github.com/user-attachments/assets/b5fd8907-3167-47e7-989b-ffbc14ccdff8" /></p>
+
+---
+
+# | VCS AuthN & AuthZ Strategy | AuthZ Documentation
 
 ---
 
@@ -6,7 +10,7 @@
 
 | **Author** | **Created On** | **Version** | **Last Updated By** | **Last Edited On** | **L0 Reviewer**        | **L1 Reviewer** | **L2 Reviewer**    |
 | ---------- | -------------- | ----------- | ------------------- | ------------------ | ---------------------- | --------------- | ------------------ |
-| Vikas      | 12/09/2026     | v1.0        | Vikas               | 12/09/2026         | Deepak Kushwaha/Ayushi | Faisal/Mohit K  | Mahesh Kumar/Varun |
+| Vikas      | 10/09/2026     | v1.0        | Vikas               | 11/09/2026         | Deepak Kushwaha/Ayushi | Faisal/Mohit K  | Mahesh Kumar/Varun |
 
 ---
 
