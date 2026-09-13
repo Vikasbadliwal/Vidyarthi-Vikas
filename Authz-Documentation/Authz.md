@@ -84,51 +84,6 @@ A simple access model can contain the following levels:
 | Maintain         | Manage branches and repository settings     | Maintainer       |
 | Admin            | Manage users, permissions, and repositories | Administrator    |
 
-### Read Access
-
-Users can:
-
-* View repositories.
-* Clone repositories.
-* Download source code.
-
-Users cannot normally modify repository content.
-
-### Write Access
-
-Users can:
-
-* Push changes.
-* Create branches.
-* Update existing branches according to repository rules.
-
-### Review Access
-
-Users can:
-
-* Review pull requests.
-* Add comments.
-* Approve changes.
-* Participate in the code review process.
-
-### Maintain Access
-
-Maintainers can perform additional repository management activities, such as:
-
-* Managing branches.
-* Managing repository settings.
-* Managing project-level configurations.
-
-### Admin Access
-
-Administrators have the highest level of access.
-
-They may manage:
-
-* Users.
-* Groups.
-* Repository permissions.
-
 ---
 
 # 5. Audit Trails
