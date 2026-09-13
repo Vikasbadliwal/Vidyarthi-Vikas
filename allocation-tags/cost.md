@@ -1,10 +1,13 @@
-# Cost Optimization Designing | Documentation | AWS Cost Allocation Tags
+<p align="center"><img width="256" height="256" alt="image" src="https://github.com/user-attachments/assets/5e055238-0451-4994-a860-e12be7e6b122" /></p>
+
+---
+# | Documentation | AWS Cost Allocation Tags
 
 ## Author Table
 
 | Author | Created On | Version | Last Updated By | Last Updated On | L0 Reviewer     | L1 Reviewer    | L2 Reviewer        |
 | ------ | ---------- | ------- | --------------- | --------------- | ---------------------  | -------------- | ------------------ |
-| Vikas  | 29/08/2026 | v1.0    |    vikas        |  30/08/2026     | Deepak Kushwaha/Ayushi | Faisal/Mohit K | Mahesh Kumar/Varun |
+| Vikas  | 09/08/2026 | v1.0    |    vikas        |  09/08/2026     | Deepak Kushwaha/Ayushi | Faisal/Mohit K | Mahesh Kumar/Varun |
 
 ---
 
@@ -68,8 +71,7 @@ Cost Allocation Tags are useful for:
 
 <img width="1024" height="559" alt="image" src="https://github.com/user-attachments/assets/d1e97afa-0466-4650-a6bf-7a5194525ecf" />
 
-```
-
+---
 ### Workflow Explanation
 
 | Step | Activity                          | Description                                                                       |
