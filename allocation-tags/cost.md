@@ -2,9 +2,9 @@
 
 ## Author Table
 
-| **Author**         | **Created On** | **Version** | **Last Updated By** |
-| ------------------ | -------------- | ----------- | ------------------- |
-| **Vikas Badliwal** | 10-09-2026     | 1.0         | Vikas Badliwal      |
+| Author | Created On | Version | Last Updated By | Last Updated On | L0 Reviewer     | L1 Reviewer    | L2 Reviewer        |
+| ------ | ---------- | ------- | --------------- | --------------- | ---------------------  | -------------- | ------------------ |
+| Vikas  | 29/08/2026 | v1.0    |    vikas        |  30/08/2026     | Deepak Kushwaha/Ayushi | Faisal/Mohit K | Mahesh Kumar/Varun |
 
 ---
 
@@ -137,14 +137,17 @@ By applying consistent tags and using them for cost allocation, organizations ca
 
 ## 8. Contact Information
 
-**Name:** Vikas Badliwal
-**Email:** [vikash.badliwal.snaatak@mygurukulam.co](mailto:vikash.badliwal.snaatak@mygurukulam.co)
+| Name           | Email                                                                                   |
+| -------------- | --------------------------------------------------------------------------------------- |
+| Vikas Badliwal | [vikash.badliwal.snaatak@mygurukulam.co](mailto:vikash.badliwal.snaatak@mygurukulam.co) |
 
 ---
 
 ## 9. References
 
-* [AWS Cost Allocation Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html)
-* [AWS Tagging Best Practices](https://docs.aws.amazon.com/tag-editor/latest/userguide/best-practices-and-strats.html)
-* [AWS Cost Explorer](https://aws.amazon.com/aws-cost-management/aws-cost-explorer/)
-* [AWS Billing and Cost Management](https://aws.amazon.com/aws-cost-management/)
+| Topic                   |    Links                                                      |
+| ----------------------- | ------------------------------------------------------------- |
+| AWS Cost Allocation Tags        |  [AWS Cost Allocation Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html) |
+| AWS Taggiing Best Practices     | [AWS Tagging Best Practices](https://docs.aws.amazon.com/tag-editor/latest/userguide/best-practices-and-strats.html) |
+| AWS Cost Explorer               | [AWS Cost Explorer](https://aws.amazon.com/aws-cost-management/aws-cost-explorer/) |
+| AWS Billing and Cost Management | [AWS Billing and Cost Management](https://aws.amazon.com/aws-cost-management/) |
