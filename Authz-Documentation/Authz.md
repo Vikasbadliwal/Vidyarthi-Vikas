@@ -394,141 +394,50 @@ Deny
 | PBAC                   | Policies     | High           | High            | Complex enterprise environments |
 
 ---
-
 # 9. Advantages
 
-A properly designed authorization strategy provides several benefits.
-
-### 1. Better Security
-
-Unauthorized users cannot access protected resources.
-
-### 2. Least Privilege
-
-Users receive only the permissions required for their work.
-
-### 3. Centralized Access Management
-
-Identity Provider integration allows user and group management from a central location.
-
-### 4. Reduced Risk
-
-Limiting write and administrative permissions reduces accidental or unauthorized changes.
-
-### 5. Improved Auditing
-
-Authorization events can be recorded and reviewed.
-
-### 6. Easier Access Management
-
-Roles and groups make permission management easier than assigning permissions individually.
-
----
+| **Advantage**                     | **Description**                                                                                   |
+| --------------------------------- | ------------------------------------------------------------------------------------------------- |
+| **Better Security**               | Prevents unauthorized users from accessing protected repositories and resources.                  |
+| **Least Privilege**               | Gives users only the permissions required to perform their work.                                  |
+| **Centralized Access Management** | Allows users and groups to be managed centrally through an Identity Provider.                     |
+| **Reduced Risk**                  | Limits write and administrative permissions, reducing accidental or unauthorized changes.         |
+| **Improved Auditing**             | Records authorization and access events for monitoring and review.                                |
+| **Easier Access Management**      | Roles and groups simplify permission management compared with assigning permissions individually. |
 
 # 10. Disadvantages
 
-Authorization also introduces some challenges.
-
-### 1. Configuration Complexity
-
-Large environments may require many roles and policies.
-
-### 2. Permission Management
-
-Permissions must be reviewed and updated when users change responsibilities.
-
-### 3. Policy Errors
-
-Incorrect policies can accidentally allow or deny access.
-
-### 4. Maintenance
-
-Roles, groups, and permissions need regular review.
-
-### 5. Troubleshooting
-
-Users may face access issues when permissions are incorrectly configured.
-
----
+| **Disadvantage**             | **Description**                                                               |
+| ---------------------------- | ----------------------------------------------------------------------------- |
+| **Configuration Complexity** | Large environments may require many roles, groups, and policies.              |
+| **Permission Management**    | Permissions must be updated when users change roles or responsibilities.      |
+| **Policy Errors**            | Incorrect authorization policies can accidentally allow or deny access.       |
+| **Maintenance**              | Roles, groups, and permissions require regular review and maintenance.        |
+| **Troubleshooting**          | Incorrect permissions can cause access issues that may require investigation. |
 
 # 11. Best Practices
 
-The following practices should be followed when designing authorization for VCS environments.
-
-### 1. Follow Least Privilege
-
-Give users only the permissions required to perform their work.
-
-### 2. Deny by Default
-
-Access should be denied unless the user has an explicitly allowed permission.
-
-### 3. Use Role-Based Access
-
-Use roles and groups instead of assigning permissions individually wherever possible.
-
-### 4. Centralize Identity Management
-
-Use an approved Identity Provider for centralized user and group management.
-
-### 5. Review Permissions Regularly
-
-Remove unnecessary permissions when users change roles or responsibilities.
-
-### 6. Protect Administrative Access
-
-Limit administrator permissions to authorized personnel.
-
-### 7. Enable Audit Logging
-
-Record important authorization and administrative events.
-
-### 8. Protect Sensitive Repositories
-
-Apply stronger access restrictions to production and sensitive repositories.
-
-### 9. Test Authorization
-
-Test both successful and denied access scenarios.
-
-Example:
-
-```text
-Developer -> Development Repository -> Allow
-
-Developer -> Production Repository -> Deny
-
-Admin -> Production Repository -> Allow
-```
-
-### 10. Avoid Hard-Coded Permissions
-
-Keep roles and policies manageable and configurable.
-
-### 11. Review Access Changes
-
-Changes to roles and permissions should be reviewed and traceable.
+| **Best Practice**                  | **Description**                                                                       |
+| ---------------------------------- | ------------------------------------------------------------------------------------- |
+| **Follow Least Privilege**         | Give users only the permissions required for their responsibilities.                  |
+| **Deny by Default**                | Deny access unless an explicit permission allows the requested action.                |
+| **Use Role-Based Access**          | Use roles and groups instead of assigning permissions individually wherever possible. |
+| **Centralize Identity Management** | Use an approved Identity Provider for centralized user and group management.          |
+| **Review Permissions Regularly**   | Remove unnecessary permissions when users change roles or responsibilities.           |
+| **Protect Administrative Access**  | Restrict administrator permissions to authorized personnel only.                      |
+| **Enable Audit Logging**           | Record important authorization, access, and administrative events.                    |
+| **Protect Sensitive Repositories** | Apply stronger access restrictions to production and sensitive repositories.          |
+| **Test Authorization**             | Test both allowed and denied access scenarios to verify authorization rules.          |
 
 ---
 
 # 12. Conclusion
 
-Authorization is an important part of a VCS security strategy.
+# 12. Conclusion
 
-It determines **who can access a repository and what actions they can perform**.
-
-A good AuthZ design should:
-
-* Use clear access levels.
-* Follow least privilege.
-* Deny access by default.
-* Integrate with an Identity Provider where appropriate.
-* Use roles and groups for easier management.
-* Maintain audit trails.
-* Review permissions regularly.
-* Test authorization rules.
-
-For most standard VCS environments, **RBAC combined with centralized identity management** provides a simple and manageable starting point. More complex environments can use **ABAC or policy-based authorization** when finer control is required.
+Authorization helps protect VCS resources by ensuring users have only the permissions required for their roles.
+A secure AuthZ strategy should follow **least privilege**, use appropriate **roles and policies**, maintain **audit logs**, and regularly review access.
+**RBAC with centralized identity management** is a simple and effective approach for most VCS environments.
 
 ---
 
