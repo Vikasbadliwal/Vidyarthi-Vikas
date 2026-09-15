@@ -79,6 +79,7 @@ Check the PostgreSQL cluster:
 ```bash
 pg_lsclusters
 ```
+<img width="1497" height="278" alt="postgreSQL screen-11" src="https://github.com/user-attachments/assets/99b71ae2-dc4a-435b-a7a8-93a33321e349" />
 
 ---
 
@@ -100,24 +101,6 @@ Install PostgreSQL and additional PostgreSQL utilities:
 
 ```bash
 sudo apt install postgresql postgresql-contrib -y
-```
-
-Verify the installation:
-
-```bash
-psql --version
-```
-
-Expected:
-
-```text
-psql (PostgreSQL) 16.x
-```
-
-Check the cluster:
-
-```bash
-pg_lsclusters
 ```
 
 ### Screenshot
