@@ -1,4 +1,8 @@
-# VCS Design + POC | VCS AuthN & AuthZ Strategy | AuthZ Documentation
+<p align="center"><img width="376" height="360" alt="image" src="https://github.com/user-attachments/assets/b5fd8907-3167-47e7-989b-ffbc14ccdff8" /></p>
+
+---
+
+# | VCS AuthN & AuthZ Strategy | AuthZ Documentation
 
 ---
 
@@ -6,7 +10,7 @@
 
 | **Author** | **Created On** | **Version** | **Last Updated By** | **Last Edited On** | **L0 Reviewer**        | **L1 Reviewer** | **L2 Reviewer**    |
 | ---------- | -------------- | ----------- | ------------------- | ------------------ | ---------------------- | --------------- | ------------------ |
-| Vikas      | 12/09/2026     | v1.0        | Vikas               | 12/09/2026         | Deepak Kushwaha/Ayushi | Faisal/Mohit K  | Mahesh Kumar/Varun |
+| Vikas      | 10/09/2026     | v1.0        | Vikas               | 11/09/2026         | Deepak Kushwaha/Ayushi | Faisal/Mohit K  | Mahesh Kumar/Varun |
 
 ---
 
@@ -112,36 +116,6 @@ Examples include:
 
 A VCS can integrate with an Identity Provider so that user identity and access management can be centrally controlled.
 
-### Basic Integration Flow
-
-```text
-+-------------------+
-|       User        |
-+---------+---------+
-          |
-          v
-+-------------------+
-| Identity Provider |
-|       (IdP)       |
-+---------+---------+
-          |
-          | Identity / Claims
-          v
-+-------------------+
-|       VCS         |
-+---------+---------+
-          |
-          v
-+-------------------+
-| Authorization     |
-| Role / Permission |
-| Check             |
-+---------+---------+
-          |
-      +---+---+
-      |       |
-    Allow    Deny
-```
 ---
 
 # 7. Types of Authorization
@@ -159,20 +133,19 @@ The major models covered in this documentation are:
 
 ## 7.1 Role-Based Access Control
 
-**RBAC** grants permissions based on a user's role.
-
-Instead of assigning permissions individually to every user, permissions are assigned to roles.
+**RBAC** grants permissions based on a user's role. Instead of assigning permissions individually, permissions are assigned to roles.
 
 ### Example
 
-```text
-Developer Role
-      |
-      +---- Read Repository
-      +---- Clone Repository
-      +---- Push Code
-      +---- Create Branch
-```
+| Role                | Permissions                                        | Example User |
+| ------------------- | -------------------------------------------------- | ------------ |
+| **Developer**       | Read, Clone, Push Code, Create Branch              | Vikas        |
+| **Reviewer**        | Read, Clone, Review Pull Requests, Approve Changes | Rahul        |
+| **Release Manager** | Read, Merge Branches, Create Releases              | Amit         |
+| **Administrator**   | Full Repository and Permission Management          | Admin        |
+
+In this model, users receive permissions through their assigned roles.
+
 ---
 
 ## 7.2 Attribute-Based Access Control
@@ -191,18 +164,21 @@ Attributes may include:
 
 ## 7.3 Access Control Lists
 
-An **Access Control List (ACL)** contains permissions assigned to specific users or groups for a resource.
+An **Access Control List (ACL)** defines permissions for specific users or groups on a particular resource.
 
 ### Example
 
-```text
-Repository: Project-A
+**Repository: Project-A**
 
-Vikas     -> Read + Write
-Rahul     -> Read
-Amit      -> No Access
-Admin     -> Full Access
-```
+| User      | Read | Write | Admin | Access       |
+| --------- | ---- | ----- | ----- | ------------ |
+| **Vikas** | ✓    | ✓     | ✗     | Read + Write |
+| **Rahul** | ✓    | ✗     | ✗     | Read Only    |
+| **Amit**  | ✗    | ✗     | ✗     | No Access    |
+| **Admin** | ✓    | ✓     | ✓     | Full Access  |
+
+In this model, permissions are directly assigned to users or groups for the specific resource.
+
 ---
 
 ## 7.4 Policy-Based Access Control
