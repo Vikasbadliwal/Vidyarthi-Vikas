@@ -92,17 +92,6 @@ Update the package index and installed packages:
 sudo apt update -y
 sudo apt upgrade -y
 ```
-
-### Rough Notes
-
-- Logged in to the AWS EC2 Ubuntu instance.
-- Updated the APT package index.
-- Upgraded available system packages.
-
-### Screenshot
-
-**Screenshot 1:** Capture the terminal showing successful `apt update`/`apt upgrade`.
-
 ---
 
 ## 4.2 Install PostgreSQL
@@ -131,23 +120,11 @@ Check the cluster:
 pg_lsclusters
 ```
 
-Expected example:
-
-```text
-Ver Cluster Port Status Owner    Data directory
-16  main    5432 online postgres /var/lib/postgresql/16/main
-```
-
-### Rough Notes
-
-- Installed PostgreSQL using the Ubuntu APT package manager.
-- PostgreSQL 16 is installed on the EC2 instance.
-- PostgreSQL uses port `5432`.
-- The `main` cluster is online.
-
 ### Screenshot
 
-**Screenshot 2:** Capture `psql --version` and `pg_lsclusters` output.
+<img width="1768" height="513" alt="postgreSQL screen-1" src="https://github.com/user-attachments/assets/9c8aaaef-e0df-41f2-ad06-96f67c701684" />
+
+<img width="1569" height="54" alt="postgreSQL screen-2" src="https://github.com/user-attachments/assets/48b33d8c-c433-4147-b1a4-599b690b7d63" />
 
 ---
 
@@ -171,21 +148,7 @@ Verify the service state:
 sudo systemctl is-active postgresql
 ```
 
-Expected:
-
-```text
-active
-```
-
-### Rough Notes
-
-- PostgreSQL service started successfully.
-- PostgreSQL enabled at system boot.
-- Service status verified as active.
-
-### Screenshot
-
-**Screenshot 3:** Capture the PostgreSQL `systemctl status` output showing the service is active.
+<img width="1559" height="147" alt="postgreSQL screen-3" src="https://github.com/user-attachments/assets/66700289-31ef-426c-93c7-2387f45cdd16" />
 
 ---
 
@@ -209,27 +172,10 @@ Check the PostgreSQL port:
 sudo -u postgres psql -c "SHOW port;"
 ```
 
-Expected:
+<img width="1560" height="136" alt="postgreSQL screen-4" src="https://github.com/user-attachments/assets/4130a6ec-01b6-4336-acea-5dd8c3aea893" />
 
-```text
-5432
-```
+<img width="1540" height="52" alt="postgreSQL screen-5" src="https://github.com/user-attachments/assets/ea1e5e1f-839a-46d1-b2fc-bf0a12fa438a" />
 
-Check the listening socket:
-
-```bash
-sudo ss -lntp | grep 5432
-```
-
-### Rough Notes
-
-- Confirmed the PostgreSQL configuration file location.
-- Confirmed PostgreSQL is configured to use port `5432`.
-- Verified PostgreSQL is listening on the expected port.
-
-### Screenshot
-
-**Screenshot 4:** Capture the configuration path, port, and `ss` output.
 
 ---
 
@@ -266,16 +212,8 @@ Exit:
 ```sql
 \q
 ```
+<img width="1540" height="684" alt="postgreSQL screen-6" src="https://github.com/user-attachments/assets/98c25fd5-10ed-4568-bedf-165fb4cab334" />
 
-### Rough Notes
-
-- Accessed PostgreSQL using the default `postgres` administrative user.
-- Verified PostgreSQL version.
-- Reviewed available databases and roles.
-
-### Screenshot
-
-**Screenshot 5:** Capture `SELECT version();`, `\l`, and `\du`.
 
 ---
 
@@ -317,20 +255,7 @@ Exit:
 ```sql
 \q
 ```
-
-### Rough Notes
-
-- Created dedicated user `attendance_user`.
-- Created database `attendance_db`.
-- Assigned `attendance_user` as the database owner.
-- Granted required database privileges.
-- Avoided using the PostgreSQL superuser for application access.
-
-### Screenshot
-
-**Screenshot 6:** Capture `\du` and `\l` showing the created user and database.
-
-> Do not capture or store the actual database password in screenshots or Jira comments.
+<img width="1500" height="690" alt="postgreSQL screen--7" src="https://github.com/user-attachments/assets/3e62bf5f-6ace-4db4-b998-49fa40f9c5d4" />
 
 ---
 
@@ -352,16 +277,7 @@ If the connection succeeds, verify:
 SELECT current_database();
 SELECT current_user;
 ```
-
-### Rough Notes
-
-- Tested PostgreSQL connectivity using the dedicated database user.
-- Confirmed connection to `attendance_db`.
-- Confirmed the authenticated PostgreSQL user.
-
-### Screenshot
-
-**Screenshot 7:** Capture successful `psql` login and the `current_database()` / `current_user` output.
+<img width="1500" height="421" alt="postgreSQL screen-10" src="https://github.com/user-attachments/assets/3a195c83-8449-4ed8-90b8-c3f9d65b710a" />
 
 ---
 
@@ -383,15 +299,7 @@ Verify the table:
 ```sql
 \dt
 ```
-
-### Rough Notes
-
-- Created a sample `attendance` table.
-- Verified the table using `\dt`.
-
-### Screenshot
-
-**Screenshot 8:** Capture the `CREATE TABLE` result and `\dt`.
+<img width="1500" height="489" alt="postgreSQL screen-8" src="https://github.com/user-attachments/assets/8d009d87-2a81-442c-b763-dde32bcbfbb7" />
 
 ---
 
@@ -417,16 +325,7 @@ Exit:
 ```sql
 \q
 ```
-
-### Rough Notes
-
-- Inserted sample attendance data.
-- Queried the table successfully.
-- Confirmed PostgreSQL can create, insert, and retrieve data.
-
-### Screenshot
-
-**Screenshot 9:** Capture the `INSERT` and `SELECT` output.
+<img width="1500" height="267" alt="postgreSQL screen-9" src="https://github.com/user-attachments/assets/df0f9236-fd22-4043-9281-48b3a812cbc1" />
 
 ---
 
