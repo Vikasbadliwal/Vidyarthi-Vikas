@@ -1,8 +1,4 @@
-<p align="center">
-<img width="200" height="200" alt="image" src="https://github.com/user-attachments/assets/12e0d0bf-08ae-4954-8a81-f6cafc851e31" />
 
-<br/>
-</p>
 
 <h1 align="left"> Notification Worker | Detailed documentation</h1>
 
@@ -10,9 +6,10 @@
 
 ## Author Information
 
-| **Author** | **Created on** | **Version** | **Last edited on** | **L0 Reviewer**  | **L1 Reviewer** | **L2 Reviewer**      |
-| :--------- | :------------- | :---------- | :----------------- | :--------------- | :-------------- | :------------------- |
-| Sahil      | 16-08-26       | v1.0        | 17-09-26           | Vishal / Divya M | Aayush Verma    | Mahesh Kumar / Varun |
+| Author | Created On | Version | Last Updated By | Last Updated On | L0 Reviewer     | L1 Reviewer    | L2 Reviewer        |
+| ------ | ---------- | ------- | --------------- | --------------- | ---------------------- | -------------- | ------------------ |
+| Vikas  | 27-08-2026 | v1.0    | vikas           | 27-08-2026      | Deepak Kushwaha/Ayushi | Faisal/Mohit K | Mahesh Kumar/Varun |
+| Vikas  |            |         |                 |                 | Deepak Kushwaha/Ayushi | Faisal/Mohit K | Mahesh Kumar/Varun |
 
 ---
 
@@ -38,70 +35,81 @@
    * [5.1 Architecture Overview](#51-architecture-overview)
    * [5.2 Core Components](#52-core-components)
    * [5.3 Dataflow Diagram](#53-dataflow-diagram)
-6. [POC-Specific Code Changes](#6-poc-specific-code-changes)
-7. [Step-by-Step Installation Guide](#7-step-by-step-installation-guide)
-8. [Logging and Monitoring](#8-logging-and-monitoring)
+   * [5.4 Notification Processing Flow](#54-notification-processing-flow)
+   * [5.5 Email Delivery Flow](#55-email-delivery-flow)
+6. [Application Workflow](#6-application-workflow)
+7. [Execution Modes](#7-execution-modes)
 
-   * [8.1 Application Logs](#81-application-logs)
-   * [8.2 Health Monitoring](#82-health-monitoring)
-   * [8.3 Metrics](#83-metrics)
-9. [Troubleshooting](#9-troubleshooting)
-10. [FAQs](#10-faqs)
-11. [Disaster Recovery & High Availability](#11-disaster-recovery--high-availability)
+   * [7.1 External Mode](#71-external-mode)
+   * [7.2 Scheduled Mode](#72-scheduled-mode)
+8. [Configuration](#8-configuration)
+9. [Logging and Monitoring](#9-logging-and-monitoring)
+
+   * [9.1 Application Logs](#91-application-logs)
+   * [9.2 Health Monitoring](#92-health-monitoring)
+   * [9.3 Metrics](#93-metrics)
+10. [Troubleshooting](#10-troubleshooting)
+11. [FAQs](#11-faqs)
 12. [Contact Information](#12-contact-information)
 13. [References](#13-references)
-14. [POC Result Validation](#14-poc-result-validation)
 
 ---
 
 # 1. Introduction
 
-The **Notification Worker** is a Python-based service that retrieves employee records from Elasticsearch and sends salary-slip notification emails through SMTP.
+The **Notification Worker** is a Python-based application responsible for sending notification emails based on employee information stored in Elasticsearch.
 
-The service supports both one-time and scheduled execution modes and is designed to process employee notification data independently.
+The application retrieves employee records from the `employee-management` index and uses the employee email information to generate salary-slip notifications.
+
+The Notification Worker communicates with an SMTP server for email delivery. During the POC, **MailHog** is used as the SMTP server to safely capture and verify outgoing emails.
 
 ---
 
 # 2. Purpose
 
-The purpose of the Notification Worker is to automate notification delivery based on employee information stored in Elasticsearch.
+The purpose of the Notification Worker is to provide an automated mechanism for delivering employee-related notifications through email.
 
-For this Proof of Concept (POC), MailHog is used as a local SMTP server to capture outgoing emails. This allows the complete notification flow to be tested without sending emails to real external recipients.
+The application separates notification processing from other employee-management services and retrieves the required employee information from Elasticsearch.
+
+For testing purposes, MailHog acts as a local email server. It captures the generated emails so that the notification flow can be verified without sending messages to real external recipients.
 
 ---
 
 # 3. Key Objectives
 
-| Objective                     | Description                                                                 |
-| ----------------------------- | --------------------------------------------------------------------------- |
-| **End-to-End Validation**     | Validate the complete notification workflow on an AWS EC2 instance.         |
-| **Elasticsearch Integration** | Verify employee records can be retrieved successfully from Elasticsearch.   |
-| **Email Notification**        | Validate generation and delivery of salary-slip notifications through SMTP. |
-| **Secure Testing**            | Use MailHog to capture emails without sending them to real recipients.      |
-| **Flexible Execution**        | Support both `external` and `scheduled` execution modes.                    |
-| **UI Verification**           | Verify captured emails using the MailHog Web UI.                            |
-| **Multiple Recipients**       | Validate notification delivery for single and multiple employee records.    |
-| **Easy Troubleshooting**      | Provide logs and validation commands for identifying common issues.         |
+| Objective                   | Description                                                           |
+| :-------------------------- | :-------------------------------------------------------------------- |
+| **Employee Data Retrieval** | Retrieve employee information from Elasticsearch.                     |
+| **Notification Processing** | Process employee records and prepare notification messages.           |
+| **Email Delivery**          | Send notification emails through SMTP.                                |
+| **Scheduled Processing**    | Support recurring notification execution.                             |
+| **One-Time Processing**     | Support external execution for individual notification runs.          |
+| **Email Verification**      | Allow captured emails to be verified using MailHog.                   |
+| **Multiple Recipients**     | Support notification processing for multiple employee records.        |
+| **Independent Service**     | Operate as a separate worker responsible for notification processing. |
 
 ---
 
 # 4. Pre-Requisites
 
-Before deploying the Notification Worker, ensure that the following hardware, software, and network requirements are available.
+The Notification Worker depends on a Python runtime, Elasticsearch for employee information, and an SMTP service for email communication.
 
 ---
 
 ## 4.1 System Requirements
 
-### Hardware Specifications
+| Requirement                | Configuration  |
+| :------------------------- | :------------- |
+| **Cloud Platform**         | AWS            |
+| **Deployment Environment** | Amazon EC2     |
+| **Operating System**       | Ubuntu Linux   |
+| **Architecture**           | x86_64 / AMD64 |
+| **Python**                 | 3.14.4         |
+| **Java**                   | OpenJDK 21     |
+| **Elasticsearch**          | 7.17.29        |
+| **MailHog**                | v1.0.1         |
 
-| Hardware                   | POC Configuration    |
-| -------------------------- | -------------------- |
-| **Cloud Platform**         | AWS                  |
-| **Service**                | Amazon EC2           |
-| **Processor Architecture** | Linux AMD64 / x86_64 |
-| **Operating System**       | Ubuntu Linux         |
-| **Deployment Type**        | Single EC2 Instance  |
+The application is designed to run in a Linux-based environment with the required runtime dependencies.
 
 ---
 
@@ -109,35 +117,36 @@ Before deploying the Notification Worker, ensure that the following hardware, so
 
 ### 4.2.1 Build Time Dependencies
 
-| Name            | Version | Description                              |
-| --------------- | ------- | ---------------------------------------- |
-| **Python**      | 3.x     | Runtime for `notification_api.py`        |
-| **pip**         | Native  | Installs Python application dependencies |
-| **Git**         | 2.x     | Used to clone the application repository |
-| **Python venv** | Native  | Creates an isolated Python environment   |
+| Dependency      | Version | Purpose                       |
+| :-------------- | :------ | :---------------------------- |
+| **Python**      | 3.14.4  | Application runtime           |
+| **pip**         | Native  | Python package management     |
+| **Git**         | 2.53.0  | Application source management |
+| **Python venv** | Native  | Isolated Python environment   |
 
 ---
 
 ### 4.2.2 Run Time Dependencies
 
-| Name                 | Version | Description                     |
-| -------------------- | ------- | ------------------------------- |
-| **Elasticsearch**    | 7.17.29 | Stores employee records         |
-| **MailHog**          | v1.0.1  | Captures outgoing SMTP emails   |
-| **config-with-yaml** | 0.1.0   | Loads application configuration |
-| **elasticsearch**    | 7.8.0   | Python client for Elasticsearch |
-| **emails**           | 0.6     | Python email-sending library    |
-| **schedule**         | 0.6.0   | Handles scheduled execution     |
+| Dependency                      | Version | Purpose                                                             |
+| :------------------------------ | :------ | :------------------------------------------------------------------ |
+| **Elasticsearch**               | 7.17.29 | Stores and provides employee records                                |
+| **config-with-yaml**            | 0.1.0   | Handles YAML-based application configuration                        |
+| **elasticsearch Python client** | 7.8.0   | Provides communication between Python application and Elasticsearch |
+| **emails**                      | 0.6     | Supports email message creation and delivery                        |
+| **schedule**                    | 0.6.0   | Supports scheduled notification execution                           |
+| **MailHog**                     | v1.0.1  | Captures SMTP emails during testing                                 |
 
 ---
 
 ### 4.2.3 Other Dependencies
 
-| Name     | Version    | Description                          |
-| -------- | ---------- | ------------------------------------ |
-| **Java** | OpenJDK 21 | Runtime required by Elasticsearch    |
-| **curl** | Native     | Used for API and health verification |
-| **ss**   | Native     | Used to verify network listeners     |
+| Dependency          | Purpose                           |
+| :------------------ | :-------------------------------- |
+| **Java OpenJDK 21** | Required by Elasticsearch         |
+| **SMTP**            | Email communication protocol      |
+| **curl**            | API and service verification      |
+| **MailHog Web UI**  | Email verification during the POC |
 
 ---
 
@@ -145,57 +154,36 @@ Before deploying the Notification Worker, ensure that the following hardware, so
 
 ### 4.3.1 Inbound Traffic
 
-| Port     | Description                         |
-| -------- | ----------------------------------- |
-| **22**   | SSH access to the EC2 instance      |
-| **9200** | Elasticsearch API; accessed locally |
-| **1025** | MailHog SMTP listener               |
-| **8025** | MailHog Web UI / API                |
+| Port     | Purpose                |
+| :------- | :--------------------- |
+| **22**   | SSH access             |
+| **9200** | Elasticsearch API      |
+| **1025** | MailHog SMTP           |
+| **8025** | MailHog Web UI and API |
 
-> Port `8025` must be allowed in the EC2 Security Group if the reviewer needs to access the MailHog Web UI remotely.
+Port `8025` is used to access captured notification emails through the MailHog interface.
 
 ---
 
 ### 4.3.2 Outbound Traffic
 
-| Port     | Communication                       |
-| -------- | ----------------------------------- |
-| **9200** | Notification Worker → Elasticsearch |
-| **1025** | Notification Worker → MailHog SMTP  |
-
----
-
-# 5. Architecture
-
-## 5.1 Architecture Overview
-
-The Notification Worker follows a simple notification-processing architecture.
-
-The worker retrieves employee information from the `employee-management` index in Elasticsearch. It processes the employee records and generates salary-slip notification emails.
-
-The generated emails are sent through SMTP. In this POC, MailHog acts as the SMTP server and captures the outgoing emails for verification.
-
-This architecture provides:
-
-* Simple notification processing
-* Independent execution
-* Elasticsearch integration
-* SMTP-based communication
-* Safe email testing
-* Easy notification verification
+| Port     | Communication                        |
+| :------- | :----------------------------------- |
+| **9200** | Notification Worker → Elasticsearch  |
+| **1025** | Notification Worker → SMTP / MailHog |
 
 ---
 
 ## 5.2 Core Components
 
-| Component               | Description                                               |
-| ----------------------- | --------------------------------------------------------- |
-| **Elasticsearch**       | Stores employee records used by the Notification Worker   |
-| **Notification Worker** | Reads employee information and generates notifications    |
-| **SMTP**                | Communication protocol used for sending emails            |
-| **MailHog**             | Captures outgoing emails during the POC                   |
-| **MailHog Web UI**      | Provides visual verification of captured emails           |
-| **AWS EC2**             | Hosts the Notification Worker, Elasticsearch, and MailHog |
+| Component               | Responsibility                                                            |
+| :---------------------- | :------------------------------------------------------------------------ |
+| **Elasticsearch**       | Stores employee records and provides employee information to the worker.  |
+| **Notification Worker** | Retrieves employee data and processes notification requests.              |
+| **Notification Logic**  | Creates notification content based on the available employee information. |
+| **SMTP**                | Provides the communication mechanism for sending emails.                  |
+| **MailHog**             | Captures outgoing emails during the POC.                                  |
+| **MailHog Web UI**      | Allows users to view and verify captured emails.                          |
 
 ---
 
@@ -204,516 +192,408 @@ This architecture provides:
 ```text
 +----------------+
 | Elasticsearch  |
+| Employee Data  |
 +-------+--------+
         |
-        | Employee Data
+        | Employee Records
         v
 +----------------------+
 | Notification Worker  |
 +----------+-----------+
            |
-           | SMTP
+           | Notification
            v
++----------------+
+| SMTP Server    |
++-------+--------+
+        |
+        | Email
+        v
 +----------------+
 |    MailHog     |
 +-------+--------+
         |
-        | Captured Email
         v
 +----------------+
-|   MailHog UI   |
+| Captured Email |
 +----------------+
 ```
+---
 
-**Data Flow:**
+## 5.4 Notification Processing Flow
+
+The Notification Worker processes notifications through the following logical stages:
+
+### 1. Read Employee Data
+
+The worker communicates with Elasticsearch and reads employee records from the `employee-management` index.
+
+### 2. Identify Recipient
+
+The employee record contains the email address used as the notification recipient.
+
+### 3. Prepare Notification
+
+The application prepares the salary-slip notification using the available employee information.
+
+### 4. Establish SMTP Communication
+
+The worker communicates with the configured SMTP server.
+
+### 5. Send Notification
+
+The notification message is submitted to the SMTP server.
+
+### 6. Capture Email
+
+During the POC, MailHog receives and stores the message.
+
+### 7. Verify Notification
+
+The captured message can be reviewed through the MailHog Web UI.
+
+---
+
+## 5.5 Email Delivery Flow
+
+The email delivery process can be represented as:
 
 ```text
-Elasticsearch
-      ↓
-Notification Worker
-      ↓
-SMTP
-      ↓
-MailHog
-      ↓
-Captured Email
+Employee Record
+      |
+      v
+Email ID Retrieved
+      |
+      v
+Notification Created
+      |
+      v
+SMTP Connection
+      |
+      v
+Email Submitted
+      |
+      v
+MailHog Receives Email
+      |
+      v
+Email Stored
+      |
+      v
+Email Available in Web UI
 ```
+
+This flow allows the complete notification lifecycle to be verified without depending on an external email provider.
 
 ---
 
-# 6. POC-Specific Code Changes
+# 6. Application Workflow
 
-## SMTP TLS Configuration
-
-The original application used TLS for SMTP communication:
-
-```yaml
-tls: True
-```
-
-For the MailHog-based POC, it was changed to:
-
-```yaml
-tls: False
-```
-
-This allows the Notification Worker to communicate with MailHog's non-TLS SMTP endpoint on port `1025`.
-
-## Backup
-
-The original application file was backed up as:
+The Notification Worker follows a straightforward workflow:
 
 ```text
-notification_api.py.bak
+Start
+  |
+  v
+Load Configuration
+  |
+  v
+Connect to Elasticsearch
+  |
+  v
+Read Employee Records
+  |
+  v
+Identify Email Recipients
+  |
+  v
+Create Notification
+  |
+  v
+Connect to SMTP
+  |
+  v
+Send Email
+  |
+  v
+MailHog Captures Email
+  |
+  v
+Notification Completed
 ```
 
-## Important Note
+### Workflow Explanation
 
-> The `tls: False` configuration is specific to this POC. It should not be used in production without validating the production SMTP server and required security configuration.
+**Load Configuration**
+
+The application loads configuration information required for Elasticsearch and SMTP communication.
+
+**Connect to Elasticsearch**
+
+The worker establishes communication with Elasticsearch to access employee information.
+
+**Read Employee Records**
+
+Employee records are retrieved from the configured Elasticsearch index.
+
+**Identify Recipients**
+
+The worker uses the employee email information to determine where the notification should be delivered.
+
+**Create Notification**
+
+The notification content is prepared for the selected employee or employees.
+
+**Send Email**
+
+The worker sends the notification through the configured SMTP server.
+
+**Capture and Verify**
+
+In the POC environment, MailHog captures the email and makes it available for verification.
 
 ---
 
-# 7. Step-by-Step Installation Guide
+# 7. Execution Modes
 
-## Step 1: Install Elasticsearch and Java
-
-Download Elasticsearch:
-
-```bash
-wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.17.29-amd64.deb
-```
-
-Install Elasticsearch:
-
-```bash
-sudo dpkg -i elasticsearch-7.17.29-amd64.deb
-```
-
-Configure Elasticsearch:
-
-```bash
-sudo vi /etc/elasticsearch/elasticsearch.yml
-```
-
-Add:
-
-```yaml
-cluster.name: notification-poc
-node.name: notification-node-1
-network.host: 127.0.0.1
-http.port: 9200
-discovery.type: single-node
-```
-
-Enable and start the service:
-
-```bash
-sudo systemctl enable elasticsearch
-sudo systemctl start elasticsearch
-```
-
-Verify the service:
-
-```bash
-sudo systemctl status elasticsearch
-```
-
-Verify Elasticsearch:
-
-```bash
-curl -s http://127.0.0.1:9200
-```
-
-Verify Java:
-
-```bash
-java -version
-```
+The Notification Worker provides two execution modes to support different notification requirements.
 
 ---
 
-## Step 2: Install and Start MailHog
+## 7.1 External Mode
 
-> Binary installation is preferred over `go install` because of Go version compatibility constraints on the EC2 instance.
+External mode is intended for **one-time notification processing**.
 
-Download MailHog:
+In this mode:
 
-```bash
-wget https://github.com/mailhog/MailHog/releases/download/v1.0.1/MailHog_linux_amd64
-```
-
-Make it executable:
-
-```bash
-chmod +x MailHog_linux_amd64
-```
-
-Move the binary:
-
-```bash
-sudo mv MailHog_linux_amd64 /usr/local/bin/mailhog
-```
-
-Start MailHog:
-
-```bash
-mailhog > /tmp/mailhog.log 2>&1 &
-```
-
-Verify the listeners:
-
-```bash
-sudo ss -lntp | grep -E ':(1025|8025)\b'
-```
-
-MailHog ports:
-
-| Port     | Purpose      |
-| -------- | ------------ |
-| **1025** | SMTP         |
-| **8025** | Web UI / API |
+1. The application starts.
+2. Employee information is retrieved.
+3. Notifications are generated.
+4. Emails are sent through SMTP.
+5. Processing completes.
+6. The application exits.
 
 ---
 
-## Step 3: Build the Notification Worker
+## 7.2 Scheduled Mode
 
-Clone the repository:
+Scheduled mode is intended for **continuous notification processing**.
 
-```bash
-git clone https://github.com/OT-MICROSERVICES/notification-worker.git
-```
+In this mode, the worker remains active and executes notification processing according to the configured schedule.
 
-Move into the application directory:
-
-```bash
-cd notification-worker
-```
-
-Create a Python virtual environment:
-
-```bash
-python3 -m venv venv
-```
-
-Activate the virtual environment:
-
-```bash
-source venv/bin/activate
-```
-
-Install dependencies:
-
-```bash
-pip install -r requirements.txt
-```
-
-Verify Python:
-
-```bash
-python3 --version
-```
-
----
-
-## Step 4: Create Test Employee Data
-
-Create test employee records in the `employee-management` Elasticsearch index.
-
-### Employee 1
-
-```bash
-curl -X PUT "http://127.0.0.1:9200/employee-management/_doc/1" \
--H 'Content-Type: application/json' \
--d '{
-  "employee_id": "POC001",
-  "name": "POC Employee",
-  "email_id": "employee01@example.com"
-}'
-```
-
-### Employee 2
-
-```bash
-curl -X PUT "http://127.0.0.1:9200/employee-management/_doc/2" \
--H 'Content-Type: application/json' \
--d '{
-  "employee_id": "POC002",
-  "name": "POC Employee 2",
-  "email_id": "employee02@example.com"
-}'
-```
-
-### Verify Employee Count
-
-```bash
-curl -s http://127.0.0.1:9200/employee-management/_count
-```
-
-The count should be greater than zero.
-
----
-
-## Step 5: Configure the Worker
-
-Create or update `config.yaml`:
-
-```bash
-vi config.yaml
-```
-
-Use the following POC configuration:
-
-```yaml
----
-smtp:
-  from: "test@example.com"
-  username: "test"
-  password: "test"
-  smtp_server: "127.0.0.1"
-  smtp_port: "1025"
-  tls: False
-
-elasticsearch:
-  username: "elastic"
-  password: "elastic"
-  host: "127.0.0.1"
-  port: 9200
-```
-
-Export the configuration path:
-
-```bash
-export CONFIG_FILE=$HOME/notification-worker/config.yaml
-```
-
-Verify:
-
-```bash
-echo $CONFIG_FILE
-```
-
-> **Security Note:** The credentials shown above are POC/test values. Production credentials should be stored securely and should not be hard-coded.
-
----
-
-## Step 6: Execute the Application
-
-### External Mode
-
-The external mode executes the notification workflow once and exits.
-
-```bash
-python3 notification_api.py --mode external
-```
-
-This mode is useful for one-time testing and validation.
-
-### Scheduled Mode
-
-The scheduled mode keeps the application running and executes according to the configured schedule.
-
-```bash
-python3 notification_api.py --mode scheduled
-```
-
-The current application code uses an hourly schedule.
-
----
-
-## Step 7: Verify Notification
-
-### Verify Using MailHog API
-
-```bash
-curl -s http://127.0.0.1:8025/api/v1/messages
-```
-
-The response displays the emails captured by MailHog.
-
-### Verify Using MailHog Web UI
-
-Open the following URL:
+The current application configuration uses an hourly schedule.
 
 ```text
-http://<EC2-PUBLIC-IP>:8025
+Start
+  ↓
+Wait for Schedule
+  ↓
+Read Employees
+  ↓
+Process Notifications
+  ↓
+Send Emails
+  ↓
+Wait for Next Schedule
+  ↓
+Repeat
 ```
 
-The MailHog Web UI can be used to verify:
-
-* Sender
-* Recipient
-* Subject
-* Email body
-* Captured notification
-
-If the UI is accessed remotely, ensure that port `8025` is allowed in the EC2 Security Group.
+Scheduled mode is useful when notifications need to be processed automatically at regular intervals.
 
 ---
 
-# 8. Logging and Monitoring
+# 8. Configuration
 
-The POC does not include production-grade monitoring or automated alerting.
+The Notification Worker uses configuration values for its external dependencies.
 
-Validation is performed manually using application logs, Elasticsearch APIs, service status commands, and MailHog.
+The major configuration areas are:
 
----
+| Configuration                   | Purpose                                                      |
+| :------------------------------ | :----------------------------------------------------------- |
+| **SMTP Configuration**          | Defines the sender, SMTP server, port, and TLS behavior.     |
+| **Elasticsearch Configuration** | Defines Elasticsearch connection details and authentication. |
+| **Execution Configuration**     | Determines how the worker processes notifications.           |
 
-## 8.1 Application Logs
+### SMTP Configuration
 
-| Service                 | Command / Location                 |
-| ----------------------- | ---------------------------------- |
-| **Notification Worker** | Terminal stdout                    |
-| **MailHog**             | `/tmp/mailhog.log`                 |
-| **Elasticsearch**       | `sudo journalctl -u elasticsearch` |
-| **Elasticsearch Logs**  | `/var/log/elasticsearch/`          |
+The SMTP configuration controls how the application communicates with the email server.
 
-### Notification Worker Logs
+Important parameters include:
 
-```bash
-python3 notification_api.py --mode external
-```
+| Parameter       | Purpose                                    |
+| :-------------- | :----------------------------------------- |
+| **from**        | Defines the sender email address.          |
+| **username**    | SMTP authentication username.              |
+| **password**    | SMTP authentication password.              |
+| **smtp_server** | SMTP server address.                       |
+| **smtp_port**   | SMTP communication port.                   |
+| **tls**         | Controls TLS usage for SMTP communication. |
 
-### MailHog Logs
+### Elasticsearch Configuration
 
-```bash
-cat /tmp/mailhog.log
-```
+Important Elasticsearch parameters include:
 
-### Elasticsearch Logs
+| Parameter    | Purpose                                |
+| :----------- | :------------------------------------- |
+| **username** | Elasticsearch authentication username. |
+| **password** | Elasticsearch authentication password. |
+| **host**     | Elasticsearch server address.          |
+| **port**     | Elasticsearch API port.                |
 
-```bash
-sudo journalctl -u elasticsearch
-```
-
----
-
-## 8.2 Health Monitoring
-
-Health checks are performed manually.
-
-| Name                    | Type   | Initial Delay | Period | Timeout | Success | Failure |
-| ----------------------- | ------ | ------------- | ------ | ------- | ------- | ------- |
-| **Elasticsearch**       | Manual | N/A           | N/A    | N/A     | 1       | 1       |
-| **MailHog**             | Manual | N/A           | N/A    | N/A     | 1       | 1       |
-| **Notification Worker** | Manual | N/A           | N/A    | N/A     | 1       | 1       |
-
-### Elasticsearch Health Check
-
-```bash
-curl -s http://127.0.0.1:9200
-```
-
-### MailHog Listener Check
-
-```bash
-sudo ss -lntp | grep -E ':(1025|8025)\b'
-```
-
-### Notification Worker Check
-
-```bash
-python3 notification_api.py --mode external
-```
+> The POC uses MailHog with non-TLS SMTP communication. Production environments should use the security configuration required by the production SMTP service.
 
 ---
 
-## 8.3 Metrics
+# 9. Logging and Monitoring
 
-The following parameters are manually validated:
+The Notification Worker uses application output and dependency status to monitor notification processing.
 
-| Parameter                      | Description                               | Priority | Threshold                       |
-| ------------------------------ | ----------------------------------------- | -------- | ------------------------------- |
-| **Elasticsearch Availability** | Checks whether Elasticsearch is reachable | High     | Service reachable               |
-| **Employee Document Count**    | Confirms employee records are available   | High     | At least 1                      |
-| **MailHog SMTP Listener**      | Confirms SMTP endpoint is available       | High     | Port `1025` listening           |
-| **Captured Messages**          | Confirms notification delivery            | High     | Message appears after execution |
+The POC does not include production-grade centralized monitoring or automated alerting.
 
----
+Monitoring focuses on:
 
-# 9. Troubleshooting
-
-| Issue                                | Resolution                            | Command                               |
-| ------------------------------------ | ------------------------------------- | ------------------------------------- |
-| **ModuleNotFoundError: `emails`**    | Install Python dependencies           | `pip install -r requirements.txt`     |
-| **Elasticsearch not starting**       | Check service status and logs         | `sudo systemctl status elasticsearch` |
-| **Elasticsearch connection failure** | Verify service and port `9200`        | `curl http://127.0.0.1:9200`          |
-| **MailHog installation failure**     | Use the Linux AMD64 binary            | `wget <MailHog-binary>`               |
-| **MailHog UI unavailable**           | Allow port `8025` in Security Group   | `sudo ss -lntp`                       |
-| **No email in MailHog**              | Check SMTP port and TLS configuration | Verify `1025` and `tls: False`        |
-| **Employee count is zero**           | Create employee documents             | Elasticsearch `curl` command          |
+* Application execution
+* Elasticsearch availability
+* SMTP availability
+* Notification processing
+* Captured email verification
 
 ---
 
-# 10. FAQs
+## 9.1 Application Logs
 
-**Question:** Does this POC send real emails?
+Application logs provide information about the notification processing lifecycle.
 
-**Answer:** No. MailHog captures outgoing emails locally, so test notifications are not delivered to real external recipients.
+The logs can be used to understand:
+
+* Whether the application started successfully
+* Whether Elasticsearch communication was successful
+* Whether employee records were retrieved
+* Whether notification processing occurred
+* Whether SMTP communication was successful
+* Whether errors occurred during processing
+
+MailHog also maintains logs related to SMTP communication and captured messages.
+
+Elasticsearch service logs can be used when employee data retrieval fails.
 
 ---
 
-**Question:** Why is MailHog used?
+## 9.2 Health Monitoring
 
-**Answer:** MailHog provides a local SMTP endpoint and Web UI. It allows outgoing emails to be captured and verified safely during testing.
+The following components should be available for successful notification processing:
+
+| Component               | Expected State                  |
+| :---------------------- | :------------------------------ |
+| **Elasticsearch**       | Available and reachable         |
+| **Notification Worker** | Running successfully            |
+| **SMTP Server**         | Available                       |
+| **MailHog**             | Running during POC              |
+| **Employee Records**    | Available in Elasticsearch      |
+| **Email Capture**       | Notification visible in MailHog |
+
+A failure in any required dependency can prevent successful notification processing.
 
 ---
 
-**Question:** Can the Notification Worker run on another cloud platform?
+## 9.3 Metrics
 
-**Answer:** Yes. The POC was executed on AWS EC2, but the application itself is not dependent on AWS. A similar Linux-based environment can be used with the required dependencies.
+The following metrics are useful for validating the Notification Worker:
+
+| Metric                         | Description                                   | Priority |
+| :----------------------------- | :-------------------------------------------- | :------- |
+| **Elasticsearch Availability** | Checks whether employee data can be accessed. | High     |
+| **Employee Record Count**      | Confirms employee records are available.      | High     |
+| **Notification Processing**    | Confirms records are processed by the worker. | High     |
+| **SMTP Availability**          | Confirms the email server is reachable.       | High     |
+| **Notification Delivery**      | Confirms emails are successfully submitted.   | High     |
+| **Captured Messages**          | Confirms emails are available in MailHog.     | High     |
 
 ---
 
-**Question:** What is the difference between `external` and `scheduled` mode?
+# 10. Troubleshooting
+
+| Issue                                    | Possible Cause                                        | Resolution                                                |
+| :--------------------------------------- | :---------------------------------------------------- | :-------------------------------------------------------- |
+| **Employee data unavailable**            | Elasticsearch unavailable or index has no records     | Verify Elasticsearch availability and employee data.      |
+| **Notification not generated**           | Employee record does not contain required information | Check employee record fields.                             |
+| **SMTP connection failure**              | SMTP server unavailable or incorrect configuration    | Verify SMTP server and port configuration.                |
+| **No email captured**                    | MailHog unavailable or incorrect SMTP configuration   | Verify MailHog and SMTP settings.                         |
+| **MailHog UI unavailable**               | Web interface or network access issue                 | Verify MailHog Web UI availability and port access.       |
+| **Scheduled processing not occurring**   | Scheduler is not running                              | Verify that the application is running in scheduled mode. |
+
+---
+
+# 11. FAQs
+
+**Question:** What is the main responsibility of the Notification Worker?
+
+**Answer:** The Notification Worker retrieves employee information from Elasticsearch, prepares notification emails, and sends them through SMTP.
+
+---
+
+**Question:** Does the Notification Worker directly send emails to employees?
+
+**Answer:** The worker sends emails through the configured SMTP server. During the POC, MailHog is used instead of a real external email server so that messages can be safely captured and verified.
+
+---
+
+**Question:** What is the purpose of MailHog?
+
+**Answer:** MailHog acts as a test SMTP server. It captures outgoing emails and provides a Web UI for viewing the messages.
+
+---
+
+**Question:** What is the difference between external and scheduled mode?
 
 **Answer:**
 
-| Mode          | Description                                                     |
-| ------------- | --------------------------------------------------------------- |
-| **External**  | Executes the notification workflow once and exits               |
-| **Scheduled** | Keeps running and executes according to the configured schedule |
-
-The current application uses an hourly schedule for scheduled execution.
+| Mode          | Behavior                                                                                   |
+| :------------ | :----------------------------------------------------------------------------------------- |
+| **External**  | Processes the notification workflow as a one-time execution.                               |
+| **Scheduled** | Keeps the worker running and processes notifications according to the configured schedule. |
 
 ---
 
-**Question:** Which ports are used by MailHog?
+**Question:** Why is Elasticsearch required?
 
-**Answer:**
-
-| Port   | Purpose      |
-| ------ | ------------ |
-| `1025` | SMTP         |
-| `8025` | Web UI / API |
+**Answer:** Elasticsearch stores the employee records required by the Notification Worker. The worker uses these records to identify employees and their email addresses.
 
 ---
 
-**Question:** Why is TLS disabled?
+**Question:** Why is SMTP required?
 
-**Answer:** MailHog's SMTP endpoint used for this POC does not require TLS. Therefore, the POC configuration uses:
+**Answer:** SMTP provides the communication mechanism through which the Notification Worker sends email notifications.
 
-```yaml
-tls: False
-```
+---
 
-This setting must be reviewed before using the application with a production SMTP server.
+**Question:** Can the application process multiple employees?
+
+**Answer:** Yes. The worker can process multiple employee records and generate notifications for the corresponding recipients.
+
+---
+
+**Question:** Is the POC configuration suitable for production?
+
+**Answer:** The POC configuration is intended for testing and validation. Production environments should use appropriate SMTP security, credentials management, monitoring, and operational controls.
 
 ---
 
 # 12. Contact Information
 
-| Role                   | Name  | Email                                                             |
-| ---------------------- | ----- | ----------------------------------------------------------------- |
-| **Author / POC Owner** | Sahil | [sahil.butola@mygurukulam.co](mailto:sahil.butola@mygurukulam.co) |
+| Name           | Email                                                                                   |
+| -------------- | --------------------------------------------------------------------------------------- |
+| Vikas Badliwal | [vikash.badliwal.snaatak@mygurukulam.co](mailto:vikash.badliwal.snaatak@mygurukulam.co) |
 
 ---
 
 # 13. References
 
-| Reference                                                                                                      | Description                               |
-| -------------------------------------------------------------------------------------------------------------- | ----------------------------------------- |
-| [Notification Worker Repository](https://github.com/OT-MICROSERVICES/notification-worker)                      | Source repository for Notification Worker |
-| [Documentation Template](https://github.com/OT-MICROSERVICES/documentation-template/wiki/Application-Template) | Documentation template                    |
-| [MailHog GitHub](https://github.com/mailhog/MailHog)                                                           | MailHog project and reference             |
+| Reference                          | Description                                                |
+| :--------------------------------- | :--------------------------------------------------------- |
+| **Notification Worker Repository** | Source repository for the Notification Worker application. |
+| **Documentation Template**         | Standard application documentation structure.              |
+| **MailHog**                        | SMTP testing and email verification tool.                  |
 
 ---
