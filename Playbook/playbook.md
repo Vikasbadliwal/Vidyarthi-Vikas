@@ -4,25 +4,26 @@
 
 </p
 
-# | Ansible Playbook CI/CD | Documentation
+# | Ansible Playbook CI | Documentation
 
-## Author Information
+## Author Table
 
-| Author | Created On | Version | Last Updated By | Last Edited On | L0 Reviewer     | L1 Reviewer    | L2 Reviewer        |
-| ------ | ---------- | ------- | --------------- | -------------- | ---------------------- | -------------- | ------------------ |
-| Vikas  | 16-09-2026 | v1.1    |  Vikas          |  16-09-2026    | Deepak Kushwaha/Ayushi | Faisal/Mohit K | Mahesh Kumar/Varun |
+| Author | Created On | Version | Last Updated By | Last Updated On | L0 Reviewer     | L1 Reviewer    | L2 Reviewer        |
+| ------ | ---------- | ------- | --------------- | --------------- | ---------------------- | -------------- | ------------------ |
+| Vikas  | 27-08-2026 | v1.0    | vikas           | 27-08-2026      | Deepak Kushwaha/Ayushi | Faisal/Mohit K | Mahesh Kumar/Varun |
+| Vikas  |            |         |                 |                 | Deepak Kushwaha/Ayushi | Faisal/Mohit K | Mahesh Kumar/Varun |
 
 ---
 
 # Table of Contents
 
 1. [Introduction](#1-introduction)
-2. [What is Ansible Playbook CI/CD?](#2-what-is-ansible-playbook-cicd)
-3. [Why is Playbook CI/CD Required?](#3-why-is-playbook-cicd-required)
-4. [CI/CD Workflow](#4-cicd-workflow)
-5. [Playbook Testing and Validation](#5-playbook-testing-and-validation)
+2. [What is Ansible Playbook CI?](#2-what-is-ansible-playbook-ci)
+3. [Why is Ansible Playbook CI Required?](#3-why-is-ansible-playbook-ci-required)
+4. [CI Workflow](#4-ci-workflow)
+5. [Playbook Testing](#5-playbook-testing)
 6. [Implementation](#6-implementation)
-7. [Deployment](#7-deployment)
+7. [Validation Flow](#7-validation-flow)
 8. [Conclusion](#8-conclusion)
 9. [Contact Information](#9-contact-information)
 10. [References](#10-references)
@@ -31,44 +32,44 @@
 
 # 1. Introduction
 
-Ansible Playbooks are used to automate configuration, application deployment, and infrastructure tasks.
+Ansible Playbooks are used to automate configuration and deployment tasks.
 
-As playbooks are maintained as code, they should be validated before deployment. Integrating Ansible Playbooks into a CI/CD pipeline helps identify syntax and code-quality issues before changes reach the target environment.
+Since playbooks are maintained as code, they should be validated whenever changes are made. **Continuous Integration (CI)** helps automatically test Ansible Playbooks before they are used for deployment.
 
-This documentation explains how an Ansible Playbook can be tested using **syntax checking and Ansible Lint** before deployment.
-
----
-
-# 2. What is Ansible Playbook CI/CD?
-
-Ansible Playbook CI/CD is the process of integrating Ansible automation into a Continuous Integration and Continuous Deployment pipeline.
-
-The pipeline automatically:
-
-* Retrieves the latest playbook code.
-* Checks the playbook syntax.
-* Performs linting and code-quality validation.
-* Stops the pipeline if validation fails.
-* Executes the playbook when validation succeeds.
+This documentation explains how Ansible Playbooks can be validated using **syntax checking and linting** to identify issues early and maintain code quality.
 
 ---
 
-# 3. Why is Playbook CI/CD Required?
+# 2. What is Ansible Playbook CI?
 
-Playbook CI/CD helps reduce deployment failures by validating automation code before it is executed.
+Ansible Playbook CI is the process of automatically validating Ansible Playbooks whenever code changes are pushed to a Git repository.
+
+The CI process checks the playbook before it proceeds toward deployment.
+
+The main validation checks are:
+
+* Playbook syntax check
+* Ansible Lint
+* Code-quality validation
+
+---
+
+# 3. Why is Ansible Playbook CI Required?
+
+Ansible Playbook CI helps identify problems before they affect the target environment.
 
 ### Key reasons
 
 * Detect syntax errors early.
-* Identify common Ansible coding issues.
-* Maintain consistent playbook quality.
-* Prevent invalid changes from reaching deployment.
-* Automate testing instead of relying only on manual checks.
-* Provide a repeatable deployment process.
+* Identify common Ansible issues.
+* Maintain consistent code quality.
+* Prevent invalid playbooks from proceeding.
+* Provide quick feedback to developers.
+* Reduce failures caused by incorrect automation code.
 
 ---
 
-# 4. CI/CD Workflow
+# 4. CI Workflow
 
 The basic workflow is:
 
@@ -79,40 +80,38 @@ Developer
 Git Repository
     |
     v
-CI/CD Pipeline
+CI Pipeline
     |
-    +----------------------+
-    |                      |
-    v                      v
-Syntax Check           Ansible Lint
-    |                      |
-    +----------+-----------+
-               |
-          Validation
-               |
-        +------+------+
-        |             |
-      FAIL          PASS
-        |             |
-        v             v
-   Stop Pipeline   Deploy
-                      |
-                      v
-              Target Environment
+    v
+Syntax Check
+    |
+    v
+Ansible Lint
+    |
+    v
+Validation
+   / \
+ FAIL PASS
+  |     |
+  v     v
+Stop   Ready
+       for
+    Deployment
 ```
 
 ### Workflow Explanation
 
-1. Developer pushes the Ansible Playbook to the Git repository.
-2. CI/CD pipeline is triggered.
-3. `ansible-playbook --syntax-check` validates the playbook syntax.
-4. `ansible-lint` checks coding practices and common issues.
-5. If any validation fails, the pipeline stops.
-6. If all checks pass, the playbook can proceed to deployment.
+1. Developer creates or modifies an Ansible Playbook.
+2. The changes are pushed to the Git repository.
+3. CI pipeline is triggered.
+4. The playbook syntax is checked.
+5. Ansible Lint performs code-quality checks.
+6. If validation fails, the CI pipeline stops.
+7. If validation succeeds, the playbook is ready for the next deployment stage.
 
 ---
 
-# 5. Playbook Testing and Validation
+# 5. Playbook Testing
 
 ## 5.1 Syntax Check
 
@@ -128,13 +127,13 @@ ansible-playbook --syntax-check playbook.yml
 playbook: playbook.yml
 ```
 
-A successful syntax check allows the pipeline to continue.
+A successful syntax check means the playbook can proceed to the next validation stage.
 
 ---
 
 ## 5.2 Ansible Lint
 
-Ansible Lint checks Ansible content for common issues and recommended coding practices.
+Ansible Lint checks Ansible Playbooks for common issues and coding practices.
 
 Install Ansible Lint:
 
@@ -148,15 +147,15 @@ Run linting:
 ansible-lint playbook.yml
 ```
 
-If the playbook passes the configured lint rules, the pipeline can continue to the next stage.
+Any reported issues should be reviewed and fixed before the playbook proceeds.
 
 ---
 
 # 6. Implementation
 
-## 6.1 Example Playbook
+## 6.1 Create an Ansible Playbook
 
-Create a playbook:
+Example:
 
 ```yaml
 ---
@@ -171,7 +170,7 @@ Create a playbook:
         state: present
         update_cache: true
 
-    - name: Ensure NGINX is running
+    - name: Start NGINX
       ansible.builtin.service:
         name: nginx
         state: started
@@ -186,73 +185,83 @@ playbook.yml
 
 ---
 
-## 6.2 Test Playbook Syntax
+## 6.2 Run Syntax Check
 
-Run:
+Execute:
 
 ```bash
 ansible-playbook --syntax-check playbook.yml
 ```
 
-If the syntax is valid, the playbook is not executed and only the syntax is checked.
+The syntax check validates the playbook without actually running the tasks.
+
+If an error is found, fix the playbook and run the check again.
 
 ---
 
 ## 6.3 Run Ansible Lint
 
-Run:
+Execute:
 
 ```bash
 ansible-lint playbook.yml
 ```
 
-Resolve reported issues before allowing the playbook to proceed to deployment.
+Review the output and resolve the reported issues.
+
+After fixing the issues, run the lint command again.
 
 ---
 
-# 7. Deployment
+# 7. Validation Flow
 
-After the syntax check and linting stages pass, the pipeline can execute the playbook.
-
-```bash
-ansible-playbook -i inventory.ini playbook.yml
-```
-
-The deployment stage should run only after the validation stages have completed successfully.
-
-### CI/CD Stage Flow
+The CI validation process can be represented as:
 
 ```text
-Checkout
-   |
-   v
-Syntax Check
-   |
-   v
-Ansible Lint
-   |
-   v
-Deployment
+        Git Push
+           |
+           v
+    Checkout Playbook
+           |
+           v
+     Syntax Check
+           |
+       +---+---+
+       |       |
+     FAIL     PASS
+       |       |
+       v       v
+     Stop   Ansible Lint
+               |
+           +---+---+
+           |       |
+         FAIL     PASS
+           |       |
+           v       v
+         Stop   Validation
+                Successful
+                    |
+                    v
+             Ready for
+             Deployment
 ```
 
-If syntax checking or linting fails:
+### Validation Rule
 
-```text
-Validation Failed
-       |
-       v
-Pipeline Stops
-       |
-       v
-No Deployment
-```
+| Check        | Result | Action                   |
+| ------------ | ------ | ------------------------ |
+| Syntax Check | Failed | Stop CI                  |
+| Syntax Check | Passed | Continue                 |
+| Ansible Lint | Failed | Stop CI                  |
+| Ansible Lint | Passed | CI validation successful |
+
 ---
 
-# 8. Conclusion
+# 10. Conclusion
 
-Ansible Playbook CI/CD provides a controlled process for validating and deploying automation code.
+Ansible Playbook CI provides an automated validation process for Ansible automation code.
 
-Using **syntax checking** and **Ansible Lint** before deployment helps identify problems early and improves playbook quality.
+Using **syntax checking** and **Ansible Lint** helps identify syntax and code-quality issues before the playbook is used for deployment.
 
 The overall process is:
 
@@ -270,14 +279,14 @@ CI Pipeline
 Validation Passed
  |
  v
-Ansible Playbook Deployment
+Ready for Deployment
 ```
 
-This approach helps ensure that only validated Ansible automation proceeds toward deployment.
+This approach improves playbook quality and helps prevent avoidable failures before deployment.
 
 ---
 
-# 9. Contact Information
+# 11. Contact Information
 
 | Name           | Email                                                                                   |
 | -------------- | --------------------------------------------------------------------------------------- |
@@ -285,10 +294,10 @@ This approach helps ensure that only validated Ansible automation proceeds towar
 
 ---
 
-# 10. References
+# 12. References
 
-| Reference                      | Description                                         |
-| ------------------------------ | --------------------------------------------------- |
-| Ansible Documentation          | Ansible automation and playbook reference           |
-| Ansible Lint Documentation     | Ansible playbook linting and code-quality reference |
-| Ansible Playbook Documentation | Playbook syntax and execution reference             |
+| Reference                      | Description                                |
+| ------------------------------ | ------------------------------------------ |
+| Ansible Documentation          | Ansible Playbook and automation reference  |
+| Ansible Lint Documentation     | Ansible code-quality and linting reference |
+| Ansible Playbook Documentation | Playbook syntax and validation reference   |
