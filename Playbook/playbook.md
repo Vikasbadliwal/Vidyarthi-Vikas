@@ -4,7 +4,11 @@
 
 </p
 
-# | Ansible Playbook CI | Documentation
+---
+
+# Ansible Playbook CI | Documentation
+
+---
 
 ## Author Table
 
@@ -257,7 +261,7 @@ The CI validation process can be represented as:
 
 ---
 
-# 10. Conclusion
+# 8. Conclusion
 
 Ansible Playbook CI provides an automated validation process for Ansible automation code.
 
@@ -286,7 +290,7 @@ This approach improves playbook quality and helps prevent avoidable failures bef
 
 ---
 
-# 11. Contact Information
+# 9. Contact Information
 
 | Name           | Email                                                                                   |
 | -------------- | --------------------------------------------------------------------------------------- |
@@ -294,7 +298,7 @@ This approach improves playbook quality and helps prevent avoidable failures bef
 
 ---
 
-# 12. References
+# 10. References
 
 | Reference                      | Description                                |
 | ------------------------------ | ------------------------------------------ |
