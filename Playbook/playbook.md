@@ -300,8 +300,8 @@ This approach improves playbook quality and helps prevent avoidable failures bef
 
 # 10. References
 
-| Reference                      | Description                                |
-| ------------------------------ | ------------------------------------------ |
-| Ansible Documentation          | Ansible Playbook and automation reference  |
-| Ansible Lint Documentation     | Ansible code-quality and linting reference |
-| Ansible Playbook Documentation | Playbook syntax and validation reference   |
+| Link | Description |
+|------|-------------|
+| [Ansible Documentation](https://docs.ansible.com/) | Ansible Playbook and automation reference |
+| [Ansible Lint Documentation](https://ansible.readthedocs.io/projects/lint/) | Ansible code-quality and linting reference |
+| [Ansible Playbook Documentation](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_intro.html) | Playbook syntax and validation reference |
