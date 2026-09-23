@@ -36,11 +36,9 @@
 
 # 1. Introduction
 
-Ansible Playbooks are used to automate configuration and deployment tasks.
-
-Since playbooks are maintained as code, they should be validated whenever changes are made. **Continuous Integration (CI)** helps automatically test Ansible Playbooks before they are used for deployment.
-
-This documentation explains how Ansible Playbooks can be validated using **syntax checking and linting** to identify issues early and maintain code quality.
+This documentation provides a step-by-step overview of Ansible Playbook Continuous Integration (CI).
+It explains how Ansible Playbooks can be automatically validated using syntax checking and Ansible Lint whenever changes are pushed to a Git repository.
+The documentation also covers the CI workflow, playbook testing, implementation, and validation process to identify issues early and ensure playbooks are ready for deployment.
 
 ---
 
@@ -263,30 +261,9 @@ The CI validation process can be represented as:
 
 # 8. Conclusion
 
-Ansible Playbook CI provides an automated validation process for Ansible automation code.
-
-Using **syntax checking** and **Ansible Lint** helps identify syntax and code-quality issues before the playbook is used for deployment.
-
-The overall process is:
-
-```text
-Git
- |
- v
-CI Pipeline
- |
- +--> Syntax Check
- |
- +--> Ansible Lint
- |
- v
-Validation Passed
- |
- v
-Ready for Deployment
-```
-
-This approach improves playbook quality and helps prevent avoidable failures before deployment.
+Ansible Playbook CI provides a structured way to validate automation code before deployment. 
+By using syntax checking and Ansible Lint, issues can be identified early, code quality can be maintained, and invalid playbooks can be prevented from moving forward.
+Overall, this CI process provides quick feedback and helps ensure that Ansible Playbooks are properly validated and ready for deployment.
 
 ---
 
