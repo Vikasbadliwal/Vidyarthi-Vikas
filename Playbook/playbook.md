@@ -1,10 +1,16 @@
-# Ansible | Ansible Playbook CI/CD | Documentation
+<p align="center">
 
-## Document Information
+<img width="200" height="297" alt="image" src="https://github.com/user-attachments/assets/98811b35-2e68-4f23-853c-73afdba8051b" />
 
-| Author         | Created On | Version | Last Updated |
-| -------------- | ---------- | ------- | ------------ |
-| Vikas Badliwal | 23/09/2026 | 1.0     | 23/09/2026   |
+</p
+
+# | Ansible Playbook CI/CD | Documentation
+
+## Author Information
+
+| Author | Created On | Version | Last Updated By | Last Edited On | L0 Reviewer     | L1 Reviewer    | L2 Reviewer        |
+| ------ | ---------- | ------- | --------------- | -------------- | ---------------------- | -------------- | ------------------ |
+| Vikas  | 16-09-2026 | v1.1    |  Vikas          |  16-09-2026    | Deepak Kushwaha/Ayushi | Faisal/Mohit K | Mahesh Kumar/Varun |
 
 ---
 
@@ -17,11 +23,9 @@
 5. [Playbook Testing and Validation](#5-playbook-testing-and-validation)
 6. [Implementation](#6-implementation)
 7. [Deployment](#7-deployment)
-8. [Best Practices](#8-best-practices)
-9. [Advantages](#9-advantages)
-10. [Conclusion](#10-conclusion)
-11. [Contact Information](#11-contact-information)
-12. [References](#12-references)
+8. [Conclusion](#8-conclusion)
+9. [Contact Information](#9-contact-information)
+10. [References](#10-references)
 
 ---
 
@@ -242,37 +246,9 @@ Pipeline Stops
        v
 No Deployment
 ```
-
 ---
 
-# 8. Best Practices
-
-* Store playbooks in Git.
-* Run syntax checks on every change.
-* Use Ansible Lint for code-quality validation.
-* Fix validation errors before deployment.
-* Use fully qualified Ansible module names.
-* Keep playbooks simple and reusable.
-* Separate variables, tasks, handlers, and templates where required.
-* Use CI/CD to automate validation.
-* Do not deploy when validation stages fail.
-
----
-
-# 9. Advantages
-
-| Advantage             | Description                                                           |
-| --------------------- | --------------------------------------------------------------------- |
-| Early Error Detection | Finds syntax problems before deployment                               |
-| Better Code Quality   | Linting identifies common coding issues                               |
-| Automation            | Testing is performed automatically                                    |
-| Consistency           | Same validation process is used for every change                      |
-| Safer Deployment      | Failed validation prevents deployment                                 |
-| Faster Feedback       | Developers receive errors before changes reach the target environment |
-
----
-
-# 10. Conclusion
+# 8. Conclusion
 
 Ansible Playbook CI/CD provides a controlled process for validating and deploying automation code.
 
@@ -301,7 +277,7 @@ This approach helps ensure that only validated Ansible automation proceeds towar
 
 ---
 
-# 11. Contact Information
+# 9. Contact Information
 
 | Name           | Email                                                                                   |
 | -------------- | --------------------------------------------------------------------------------------- |
@@ -309,7 +285,7 @@ This approach helps ensure that only validated Ansible automation proceeds towar
 
 ---
 
-# 12. References
+# 10. References
 
 | Reference                      | Description                                         |
 | ------------------------------ | --------------------------------------------------- |
