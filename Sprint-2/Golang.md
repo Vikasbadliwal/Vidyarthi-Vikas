@@ -71,7 +71,7 @@ For Go applications, it helps identify potential issues related to correctness, 
 # 4. Static Code Analysis Workflow
 
 <p align="center">
-<img width="1024" height="1536" alt="image" src="https://github.com/user-attachments/assets/cb837b0a-82e0-4dd0-9f32-44547d018227" />
+<img width="512" height="768" alt="image" src="https://github.com/user-attachments/assets/cb837b0a-82e0-4dd0-9f32-44547d018227" />
 </p>
 
 ### Workflow Steps
