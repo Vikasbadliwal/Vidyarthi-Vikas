@@ -173,7 +173,5 @@ The practical implementation and demonstration using the **OT-MICROSERVICES Empl
 | --------------------------- | --------------------------------------------------------------------------------- |
 | Go Documentation            | [Go Documentation](https://go.dev/doc/)                                           |
 | Go `vet` Documentation      | [Go Vet](https://pkg.go.dev/cmd/vet)                                              |
-| golangci-lint Documentation | [golangci-lint](https://golangci-lint.run/)                                       |
 | SonarQube Documentation     | [SonarQube Documentation](https://docs.sonarsource.com/sonarqube/)                |
-| Semgrep Documentation       | [Semgrep Documentation](https://semgrep.dev/docs/)                                |
 | Employee API Repository     | [OT-MICROSERVICES Employee API](https://github.com/OT-MICROSERVICES/employee-api) |
