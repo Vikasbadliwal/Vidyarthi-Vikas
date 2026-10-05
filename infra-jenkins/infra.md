@@ -6,9 +6,9 @@
 
 # Document Information
 
-| Author | Created On | Version | L0 Reviewer              | L1 Reviewer      | L2 Reviewer          |
-| :----- | :--------- | :------ | :----------------------- | :--------------- | :------------------- |
-| Vikas  | 05-10-2026 | 1.0     | Deepak Kushwaha / Ayushi | Faisal / Mohit K | Mahesh Kumar / Varun |
+| Author         | Created On | Version | Last Updated By | Last Edited On | Pre Reviewer | L0 Reviewer              | L1 Reviewer | L2 Reviewer          |
+| -------------- | ---------- | ------- | --------------- | -------------- | ------------ | ------------------------ | ----------- | -------------------- |
+| Vikas          | 02-10-2026 | 1.0     | Vikas           | 02-10-2026     | -            | Deepak Kushwaha / Ayushi | Mohit Kumar | Mahesh Kumar / Varun |
 
 ---
 
@@ -46,7 +46,8 @@ This document provides a simple and clear overview of the AWS cloud infrastructu
 
 # 3. Infrastructure Diagram
 
-<img width="1282" height="1401" alt="Jenkins infrastructure setup" src="https://github.com/user-attachments/assets/1f716f96-1f35-47b3-acfa-65b6d8fd408d" />
+<img width="1762" height="1401" alt="infra jenkins" src="https://github.com/user-attachments/assets/2aa5f558-eab4-4ade-8a54-ddda95eaad5c" />
+
 
 ### Workflow Steps:
 
