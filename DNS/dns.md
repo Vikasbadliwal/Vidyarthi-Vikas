@@ -1,4 +1,4 @@
-# DNS POC | Domain Setup for Application
+# DNS POC | Detailed Documentation
 
 <p align="center">
   <img width="90" height="auto" alt="dns-icon" src="https://img.icons8.com/fluency/96/domain.png" />
@@ -8,350 +8,177 @@
 
 ## Author Information
 
-| Author | Created On | Version | Last Updated By | Last Edited On | L0 Reviewer     | L1 Reviewer    | L2 Reviewer        |
+| Author | Created On | Version | Last Updated By | Last Edited On | L0 Reviewer            | L1 Reviewer    | L2 Reviewer        |
 | ------ | ---------- | ------- | --------------- | -------------- | ---------------------- | -------------- | ------------------ |
-| Vikas  | 16-09-2026 | v1.1    |  Vikas          |  16-09-2026    | Deepak Kushwaha/Ayushi | Faisal/Mohit K | Mahesh Kumar/Varun |
+| Vikas  | 16-09-2026 | v1.0    | Vikas           | 16-09-2026     | Deepak Kushwaha/Ayushi | Faisal/Mohit K | Mahesh Kumar/Varun |
+| Vikas  | 29-09-2026 | v1.1    | Vikas           | 29-09-2026     | Deepak Kushwaha/Ayushi | Faisal/Mohit K | Mahesh Kumar/Varun |
 
 ---
 
 # Table of Contents
 
 1. [Introduction](#1-introduction)
-2. [Prerequisites](#2-prerequisites)
-3. [Application Setup](#3-application-setup)
-4. [Domain Setup](#4-domain-setup)
-5. [DNS Validation](#5-dns-validation)
-6. [POC Result](#6-poc-result)
-7. [Conclusion](#7-conclusion)
-8. [Contact Information](#8-contact-information)
-9. [References](#9-references)
+2. [Objective](#2-objective)
+3. [Architecture](#3-architecture)
+4. [Prerequisites](#4-prerequisites)
+5. [Infrastructure Summary](#5-infrastructure-summary)
+6. [Domain Setup Summary](#6-domain-setup-summary)
+7. [Result](#7-result)
+8. [Conclusion](#8-conclusion)
+9. [Contact](#9-contact)
+10. [References](#10-references)
+
 
 ---
 
 # 1. Introduction
 
-This POC demonstrates how to configure a domain name for an application hosted on an AWS EC2 instance.
+This document provides an overview of the custom domain setup for an existing frontend application hosted on an AWS EC2 instance and served through NGINX.
 
-The application is hosted using **NGINX** on an Ubuntu EC2 instance. A domain is configured to resolve to the EC2 public IP, allowing the application to be accessed using a domain name instead of directly using the IP address.
+The domain `devsecurity.shop` was registered through Hostinger, while AWS Route 53 was used to manage DNS records. NGINX was configured to serve the existing frontend application using the custom domain.
 
-### POC Flow
+For detailed information, refer to the related **[POC | Frontend Hosting with DNS ](https://github.com/SnaatakAllStars/Sprint-1/blob/SCRUM-114-RITU/Documentation/Domain_Security/DNS_SSL/DNS/POC/README.md)**
+
+---
+
+# 2. Objective
+
+The objective of this POC was to connect a custom domain to an existing frontend application.
+
+- Register the domain `devsecurity.shop` through Hostinger.
+- Use AWS Route 53 for DNS management.
+- Point the domain to the EC2 public IP address.
+- Configure NGINX to respond to the custom domain.
+- Verify frontend accessibility through the domain.
+
+---
+
+# 3. Architecture
+
+## 3.1 Components and Their Roles
+
+| Component | Role |
+|---|---|
+| **Hostinger** | Domain registration |
+| **AWS Route 53** | Public hosted zone and DNS record management |
+| **AWS EC2** | Hosts the existing frontend application |
+| **NGINX** | Serves the existing frontend build |
+| **Frontend Build** | Contains the static application files |
+
+## 3.2  Request Flow
 
 ```text
-AWS EC2
-   |
-   | Hosts Application
-   v
-NGINX
-   |
-   | Public IP
-   v
-DNS Domain
-   |
-   v
-Application
-```
-
----
-
-# 2. Prerequisites
-
-The following components are required:
-
-* AWS account
-* AWS EC2 instance
-* Ubuntu/Linux system
-* SSH private key
-* Internet access
-* DNS/domain provider account
-* NGINX
-
-### Required EC2 Security Group Rules
-
-| Type  | Port | Source          |
-| ----- | ---: | --------------- |
-| SSH   |   22 | Your IP address |
-| HTTP  |   80 | `0.0.0.0/0`     |
-| HTTPS |  443 | `0.0.0.0/0`     |
-
----
-
-# 3. Application Setup
-
-## 3.1 Create EC2 Instance
-
-Create an Ubuntu EC2 instance in AWS.
-
-The POC used:
-
-| Configuration    | Value         |
-| ---------------- | ------------- |
-| Instance Name    | `DNS_POC`     |
-| Instance Type    | `t3.micro`    |
-| Region           | `ap-south-1b` |
-| Operating System | Ubuntu        |
-| Public IPv4      | `3.110.51.28` |
-
-After the instance is running, note its **Public IPv4 address**.
-
----
-
-## 3.2 Install NGINX
-
-Install NGINX:
-
-```bash
-sudo apt install -y nginx
-```
-
-Enable NGINX:
-
-```bash
-sudo systemctl enable nginx
-```
-
-Test the NGINX configuration:
-
-```bash
-sudo nginx -t
-```
-
-Expected result:
-
-```text
-syntax is ok
-test is successful
-```
-
-Check the service:
-
-```bash
-sudo systemctl status nginx
-```
-
-Expected result:
-
-```text
-active (running)
-```
-
----
-
-## 3.3 Create Application
-
-Create the application directory:
-
-```bash
-sudo mkdir -p /var/www/dns-poc
-```
-
-Create the application file:
-
-```bash
-sudo nano /var/www/dns-poc/index.html
-```
-
-Add the application HTML content and save the file.
-
-The application displays a simple page showing that it is hosted on **AWS EC2** and served through **NGINX**.
-
----
-
-## 3.4 Configure NGINX
-
-Create the NGINX site configuration:
-
-```bash
-sudo nano /etc/nginx/sites-available/dns-poc
-```
-
-Configure the server to serve the application from:
-
-```text
-/var/www/dns-poc
-```
-
-Enable the configuration:
-
-```bash
-sudo ln -s /etc/nginx/sites-available/dns-poc /etc/nginx/sites-enabled/dns-poc
-```
-
-Remove the default configuration:
-
-```bash
-sudo rm /etc/nginx/sites-enabled/default
-```
-
-Validate NGINX:
-
-```bash
-sudo nginx -t
-```
-
-Reload NGINX:
-
-```bash
-sudo systemctl reload nginx
-```
-
----
-
-## 3.5 Validate Application
-
-Check the application locally:
-
-```bash
-curl http://localhost
-```
-
-The application can also be accessed using the EC2 public IP:
-
-```text
-http://3.110.51.28
-```
-
-### Expected Result
-
-The application page should be displayed successfully.
-
----
-
-# 4. Domain Setup
-
-## 4.1 Create Domain
-
-For this POC, the domain was configured using **Hostinger**.
-
-The configured domain was:
-
-```text
+User's Browser
+      |
+      v
 devsecurity.shop
-```
-
-Create/configure the domain in the DNS provider dashboard.
-
-The domain should be configured to point to the EC2 public IP:
-
-```text
-3.110.51.28
-```
-
----
-
-# 5. DNS Validation
-
-## 5.1 Verify DNS Resolution
-
-Run:
-
-```bash
-nslookup devsecurity.shop
-```
-
-Expected result:
-
-```text
-Name:    devsecurity.shop
-Address: 3.110.51.28
-```
-
-This confirms that the domain resolves to the EC2 public IP.
-
----
-
-## 5.2 Access Application Using Domain
-
-Open the following URL in a browser:
-
-```text
-http://devsecurity.shop
-```
-
-### Expected Result
-
-The application hosted on the AWS EC2 instance should be accessible using the configured domain.
-
-### Validation Flow
-
-```text
-Domain
-   |
-   | DNS Resolution
-   v
-EC2 Public IP
-   |
-   v
-NGINX
-   |
-   v
-Application
+      |
+      v
+AWS Route 53
+      |
+      v
+A Record (EC2 Public IP)
+      |
+      v
+AWS EC2 Instance
+      |
+      v
+NGINX Web Server
+      |
+      v
+Existing Frontend Application
 ```
 
 ---
 
-# 6. POC Result
+# 4. Prerequisites
 
-The DNS POC was successfully completed.
+| Requirement | Purpose |
+|---|---|
+| **Hostinger account and registered domain** | Domain registration and management |
+| **AWS account with Route 53 access** | DNS management |
+| **Existing EC2 instance** | Frontend application hosting |
+| **EC2 public IP address** | Target for the DNS A record |
+| **SSH access** | Access to the EC2 instance and NGINX configuration |
+| **NGINX** | Serves the frontend application |
+| **Internet access** | DNS and browser accessibility verification |
 
-The domain:
+**Security Group Requirements:**
 
-```text
-devsecurity.shop
-```
-
-was configured to point to the AWS EC2 public IP:
-
-```text
-3.110.51.28
-```
-
-The application was successfully accessed using the configured domain.
-
-### POC Validation
-
-| Validation                        | Result     |
-| --------------------------------- | ---------- |
-| EC2 instance created              | Successful |
-| NGINX installed                   | Successful |
-| Application configured            | Successful |
-| NGINX configuration validated     | Successful |
-| Application accessed using EC2 IP | Successful |
-| DNS resolution verified           | Successful |
-| Application accessed using domain | Successful |
+- **Port 22 (SSH):** Allow access from the authorized user's IP address.
+- **Port 80 (HTTP):** Allow access from the required clients.
+- **Port 443 (HTTPS):** Required if HTTPS is configured.
 
 ---
 
-# 7. Conclusion
+# 5. Infrastructure Summary
 
-This POC demonstrates the complete flow of hosting an application on an AWS EC2 instance and accessing it through a configured domain name.
+An existing EC2 instance was used to host the frontend application. Creating the EC2 instance and deploying the frontend application are outside the scope of this document.
 
-```text
-AWS EC2 → NGINX → Application
-                ↑
-             DNS Domain
-```
+| Parameter | Configuration |
+|---|---|
+| **Domain** | `devsecurity.shop` |
+| **EC2 Public IP (documented)** | `15.252.181.35` |
+| **Web Server** | NGINX |
+| **Frontend Build Path** | `/home/ubuntu/frontend/build` |
+| **HTTP URL** | [http://devsecurity.shop](http://devsecurity.shop) |
 
-The successful DNS resolution and browser validation confirm that the configured domain can be used to access the application.
 
 ---
 
-# 8. Contact Information
+# 6. Domain Setup Summary
+
+The following configuration was used to connect the custom domain to the existing frontend application:
+
+1. The domain `devsecurity.shop` was registered through Hostinger.
+2. A public hosted zone was created in AWS Route 53.
+3. The Route 53 name servers were configured in Hostinger to delegate DNS management to Route 53.
+4. An A record was configured for the root domain to point to the EC2 public IP address.
+5. NGINX was configured with `devsecurity.shop` as its `server_name`.
+6. The existing frontend build was served from `/home/ubuntu/frontend/build`.
+7. DNS resolution and browser accessibility were validated.
+
+The detailed execution commands, configuration changes, and validation evidence are maintained in the separate POC to avoid duplication.
+
+---
+
+# 7. Result
+
+The domain and frontend integration was documented using the following components:
+
+| Component | Description |
+|---|---|
+| **Hostinger** | Domain registration |
+| **AWS Route 53** | DNS management and domain resolution |
+| **AWS EC2** | Hosts the existing frontend application |
+| **NGINX** | Serves the frontend application using the custom domain |
+
+The separate POC contains the detailed implementation steps and validation evidence.
+
+---
+
+# 8. Conclusion
+
+This document summarizes the approach used to connect `devsecurity.shop` to an existing frontend application hosted on AWS EC2.
+
+Hostinger was used for domain registration, AWS Route 53 for DNS management, and NGINX for serving the frontend application. The detailed configuration and validation procedures are maintained separately in the POC.
+
+---
+
+
+# 9. Contact
 
 | Name           | Email                                                                                   |
 | -------------- | --------------------------------------------------------------------------------------- |
 | Vikas Badliwal | [vikash.badliwal.snaatak@mygurukulam.co](mailto:vikash.badliwal.snaatak@mygurukulam.co) |
 
-
 ---
 
-# 9. References
+# 10. References
 
-| Reference                    | Description                            |
-| ---------------------------- | -------------------------------------- |
-| DNS Documentation — Sprint-1 | Project DNS documentation reference    |
-| AWS EC2 Documentation        | AWS EC2 configuration reference        |
-| NGINX Documentation          | NGINX configuration reference          |
-| DNS Provider Documentation   | Domain and DNS configuration reference |
-
----
-
+| Links                                                                                      | Resource                          |
+| ------------------------------------------------------------------------------------------ | --------------------------------- |
+| [OT-Microservices Frontend Repository](https://github.com/OT-MICROSERVICES)                | Frontend source code              |
+| [AWS Route 53 Documentation](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/)   | DNS and hosted zone configuration |
+| [NGINX Documentation](https://nginx.org/en/docs/)                                          | Web server configuration          |
+| [Hostinger Domain Help](https://support.hostinger.com/en/collections/1738339-domains)      | Domain and nameserver management  |
